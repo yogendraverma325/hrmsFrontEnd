@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { TextField, Typography } from '@mui/material';
-import { ErrorMessage, Field, Form, Formik, FormikProps, useFormik } from 'formik';
+import { ErrorMessage, Field, FieldProps, Form, Formik, FormikProps, useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +13,7 @@ import config from '../../redux/constant';
 import { enableLoading } from '../../redux/reducers/loadSlice';
 import { setSnackbar } from '../../redux/reducers/snackbarSlice';
 import ForgotPassoword from './ForgotPassoword';
-
+import './Login.css';
 const Login = () => {
   const navigate = useNavigate();
   const { setToken } = useAuth();
@@ -66,6 +66,11 @@ const Login = () => {
   const toggleClass = () => {
     setIsActive(!isActive);
   };
+  const [isVisible, setIsVisible] = useState(false);
+
+    const toggleVisibility = () => {
+        setIsVisible((prevVisibility) => !prevVisibility);
+    };
 
   useEffect(() => {
     return () => {
@@ -74,34 +79,44 @@ const Login = () => {
   }, [isActive]);
 
   return (
-    <div className="login-wrap">
-      <div className="row">
-        <div className="col-md-12 col-lg-12">
-          <div className="card-container d-flex justify-content-center align-items-center">
-            <div className="login-card">
-              <div className="flip-card" id="flipCard">
-                <div
-                  className={isActive ? 'flip-card-inner is-flipped' : 'flip-card-inner'}
-                  id="flipCardInner"
-                >
-                  <div className="flip-card-front">
-                    <div style={{ position: 'relative' }}>
-                      <p className="text-center sign-in-heading">Sign In</p>
-                      <Formik
+    <>
+   
+    <div className="row container-fluid" style={{display:"flex" ,flexDirection: "column",height: "100vh"}}>
+    <div className="left-web left-mob main-left">
+        <div className="col-1">
+            <img src="src/assets/images/team-logo.png" alt="" />
+        </div>
+        
+        
+            <div className="heading">
+            
+              <div className="row">
+                  <div className="col-md-12 heading1">
+                  <p className="txt"> Teams HRMS </p>
+          </div>
+     
+    </div>
+</div>
+    </div>
+    <div className="right-web right-mob">
+        
+            <div className="login">
+                <div className="row">
+                <Formik
                         initialValues={{
                           username: '',
                           password: '',
                           submit: null,
                         }}
                         validationSchema={Yup.object({
-                          username: Yup.string().max(10).required('TMC ID is required'),
+                          username: Yup.string().max(10).required('User Name is required'),
                           password: Yup.string()
                             .max(255)
                             .required('Password is required'),
                         })}
                         onSubmit={handleUserSubmit}
                       >
-                        {(props: FormikProps<any>) => (
+                   {(props: FormikProps<any>) => (
                           <Form
                             className="login-form"
                             noValidate
@@ -110,74 +125,91 @@ const Login = () => {
                             //   if (e.key === 'Enter') e.preventDefault();
                             // }}
                           >
-                            <div className="form-group mb-3">
-                              <Field
-                                name="username"
-                                type="text"
-                                className="form-control"
-                                aria-describedby="emailHelp"
-                                placeholder="TMC"
-                              />
-                              <ErrorMessage name="username" component="div" />
-                            </div>
-                            <div className="form-group mb-3">
-                              <Field
-                                name="password"
-                                type="password"
-                                className="form-control"
-                                placeholder="Domain Password"
-                              />
-
-                              <ErrorMessage name="password" component="div" />
-                            </div>
-                            {/* <div className="form-group mb-3">
-                            </div> */}
-                            {props.errors.submit && (
-                              <Typography color="error" sx={{ mt: 3 }} variant="body2">
-                                {props.errors.submit}
-                              </Typography>
-                            )}
-                            {/* eslint-disable-next-line
-                            jsx-a11y/click-events-have-key-events */}
-                            <p className="frgt-pass" id="forgotPwd" onClick={toggleClass}>
-                              Forgot password?
-                            </p>
-                            <div className="d-flex justify-content-center align-items-center">
-                              <button
-                                type="submit"
-                                className="btn btn-primary login-sbmt-btn"
-                              >
-                                LOGIN
-                              </button>
-                            </div>
-                          </Form>
-                        )}
-                      </Formik>
-                      <div className="pos-abs">
-                        <p className="footer-txt text-center">
-                          Team Computers Pvt. Ltd. @2023 | All rights Reserved
-                        </p>
-                      </div>
+                    <div className="col-md-12 col-sm-12 col-xs-12 log">
+                        <p className="log-text">login</p>  
                     </div>
-                  </div>
-                  {isActive ? (
-                    <ForgotPassoword status={isActive} handleToggleClass={toggleClass} />
-                  ) : null}
-                  {/* <ForgotPassoword handleToggleClass={toggleClass} /> */}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                    <div className="col-md-12 col-sm-12 col-xs-12 inp">
+                      <Field name="username">
+                      {({ field, form, meta }: FieldProps) => (
+                      <div>
+                      <input {...field} type='text' placeholder="User Name" className="user"/>
+                      <ErrorMessage name="username" component="div"  className="fieldError"/>
+                      </div>
+                      )}
+                      </Field>
+                      
+                    </div>
+                    <div className="col-md-12 col-sm-12 col-xs-12 inp1">
 
-      <div className="teams-logo-div">
-        <img
-          alt="footer_img"
-          src="https://www.teamcomputers.com/images/team-footer-logo.png"
-        />
-      </div>
+                    <Field name="password">
+                      {({ field, form, meta }: FieldProps) => (
+                      <div>
+                      <input {...field} type={isVisible ? 'text' : 'password'} placeholder="Password" className="pswd"/>
+                      <ErrorMessage name="password" component="div"  className="fieldError"/>
+                      </div>
+                      )}
+                      </Field>
+
+                        {isVisible ? (
+                                  <i className="eye-icon fa fa-eye" onClick={toggleVisibility} ></i>
+                              ) : (
+                                 <i className="eye-icon fa fa-eye fa-eye-slash" onClick={toggleVisibility} ></i>
+                              )}
+                       
+                    
+                    </div>
+                    <div className="col-md-12 col-sm-12 col-xs-12 fr-psw">
+                        <div className="row">
+                            <div className="col-md-10">
+                                <p> Forgot your password?</p>
+                            </div>
+                          
+                        </div>
+                       
+                    </div>
+                 
+                  <div className="col-md-12 col-sm-12 col-xs-12 bton">
+                    <button type="submit" className="loginbtn"><span className="fa fa-arrow-circle-o-right"></span> LOGIN </button>
+                  </div>
+                     </Form>
+                     )}
+</Formik>
+
+                
+                  <div className="col-md-12 col-sm-12 col-xs-12 copy">
+                    <p className="copyright"> Team Computers Pvt. Ltd. © 2024 | All rights reserved</p>
+                  </div>
+
+                  <div className="col-md-12 col-sm-12 col-xs-12 pol">
+                    <div> Cookie Policy</div>
+                    <div> Terms of Use</div>
+                    <div> Privacy Policy</div>
+                  </div>
+
+                   </div>
+                 
+      
+         
+            </div>
+            
+            
+            
+           
+        </div>
     </div>
+    <div className="loader-overlay" id="loaderOverlay">
+        <div className='loader'>
+            <div className='loader--dot'></div>
+            <div className='loader--dot'></div>
+            <div className='loader--dot'></div>
+            <div className='loader--dot'></div>
+            <div className='loader--dot'></div>
+            <div className='loader--dot'></div>
+            <div className='loader--text'></div>
+        </div>
+    </div>
+
+</>
   );
 };
 

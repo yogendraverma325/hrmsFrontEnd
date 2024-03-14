@@ -16,8 +16,8 @@ const utilsSlice = createSlice({
   initialState, // Initial state for the slice
   reducers: {
     // Define the 'updatePayload' reducer
-    toggleModal: (state: UtilState, { payload }: PayloadAction<boolean>) => {
-      state.isActive = payload; // Update the 'payloadUpdater' property of the state with a random ID generated using the 'generateRandomId' utility function
+    toggleModal: (state: UtilState, { payload }: PayloadAction<UtilState>) => {
+      state.isActive = payload.isActive; // Update the 'payloadUpdater' property of the state with a random ID generated using the 'generateRandomId' utility function
     },
   },
 });

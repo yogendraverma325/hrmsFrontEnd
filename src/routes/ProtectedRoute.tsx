@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthProvider';
 
 const ProtectedRoute = () => {
   const { token } = useAuth();
-  console.log(token);
+  console.log("token",token);
   // Check if the user is authenticated
   if (!token) {
     // If not authenticated, redirect to the login page

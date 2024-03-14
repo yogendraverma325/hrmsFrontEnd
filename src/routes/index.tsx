@@ -2,13 +2,13 @@ import { lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import Lodable from '../components/Lodable';
-import MainLayout from '../layout/MainLayout/Index';
+
+import AdminLayout from '../layout/MainLayout/Layout';
 import ProtectedRoute from './ProtectedRoute';
 
 const Login = Lodable(lazy(() => import('../pages/auth/Login')));
-const AppriciationActivity = Lodable(lazy(() => import('../pages/AppriciationActivity')));
-const UserProfile = Lodable(lazy(() => import('../pages/Profile')));
-const ActivityFeed = Lodable(lazy(() => import('../pages/AppriciationFeed')));
+const AddEmp =Lodable(lazy(()=>import('../pages/Employees/AddEmp')));
+
 
 // project import
 
@@ -19,35 +19,20 @@ const BaseRoutes = () => {
       {/* Consider it as Public Route */}
       <Route index path="/login" element={<Login />} />
       <Route index element={<Navigate to={'/login'} replace />} />
-
-      <Route element={<ProtectedRoute />}>
+      {/* <Route element={<ProtectedRoute />}> */}
+      <Route>
         <Route
-          path="/overview"
+          path="/addEmp"
           element={
-            <MainLayout>
-              <AppriciationActivity />
-            </MainLayout>
+            
+            <AdminLayout>
+              <AddEmp/>
+            </AdminLayout>
           }
         />
-        <Route
-          path="/profile"
-          element={
-            <MainLayout>
-              <UserProfile />
-            </MainLayout>
-          }
-        />
-
-        <Route
-          path="/appriciate-to"
-          element={
-            <MainLayout>
-              <ActivityFeed />
-            </MainLayout>
-          }
-        />
+      
       </Route>
-      <Route path="*" element={<Navigate to={'/overview'} replace />} />
+      <Route path="*" element={<Navigate to={'/addEmp'} replace />} />
     </Routes>
   );
 };
