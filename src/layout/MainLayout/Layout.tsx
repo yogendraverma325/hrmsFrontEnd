@@ -71,7 +71,7 @@ export default function AdminLayout({ children }: any) {
   const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleDrawer = () => {
-    dispatch(toggleModal({ isActive: true }));
+    dispatch(toggleModal({ isActive: !Utils.isActive }));
   };
 
   const [userMenuOn, serUserMenuOn] = React.useState(false);
