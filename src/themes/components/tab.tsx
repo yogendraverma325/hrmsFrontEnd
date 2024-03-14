@@ -2,7 +2,7 @@ import type { Components } from '@mui/material/styles';
 
 import type { Theme } from '../types';
 
-export const MuiTab : Components<Theme>['MuiTab'] = {
+export const MuiTab: Components<Theme>['MuiTab'] = {
   styleOverrides: {
     root: {
       fontSize: '14px',
@@ -15,4 +15,4 @@ export const MuiTab : Components<Theme>['MuiTab'] = {
       '& + &': { marginLeft: '24px' },
     },
   },
-} 
+};

@@ -5,12 +5,12 @@ import { defineConfig } from 'vite';
 // https://vitejs.dev/config/
 export default defineConfig({
   css: {
-    devSourcemap: true
+    devSourcemap: true,
   },
-  resolve:{
+  resolve: {
     alias: {
-      "@": resolve(__dirname, "src")
-    }
+      '@': resolve(__dirname, 'src'),
+    },
   },
   plugins: [react()],
 });

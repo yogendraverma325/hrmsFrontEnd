@@ -10,9 +10,8 @@ import { useSelector } from 'react-redux';
 
 import { RootState } from './redux/reducers';
 function App() {
-  const customization = useSelector((state:RootState) => state.customization);
+  const customization = useSelector((state: RootState) => state.customization);
   return (
-    
     // <ThemeProvider theme={themes(customization)}>
     <AuthProvider>
       <BaseRoutes />

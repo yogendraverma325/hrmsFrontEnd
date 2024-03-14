@@ -4,10 +4,12 @@ import { tableRowClasses } from '@mui/material/TableRow';
 
 import type { Theme } from '../types';
 
-export const MuiTableBody:  Components<Theme>['MuiTableBody'] = {
+export const MuiTableBody: Components<Theme>['MuiTableBody'] = {
   styleOverrides: {
     root: {
-      [`& .${tableRowClasses.root}:last-child`]: { [`& .${tableCellClasses.root}`]: { '--TableCell-borderWidth': 0 } },
+      [`& .${tableRowClasses.root}:last-child`]: {
+        [`& .${tableCellClasses.root}`]: { '--TableCell-borderWidth': 0 },
+      },
     },
   },
-} 
+};

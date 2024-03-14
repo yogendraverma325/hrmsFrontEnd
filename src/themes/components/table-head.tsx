@@ -3,7 +3,7 @@ import { tableCellClasses } from '@mui/material/TableCell';
 
 import type { Theme } from '../types';
 
-export const MuiTableHead : Components<Theme>['MuiTableHead']= {
+export const MuiTableHead: Components<Theme>['MuiTableHead'] = {
   styleOverrides: {
     root: {
       [`& .${tableCellClasses.root}`]: {
@@ -13,4 +13,4 @@ export const MuiTableHead : Components<Theme>['MuiTableHead']= {
       },
     },
   },
-} 
+};

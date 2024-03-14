@@ -11,41 +11,44 @@ interface TransitionsProps {
 }
 
 const Transitions = forwardRef<HTMLDivElement, TransitionsProps>(
-  ({ children, type = 'grow', position = 'top-left', direction = 'up', ...others }, ref) => {
+  (
+    { children, type = 'grow', position = 'top-left', direction = 'up', ...others },
+    ref,
+  ) => {
     let positionSX: React.CSSProperties = {
-      transformOrigin: '0 0 0'
+      transformOrigin: '0 0 0',
     };
 
     switch (position) {
       case 'top-right':
         positionSX = {
-          transformOrigin: 'top right'
+          transformOrigin: 'top right',
         };
         break;
       case 'top':
         positionSX = {
-          transformOrigin: 'top'
+          transformOrigin: 'top',
         };
         break;
       case 'bottom-left':
         positionSX = {
-          transformOrigin: 'bottom left'
+          transformOrigin: 'bottom left',
         };
         break;
       case 'bottom-right':
         positionSX = {
-          transformOrigin: 'bottom right'
+          transformOrigin: 'bottom right',
         };
         break;
       case 'bottom':
         positionSX = {
-          transformOrigin: 'bottom'
+          transformOrigin: 'bottom',
         };
         break;
       case 'top-left':
       default:
         positionSX = {
-          transformOrigin: '0 0 0'
+          transformOrigin: '0 0 0',
         };
         break;
     }
@@ -68,7 +71,7 @@ const Transitions = forwardRef<HTMLDivElement, TransitionsProps>(
             timeout={{
               appear: 500,
               enter: 600,
-              exit: 400
+              exit: 400,
             }}
           >
             <Box sx={positionSX}>{children}</Box>
@@ -80,7 +83,7 @@ const Transitions = forwardRef<HTMLDivElement, TransitionsProps>(
             timeout={{
               appear: 0,
               enter: 400,
-              exit: 200
+              exit: 200,
             }}
             direction={direction}
           >
@@ -94,9 +97,7 @@ const Transitions = forwardRef<HTMLDivElement, TransitionsProps>(
         )}
       </Box>
     );
-  }
+  },
 );
-
-
 
 export default Transitions;

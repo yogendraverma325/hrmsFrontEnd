@@ -10,11 +10,16 @@ interface Registry {
 
 export interface EmotionCacheProviderProps {
   options: Omit<OptionsOfCreateCache, 'insertionPoint'>;
-  CacheProvider?: (props: { value: EmotionCache; children: React.ReactNode }) => React.ReactElement | null;
+  CacheProvider?: (props: {
+    value: EmotionCache;
+    children: React.ReactNode;
+  }) => React.ReactElement | null;
   children: React.ReactNode;
 }
 
-export default function EmotionCacheProvider(props: EmotionCacheProviderProps): React.ReactElement {
+export default function EmotionCacheProvider(
+  props: EmotionCacheProviderProps,
+): React.ReactElement {
   const { options, CacheProvider = DefaultCacheProvider, children } = props;
 
   const [registry] = React.useState<Registry>(() => {
@@ -65,12 +70,17 @@ export default function EmotionCacheProvider(props: EmotionCacheProviderProps): 
       }
     });
 
-    const styleElements = document.querySelectorAll(`style[data-emotion="${dataEmotionAttribute}"]`);
+    const styleElements = document.querySelectorAll(
+      `style[data-emotion="${dataEmotionAttribute}"]`,
+    );
     styleElements.forEach((element) => element.remove());
 
     globals.forEach(({ name, style }) => {
       const globalStyleElement = document.createElement('style');
-      globalStyleElement.setAttribute('data-emotion', `${registry.cache.key}-global ${name}`);
+      globalStyleElement.setAttribute(
+        'data-emotion',
+        `${registry.cache.key}-global ${name}`,
+      );
       globalStyleElement.innerHTML = style;
       document.head.appendChild(globalStyleElement);
     });

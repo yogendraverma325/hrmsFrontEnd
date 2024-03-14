@@ -2,7 +2,7 @@ import type { Components } from '@mui/material/styles';
 
 import type { Theme } from '../types';
 
-export const MuiButton:  Components<Theme>['MuiButton'] = {
+export const MuiButton: Components<Theme>['MuiButton'] = {
   styleOverrides: {
     root: { borderRadius: '12px', textTransform: 'none' },
     sizeSmall: { padding: '6px 16px' },
@@ -12,4 +12,4 @@ export const MuiButton:  Components<Theme>['MuiButton'] = {
     textSizeMedium: { padding: '9px 16px' },
     textSizeLarge: { padding: '12px 16px' },
   },
-} 
+};

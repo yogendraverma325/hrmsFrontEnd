@@ -1,9 +1,17 @@
 import type { ColorSystemOptions } from '@mui/material/styles';
 
-import { california, kepple, neonBlue, nevada, redOrange, shakespeare, stormGrey } from './colors';
+import {
+  california,
+  kepple,
+  neonBlue,
+  nevada,
+  redOrange,
+  shakespeare,
+  stormGrey,
+} from './colors';
 import type { ColorScheme } from './types';
 
-export const colorSchemes : Partial<Record<ColorScheme, ColorSystemOptions>> = {
+export const colorSchemes: Partial<Record<ColorScheme, ColorSystemOptions>> = {
   dark: {
     palette: {
       action: { disabledBackground: 'rgba(0, 0, 0, 0.12)' },
@@ -136,4 +144,4 @@ export const colorSchemes : Partial<Record<ColorScheme, ColorSystemOptions>> = {
       },
     },
   },
-} ;
+};

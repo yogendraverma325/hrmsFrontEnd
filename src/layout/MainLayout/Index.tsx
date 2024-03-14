@@ -7,16 +7,14 @@ import Sidebar from './Sidebar';
 const MainLayout = ({ children }: any) => {
   return (
     <>
-    <div className="wrapper">
-      <Sidebar />
-      <div id="content">
-        <Header />
-        <div className="page-content">{children}</div>
+      <div className="wrapper">
+        <Sidebar />
+        <div id="content">
+          <Header />
+          <div className="page-content">{children}</div>
+        </div>
       </div>
-    </div>
-
     </>
-
   );
 };
 

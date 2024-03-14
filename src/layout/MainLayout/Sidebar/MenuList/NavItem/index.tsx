@@ -5,7 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery } from '@mui/material';
+import {
+  Avatar,
+  Chip,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
 
 // project imports
 import { MENU_OPEN, SET_MENU } from '../../../../../redux/reducers/actions';
@@ -16,7 +24,7 @@ import { RootState } from '../../../../../redux/reducers';
 
 // ==============================|| SIDEBAR MENU LIST ITEMS ||============================== //
 
-const NavItem = ({ item, level }:any) => {
+const NavItem = ({ item, level }: any) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
@@ -29,8 +37,10 @@ const NavItem = ({ item, level }:any) => {
   ) : (
     <FiberManualRecordIcon
       sx={{
-        width: customization.isOpen.findIndex((id:string) => id === item?.id) > -1 ? 8 : 6,
-        height: customization.isOpen.findIndex((id:string) => id === item?.id) > -1 ? 8 : 6
+        width:
+          customization.isOpen.findIndex((id: string) => id === item?.id) > -1 ? 8 : 6,
+        height:
+          customization.isOpen.findIndex((id: string) => id === item?.id) > -1 ? 8 : 6,
       }}
       fontSize={level > 0 ? 'inherit' : 'medium'}
     />
@@ -42,13 +52,15 @@ const NavItem = ({ item, level }:any) => {
   }
 
   let listItemProps = {
-    component: forwardRef((props, ref) => <Link ref={ref as null} {...props} to={item.url} target={itemTarget}  />)
+    component: forwardRef((props, ref) => (
+      <Link ref={ref as null} {...props} to={item.url} target={itemTarget} />
+    )),
   };
   if (item?.external) {
     listItemProps = { component: 'a', href: item.url, target: itemTarget };
   }
 
-  const itemHandler = (id:string) => {
+  const itemHandler = (id: string) => {
     dispatch({ type: MENU_OPEN, id });
     if (matchesSM) dispatch({ type: SET_MENU, opened: false });
   };
@@ -75,22 +87,29 @@ const NavItem = ({ item, level }:any) => {
         alignItems: 'flex-start',
         backgroundColor: level > 1 ? 'transparent !important' : 'inherit',
         py: level > 1 ? 1 : 1.25,
-        pl: `${level * 24}px`
+        pl: `${level * 24}px`,
       }}
-      selected={customization.isOpen.findIndex((id:string) => id === item.id) > -1}
+      selected={customization.isOpen.findIndex((id: string) => id === item.id) > -1}
       onClick={() => itemHandler(item.id)}
     >
-      <ListItemIcon sx={{ my: '10px', minWidth: !item?.icon ? 18 : 36, color:"white" }}>{itemIcon}</ListItemIcon>
+      <ListItemIcon sx={{ my: '10px', minWidth: !item?.icon ? 18 : 36, color: 'white' }}>
+        {itemIcon}
+      </ListItemIcon>
       <ListItemText
-      sx={{ paddingLeft: 0, listStyleType: 'none' }}
+        sx={{ paddingLeft: 0, listStyleType: 'none' }}
         primary={
-          <Typography variant={customization.isOpen.findIndex((id:String) => id === item.id) > -1 ? 'h6' : 'body1'} color="inherit">
+          <Typography
+            variant={
+              customization.isOpen.findIndex((id: String) => id === item.id) > -1
+                ? 'h6'
+                : 'body1'
+            }
+            color="inherit"
+          >
             {item.title}
-          </Typography> 
+          </Typography>
         }
-       
       />
-
     </ListItemButton>
   );
 };

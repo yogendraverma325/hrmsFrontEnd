@@ -1,6 +1,6 @@
 import type { TypographyOptions } from '@mui/material/styles/createTypography';
 
-export const typography : TypographyOptions= {
+export const typography: TypographyOptions = {
   fontFamily:
     '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"',
   body1: { fontSize: '1rem', fontWeight: 400, lineHeight: 1.5 },

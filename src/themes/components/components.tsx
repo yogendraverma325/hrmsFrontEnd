@@ -2,7 +2,7 @@ import type { Components } from '@mui/material/styles';
 
 import type { Theme } from '../types';
 import { MuiAvatar } from './avatar';
-import { MuiButton } from './button'; 
+import { MuiButton } from './button';
 import { MuiCard } from './card';
 import { MuiCardContent } from './card-content';
 import { MuiCardHeader } from './card-header';
@@ -14,7 +14,7 @@ import { MuiTableCell } from './table-cell';
 import { MuiTableHead } from './table-head';
 import { MuiTextField } from './text-field';
 import { MuiSelect } from './select';
-import  {MuiFormLabel} from './form-label'
+import { MuiFormLabel } from './form-label';
 import { MuiDatePicker } from './date-picker';
 
 export const components: Components<Theme> = {
@@ -31,5 +31,5 @@ export const components: Components<Theme> = {
   MuiTableHead,
   MuiTextField,
   MuiSelect,
-  MuiFormLabel
-} ;
+  MuiFormLabel,
+};

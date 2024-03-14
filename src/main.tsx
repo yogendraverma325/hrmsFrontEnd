@@ -15,9 +15,9 @@ ReactDOM.render(
     <Provider store={store}>
       <ReactQueryProvider>
         <BrowserRouter>
-        <ThemeProvider>
-          <App />
-        </ThemeProvider>
+          <ThemeProvider>
+            <App />
+          </ThemeProvider>
         </BrowserRouter>
       </ReactQueryProvider>
     </Provider>

@@ -7,8 +7,7 @@ import AdminLayout from '../layout/MainLayout/Layout';
 import ProtectedRoute from './ProtectedRoute';
 
 const Login = Lodable(lazy(() => import('../pages/auth/Login')));
-const AddEmp =Lodable(lazy(()=>import('../pages/Employees/AddEmp')));
-
+const AddEmp = Lodable(lazy(() => import('../pages/Employees/AddEmp')));
 
 // project import
 
@@ -24,13 +23,11 @@ const BaseRoutes = () => {
         <Route
           path="/addEmp"
           element={
-            
             <AdminLayout>
-              <AddEmp/>
+              <AddEmp />
             </AdminLayout>
           }
         />
-      
       </Route>
       <Route path="*" element={<Navigate to={'/addEmp'} replace />} />
     </Routes>

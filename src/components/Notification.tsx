@@ -14,11 +14,10 @@ import {
   ListItemSecondaryAction,
   ListItemText,
   Stack,
-  Typography
+  Typography,
 } from '@mui/material';
 
-
-import User1 from '/src/assets/images/avatar.jpg'; 
+import User1 from '/src/assets/images/avatar.jpg';
 
 // styles
 const ListItemWrapper = styled('div')(({ theme }) => ({
@@ -26,8 +25,8 @@ const ListItemWrapper = styled('div')(({ theme }) => ({
   padding: 16,
 
   '& .MuiListItem-root': {
-    padding: 0
-  }
+    padding: 0,
+  },
 }));
 
 // ==============================|| NOTIFICATION LIST ITEM ||============================== //
@@ -37,26 +36,26 @@ const NotificationList = () => {
 
   const chipSX = {
     height: 24,
-    padding: '0 6px'
+    padding: '0 6px',
   };
   const chipErrorSX = {
     ...chipSX,
     color: theme.palette?.orange?.dark,
     backgroundColor: theme.palette?.orange?.light,
-    marginRight: '5px'
+    marginRight: '5px',
   };
 
   const chipWarningSX = {
     ...chipSX,
     color: theme.palette?.warning.dark,
-    backgroundColor: theme.palette?.warning.light
+    backgroundColor: theme.palette?.warning.light,
   };
 
   const chipSuccessSX = {
     ...chipSX,
     color: theme.palette?.success.dark,
     backgroundColor: theme.palette?.success.light,
-    height: 28
+    height: 28,
   };
 
   return (
@@ -67,17 +66,17 @@ const NotificationList = () => {
         py: 0,
         borderRadius: '10px',
         [theme.breakpoints.down('md')]: {
-          maxWidth: 300
+          maxWidth: 300,
         },
         '& .MuiListItemSecondaryAction-root': {
-          top: 22
+          top: 22,
         },
         '& .MuiDivider-root': {
-          my: 0
+          my: 0,
         },
         '& .list-container': {
-          pl: 7
-        }
+          pl: 7,
+        },
       }}
     >
       <ListItemWrapper>
@@ -98,7 +97,9 @@ const NotificationList = () => {
         </ListItem>
         <Grid container direction="column" className="list-container">
           <Grid item xs={12} sx={{ pb: 2 }}>
-            <Typography variant="subtitle2">It is a long established fact that a reader will be distracted</Typography>
+            <Typography variant="subtitle2">
+              It is a long established fact that a reader will be distracted
+            </Typography>
           </Grid>
         </Grid>
       </ListItemWrapper>

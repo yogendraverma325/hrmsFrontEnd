@@ -1,6 +1,6 @@
 import type { PaletteOptions } from '@mui/material/styles/createPalette';
 
-export const california : PaletteOptions = {
+export const california: PaletteOptions = {
   50: '#fffaea',
   100: '#fff3c6',
   200: '#ffe587',
@@ -12,9 +12,9 @@ export const california : PaletteOptions = {
   800: '#953b0b',
   900: '#7b310c',
   950: '#471701',
-} 
+};
 
-export const kepple : PaletteOptions= {
+export const kepple: PaletteOptions = {
   50: '#f0fdfa',
   100: '#ccfbef',
   200: '#9af5e1',
@@ -26,9 +26,9 @@ export const kepple : PaletteOptions= {
   800: '#115e56',
   900: '#134e48',
   950: '#042f2c',
-} 
+};
 
-export const neonBlue : PaletteOptions = {
+export const neonBlue: PaletteOptions = {
   50: '#ecf0ff',
   100: '#dde3ff',
   200: '#c2cbff',
@@ -40,9 +40,9 @@ export const neonBlue : PaletteOptions = {
   800: '#3725ae',
   900: '#302689',
   950: '#1e1650',
-} 
+};
 
-export const nevada : PaletteOptions= {
+export const nevada: PaletteOptions = {
   50: '#fbfcfe',
   100: '#f0f4f8',
   200: '#dde7ee',
@@ -54,7 +54,7 @@ export const nevada : PaletteOptions= {
   800: '#202427',
   900: '#121517',
   950: '#090a0b',
-} 
+};
 
 export const redOrange: PaletteOptions = {
   50: '#fef3f2',
@@ -68,9 +68,9 @@ export const redOrange: PaletteOptions = {
   800: '#9a221a',
   900: '#80231c',
   950: '#460d09',
-} 
+};
 
-export const shakespeare : PaletteOptions= {
+export const shakespeare: PaletteOptions = {
   50: '#ecfdff',
   100: '#cff7fe',
   200: '#a4eefd',
@@ -82,9 +82,9 @@ export const shakespeare : PaletteOptions= {
   800: '#145876',
   900: '#154964',
   950: '#082f44',
-} 
+};
 
-export const stormGrey : PaletteOptions= {
+export const stormGrey: PaletteOptions = {
   50: '#f9fafb',
   100: '#f1f1f4',
   200: '#dcdfe4',
@@ -96,4 +96,4 @@ export const stormGrey : PaletteOptions= {
   800: '#313749',
   900: '#212636',
   950: '#121621',
-} 
+};
