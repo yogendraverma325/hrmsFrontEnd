@@ -5,6 +5,7 @@ import { Divider, List, Typography } from '@mui/material';
 // project imports
 import NavItem from '../NavItem';
 import NavCollapse from '../NavCollapse';
+import pxToRem from '@/themes/functions/pxToRem';
 
 // ==============================|| SIDEBAR MENU LIST GROUP ||============================== //
 
@@ -32,10 +33,32 @@ const NavGroup = ({ item }: any) => {
       <List
         subheader={
           item.title && (
-            <Typography variant="caption" sx={{ listStyleType: 'none' }}>
+            <Typography
+              variant="caption"
+              sx={{
+                listStyleType: 'none',
+                ml: 3,
+                fontSize: '11px',
+                display: 'block',
+                textTransform: 'uppercase',
+                fontWeight: 600,
+                color: '#b2aeae',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                },
+              }}
+            >
               {item.title}
               {item.caption && (
-                <Typography variant="caption" sx={{ listStyleType: 'none' }}>
+                <Typography
+                  variant="caption"
+                  sx={{
+                    listStyleType: 'none',
+                    '&:hover': {
+                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                    },
+                  }}
+                >
                   {item.caption}
                 </Typography>
               )}
@@ -48,6 +71,20 @@ const NavGroup = ({ item }: any) => {
           paddingLeft: 0, // Remove left padding
           paddingRight: 0, // Remove right padding
           listStyleType: 'none',
+          '.MuiListItemButton': {
+            my: 0,
+          },
+          '.MuiListItemIcon-root': {
+            // display: 'none',
+            my: 0,
+          },
+          '.MuiListItemText-root > .MuiTypography-root': {
+            my: 0,
+            fontSize: '14px',
+          },
+          '&:hover': {
+            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+          },
         }}
       >
         {items}

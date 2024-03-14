@@ -21,6 +21,7 @@ import { MENU_OPEN, SET_MENU } from '../../../../../redux/reducers/actions';
 // assets
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { RootState } from '../../../../../redux/reducers';
+import pxToRem from '@/themes/functions/pxToRem';
 
 // ==============================|| SIDEBAR MENU LIST ITEMS ||============================== //
 
@@ -83,11 +84,12 @@ const NavItem = ({ item, level }: any) => {
       disabled={item.disabled}
       sx={{
         borderRadius: `${customization.borderRadius}px`,
-        mb: 0.5,
+        // mb: 0.5,
         alignItems: 'flex-start',
         backgroundColor: level > 1 ? 'transparent !important' : 'inherit',
         py: level > 1 ? 1 : 1.25,
         pl: `${level * 24}px`,
+        fontSize: pxToRem(8),
       }}
       selected={customization.isOpen.findIndex((id: string) => id === item.id) > -1}
       onClick={() => itemHandler(item.id)}

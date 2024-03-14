@@ -157,6 +157,20 @@ const NavCollapse = ({ menu, level }: any) => {
           sx={{
             paddingTop: 0,
             paddingBottom: 0,
+            '.MuiListItemButton': {
+              my: 0,
+            },
+            '.MuiListItemIcon-root': {
+              display: 'none',
+              my: 0,
+            },
+            '.MuiListItemText-root > .MuiTypography-root': {
+              my: 0,
+              fontSize: '14px',
+            },
+            '&:hover': {
+              backgroundColor: 'rgba(255, 255, 255, 0.05)',
+            },
           }}
         >
           {menus}

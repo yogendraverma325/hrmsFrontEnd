@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import { styled } from '@mui/material/styles';
 import MenuList from './Sidebar/MenuList';
 import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom'; // If you're using React Router
@@ -11,15 +9,9 @@ import { BrowserView, MobileView } from 'react-device-detect';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { RootState } from '@/redux/reducers';
 import { toggleModal } from '@/redux/reducers/utilitesSlice';
-export const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}));
-const drawer = (anchor = 'left') => (
+import { DrawerHeader } from './Header';
+
+const drawer = () => (
   <Box sx={{ width: 250 }}>
     <Box>
       <Box>

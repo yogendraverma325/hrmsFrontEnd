@@ -136,7 +136,7 @@ const AddEmp = ({ ...others }) => {
     <>
       <Box sx={{ mb: 2 }}>
         <Typography variant="h6" gutterBottom>
-          Add Employee Details
+          Add Employee
         </Typography>
 
         <Paper sx={{ mt: 6 }}>
