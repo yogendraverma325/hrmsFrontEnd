@@ -12,13 +12,11 @@ import { apiClient } from './apiClient';
 
 export async function login(credentials: LoginCredentials): Promise<AuthResponse> {
   const { username, password } = credentials;
-  const form = new FormData();
-  form.append('uname', username);
-  form.append('pass', password);
-  const response: AxiosResponse<AuthResponse> = await axios.post(
-    'https://teamworks.teamcomputers.com/API/API/ecr/ValidateEmployee1111',
-    form,
-  );
+  let formObject = {
+    email: username,
+    password: password,
+  };
+  const response: AxiosResponse<any> = await apiClient.post('auth/login', formObject);
   return response.data;
 }
 

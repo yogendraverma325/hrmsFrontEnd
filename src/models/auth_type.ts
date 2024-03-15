@@ -20,9 +20,21 @@ export type userPassword = {
 };
 
 export type AuthResponse = {
-  Data: { Full_Name: string; Key: string };
-  StatusCode: number;
-  Message: string;
+  statusCode: string;
+  message: string;
+  data: {
+    emp: {
+      id: number;
+      name: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+    };
+    tokens: {
+      accessToken: string;
+      refreshToken: string;
+    };
+  };
 };
 
 export type changePassword = {

@@ -22,7 +22,7 @@ interface AuthProviderProps {
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }: any) => {
   // State to hold the authentication token
-  const [token, setToken_] = useState<string | null>(localStorage.getItem('token'));
+  const [token, setToken_] = useState<string | null>(localStorage.getItem('accessToken'));
   // Function to set the authentication token
   const setToken = (newToken: string | null) => {
     setToken_(newToken);
@@ -30,10 +30,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }: any) => {
 
   useEffect(() => {
     if (token) {
-      localStorage.setItem('token', token);
+      localStorage.setItem('accessToken', token);
     } else {
-      delete apiClient.defaults.headers.common['auth-token'];
-      localStorage.removeItem('token');
+      delete apiClient.defaults.headers.common['accessToken'];
+      localStorage.removeItem('accessToken');
     }
   }, [token]);
 

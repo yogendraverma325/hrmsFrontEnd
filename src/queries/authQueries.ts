@@ -17,18 +17,7 @@ import {
 } from '../models/auth_type';
 
 export function useLogin() {
-  const queryClient = useQueryClient();
-
-  const loginMutation = useMutation((credential: LoginCredentials) => login(credential), {
-    onSuccess: (data: AuthResponse) => {
-      queryClient.setQueryData(['loginMutation'], data.Data); // Set the mutation result in the query client
-    },
-    onError: (error: AxiosError, variables, context) => {
-      // On Error
-    },
-  });
-
-  return loginMutation;
+  return useMutation((credential: LoginCredentials) => login(credential));
 }
 
 export function useChangePassword() {

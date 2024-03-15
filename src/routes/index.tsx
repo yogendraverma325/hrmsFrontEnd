@@ -18,8 +18,8 @@ const BaseRoutes = () => {
       {/* Consider it as Public Route */}
       <Route index path="/login" element={<Login />} />
       <Route index element={<Navigate to={'/login'} replace />} />
-      {/* <Route element={<ProtectedRoute />}> */}
-      <Route>
+      <Route element={<ProtectedRoute />}>
+        {/* <Route> */}
         <Route
           path="/addEmp"
           element={
@@ -29,7 +29,7 @@ const BaseRoutes = () => {
           }
         />
       </Route>
-      <Route path="*" element={<Navigate to={'/addEmp'} replace />} />
+      <Route path="*" element={<Navigate to={'/login'} replace />} />
     </Routes>
   );
 };

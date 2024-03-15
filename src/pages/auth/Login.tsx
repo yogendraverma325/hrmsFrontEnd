@@ -44,9 +44,9 @@ const Login = () => {
   ) => {
     try {
       const status = await loginMutation.mutateAsync(values);
-      // Login successful, perform any necessary actions
+      // // Login successful, perform any necessary actions
       dispatch(enableLoading({ loading: loginMutation.isLoading }));
-      setToken(status.Data.Key);
+      setToken(status.data.tokens.accessToken);
       dispatch(
         setSnackbar({
           snackbarMessage: 'Login Successful',
@@ -54,18 +54,25 @@ const Login = () => {
           snackbarType: 'success',
         }),
       );
-      localStorage.setItem('userData', JSON.stringify(status.Data));
+      localStorage.setItem('userData', JSON.stringify(status.data.emp));
       navigate(config.defaultPath, { replace: true });
-      if (status.StatusCode === 0) {
-        helpers.setStatus({ success: false });
-        helpers.setErrors({ submit: status?.Message });
-        helpers.setSubmitting(false);
+      if (status.statusCode != '10000') {
+        dispatch(
+          setSnackbar({
+            snackbarMessage: status?.message,
+            snackbarOpen: true,
+            snackbarType: 'error',
+          }),
+        );
       }
-    } catch (err) {
-      console.log('<< Error >>', err);
-      helpers.setStatus({ success: false });
-      helpers.setErrors({ submit: 'Invalid username or password' });
-      helpers.setSubmitting(false);
+    } catch (err: any) {
+      dispatch(
+        setSnackbar({
+          snackbarMessage: err?.response?.data?.message,
+          snackbarOpen: true,
+          snackbarType: 'error',
+        }),
+      );
     }
   };
 
@@ -110,12 +117,12 @@ const Login = () => {
             <div className="row">
               <Formik
                 initialValues={{
-                  username: '',
-                  password: '',
+                  username: 'manishmaurya@teamcomputers.com',
+                  password: 'test1234',
                   submit: null,
                 }}
                 validationSchema={Yup.object({
-                  username: Yup.string().max(10).required('User Name is required'),
+                  username: Yup.string().max(255).required('Email is required'),
                   password: Yup.string().max(255).required('Password is required'),
                 })}
                 onSubmit={handleUserSubmit}

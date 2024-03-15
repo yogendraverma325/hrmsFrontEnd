@@ -4,9 +4,10 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios';
+import config from '../../src/redux/constant';
 
 const apiClient: AxiosInstance = axios.create({
-  baseURL: 'https://teamsproject.teamcomputers.com/appreciation/',
+  baseURL: config.apiUrl,
 });
 
 apiClient.interceptors.request.use(
@@ -17,10 +18,14 @@ apiClient.interceptors.request.use(
 
     // Add headers or other modifications to the config
     // config.headers = { ... };
-    if (localStorage.getItem('auth-token')) {
-      config.headers['auth-token'] = localStorage.getItem('auth-token');
-      // config.headers['businessUnit'] = 'EUS,MPS';
-    }
+
+    config.headers['x-api-key'] = 'GCMUDiuY5a7WvyUNt9n3QztToSHzK7Uj';
+    // config.headers['businessUnit'] = 'EUS,MPS';
+
+    // if (localStorage.getItem('auth-token')) {
+    //   config.headers['auth-token'] = localStorage.getItem('auth-token');
+    //   // config.headers['businessUnit'] = 'EUS,MPS';
+    // }
     return config;
   },
   (error: any): Promise<any> => {
