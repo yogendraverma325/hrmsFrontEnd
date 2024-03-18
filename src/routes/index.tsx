@@ -8,6 +8,7 @@ import ProtectedRoute from './ProtectedRoute';
 
 const Login = Lodable(lazy(() => import('../pages/auth/Login')));
 const AddEmp = Lodable(lazy(() => import('../pages/Employees/AddEmp')));
+const OrgStructure = Lodable(lazy(() => import('../pages/Structure/orgStructure')));
 
 // project import
 
@@ -24,7 +25,7 @@ const BaseRoutes = () => {
           path="/addEmp"
           element={
             <AdminLayout>
-              <AddEmp />
+              <OrgStructure />
             </AdminLayout>
           }
         />
