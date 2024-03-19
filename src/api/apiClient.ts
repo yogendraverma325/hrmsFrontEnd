@@ -12,20 +12,15 @@ const apiClient: AxiosInstance = axios.create({
 
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
-    // Modify request config as needed
-    // For example, you can add headers or authentication tokens
-    // before the request is sent
-
-    // Add headers or other modifications to the config
-    // config.headers = { ... };
-
     config.headers['x-api-key'] = 'GCMUDiuY5a7WvyUNt9n3QztToSHzK7Uj';
-    // config.headers['businessUnit'] = 'EUS,MPS';
 
-    // if (localStorage.getItem('auth-token')) {
-    //   config.headers['auth-token'] = localStorage.getItem('auth-token');
-    //   // config.headers['businessUnit'] = 'EUS,MPS';
-    // }
+    if (localStorage.getItem('auth-token')) {
+      config.headers['auth-token'] = localStorage.getItem('auth-token');
+    }
+    if (localStorage.getItem('accessToken')) {
+      config.headers['accessToken'] = localStorage.getItem('accessToken');
+      config.headers['authorization'] = 'Bearer ' + localStorage.getItem('accessToken');
+    }
     return config;
   },
   (error: any): Promise<any> => {

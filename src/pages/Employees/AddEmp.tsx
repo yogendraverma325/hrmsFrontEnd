@@ -1,25 +1,127 @@
-import { useQuery } from '@tanstack/react-query';
-import { useTheme } from '@mui/material/styles';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
-import { Box, Button, Grid, Card, Stack, Typography, Paper } from '@mui/material';
-
+import {
+  Box,
+  Button,
+  Grid,
+  Card,
+  Stack,
+  Typography,
+  Paper,
+  FormControl,
+} from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
 // third party
 import * as Yup from 'yup';
+import * as React from 'react';
 import { Form, FormikProvider, useFormik } from 'formik';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { fetchAppriciationList } from '../../api/mainApi';
+import { getEmployees } from '../../api/mainApi';
 import { RootState } from '../../redux/reducers';
-import Visibility from '@mui/icons-material/Visibility';
-import { Select, MenuItem } from '@mui/material';
+
 import SelectField from '@/components/Forms/SelectField';
 import InputField from '@/components/Forms/InputField';
 import DateField from '@/components/Forms/DateField';
-import moment from 'moment';
+import CircularProgress from '@mui/material/CircularProgress';
+import TextField from '@mui/material/TextField';
+import pxToRem from '@/themes/functions/pxToRem';
+interface EMP {
+  title: string;
+  year: number;
+}
 
+const topFilms = [
+  { title: 'The Shawshank Redemption', year: 1994 },
+  { title: 'The Godfather', year: 1972 },
+  { title: 'The Godfather: Part II', year: 1974 },
+  { title: 'The Dark Knight', year: 2008 },
+  { title: '12 Angry Men', year: 1957 },
+  { title: "Schindler's List", year: 1993 },
+  { title: 'Pulp Fiction', year: 1994 },
+  {
+    title: 'The Lord of the Rings: The Return of the King',
+    year: 2003,
+  },
+  { title: 'The Good, the Bad and the Ugly', year: 1966 },
+  { title: 'Fight Club', year: 1999 },
+  {
+    title: 'The Lord of the Rings: The Fellowship of the Ring',
+    year: 2001,
+  },
+  {
+    title: 'Star Wars: Episode V - The Empire Strikes Back',
+    year: 1980,
+  },
+  { title: 'Forrest Gump', year: 1994 },
+  { title: 'Inception', year: 2010 },
+  {
+    title: 'The Lord of the Rings: The Two Towers',
+    year: 2002,
+  },
+  { title: "One Flew Over the Cuckoo's Nest", year: 1975 },
+  { title: 'Goodfellas', year: 1990 },
+  { title: 'The Matrix', year: 1999 },
+  { title: 'Seven Samurai', year: 1954 },
+  {
+    title: 'Star Wars: Episode IV - A New Hope',
+    year: 1977,
+  },
+  { title: 'City of God', year: 2002 },
+  { title: 'Se7en', year: 1995 },
+  { title: 'The Silence of the Lambs', year: 1991 },
+  { title: "It's a Wonderful Life", year: 1946 },
+  { title: 'Life Is Beautiful', year: 1997 },
+  { title: 'The Usual Suspects', year: 1995 },
+  { title: 'Léon: The Professional', year: 1994 },
+  { title: 'Spirited Away', year: 2001 },
+  { title: 'Saving Private Ryan', year: 1998 },
+  { title: 'Once Upon a Time in the West', year: 1968 },
+  { title: 'American History X', year: 1998 },
+  { title: 'Interstellar', year: 2014 },
+];
+
+function sleep(duration: number): Promise<void> {
+  return new Promise<void>((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, duration);
+  });
+}
 const AddEmp = ({ ...others }) => {
-  useEffect(() => {}, []);
+  const [searchString, setSearchString] = useState('Yogi');
+  const queryFn = () => getEmployees({ input: searchString });
+  // queryFn();
+
+  const [open, setOpen] = React.useState(false);
+  const [options, setOptions] = React.useState<readonly EMP[]>([]);
+  const loading = open && options.length === 0;
+
+  React.useEffect(() => {
+    let active = true;
+
+    if (!loading) {
+      return undefined;
+    }
+
+    (async () => {
+      await sleep(1e3); // For demo purposes.
+
+      if (active) {
+        setOptions([...topFilms]);
+      }
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, [loading]);
+
+  React.useEffect(() => {
+    if (!open) {
+      setOptions([]);
+    }
+  }, [open]);
 
   const formik = useFormik({
     initialValues: {
@@ -49,10 +151,10 @@ const AddEmp = ({ ...others }) => {
       firstName: Yup.string().max(5),
       lastName: Yup.string().max(255),
       middleName: Yup.string().max(255),
-      dob: Yup.string().max(255).required('DOB is required'),
+      dob: Yup.string().max(255),
       personalEmail: Yup.string().max(255),
       maritalStatus: Yup.string().max(255),
-      dateOfJoining: Yup.string().max(255).required('Date Of Joning is required'),
+      dateOfJoining: Yup.string().max(255),
       groupCategory: Yup.string().max(255),
       department: Yup.string().max(255),
       designation: Yup.string().max(255),
@@ -90,19 +192,15 @@ const AddEmp = ({ ...others }) => {
       }
     },
   });
+  function handleAutocompleteChange(value: any, fieldName: string, idFieldName: string) {
+    console.log('value', value, 'fieldName', fieldName);
+    formik.setFieldValue(fieldName.trim(), value?.year);
+  }
   //   const { data, error, isLoading, isSuccess } = useQuery({
   //     queryKey: ['appriciation_list'],
   //     queryFn: () => fetchAppriciationList('1'),
   //   });
-  const getDatePickerValue = (field: string) => {
-    console.log(field);
-    console.log(...field);
-    if (field === null || field === '') {
-      return null; // Don't pass the value prop if value is null
-    }
-    // Parse the date and return it in the desired format
-    return moment(field, 'MM/DD/YYYY');
-  };
+
   return (
     <>
       <Box sx={{ mb: 2 }}>
@@ -125,6 +223,62 @@ const AddEmp = ({ ...others }) => {
                     </Stack>
 
                     <Grid container spacing={2}>
+                      <Grid item sm={6} md={6} xs={12}>
+                        <Autocomplete
+                          id="asynchronous-demo"
+                          fullWidth
+                          sx={{
+                            height: `${pxToRem(24)} !important`,
+                          }}
+                          open={open}
+                          onOpen={() => {
+                            setOpen(true);
+                          }}
+                          onClose={() => {
+                            setOpen(false);
+                          }}
+                          isOptionEqualToValue={(option, value) =>
+                            option.title === value.title
+                          }
+                          getOptionLabel={(option) => option.title}
+                          options={options}
+                          loading={loading}
+                          onChange={(event, newValue) => {
+                            handleAutocompleteChange(
+                              newValue,
+                              'reportingManager',
+                              'reportingManager',
+                            );
+                          }}
+                          renderInput={(params) => (
+                            <FormControl fullWidth size={'medium'}>
+                              <label htmlFor={`outlined-select-reportingManager}`}>
+                                Reporting Manager
+                              </label>
+                              <TextField
+                                sx={{
+                                  height: `${pxToRem(24)} !important`,
+                                  display: 'flex !important',
+                                  // padding: `${pxToRem(8)} ${pxToRem(28)} ${pxToRem(8)} ${pxToRem(12)} !important`,
+                                }}
+                                {...params}
+                                label=""
+                                InputProps={{
+                                  ...params.InputProps,
+                                  endAdornment: (
+                                    <React.Fragment>
+                                      {loading ? (
+                                        <CircularProgress color="inherit" size={20} />
+                                      ) : null}
+                                      {params.InputProps.endAdornment}
+                                    </React.Fragment>
+                                  ),
+                                }}
+                              />
+                            </FormControl>
+                          )}
+                        />
+                      </Grid>
                       <Grid item sm={6} md={6} xs={12}>
                         <SelectField
                           name="selfService"

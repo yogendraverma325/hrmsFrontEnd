@@ -1,51 +1,13 @@
 interface User {
-  name: string;
-  tmc: string;
-}
-
-interface AppreciationResponse {
-  user_id: number;
-  comment: string;
-  ap_users: User[];
-}
-
-interface AppreciationLikePost {
-  user_id: number;
-  appreciation_records_id: number;
-  ap_users: User[];
-}
-
-interface AppreciationRecord {
-  sender_tmc: string;
-  receiver_tmc: string;
-  sender_name: string;
-  receiver_name: string;
-  category: string;
-  message: string;
-  created_at: string;
-  likes_count: number;
   id: number;
-  ap_responses: AppreciationResponse[];
-  ap_like_posts: AppreciationLikePost[];
+  name: string;
+  firstName: string;
+  lastName: string;
+  email: string;
 }
 
-export interface AppreciationListResponse {
-  success: boolean;
-  data: {
-    count: number;
-    rows: AppreciationRecord[];
-  };
+export interface EmpListResponse {
+  statusCode: string;
   message: string;
+  data: User[];
 }
-
-export type MessageData = {
-  senderName: string;
-  receiverName: string;
-  senderTmc: string;
-  receiverTmc: string;
-  category: string;
-  cc_targets: string[];
-  send_to_all: boolean;
-  message: string;
-  receverTmc: string;
-};
