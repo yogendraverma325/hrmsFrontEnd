@@ -1,36 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Tree, TreeNode } from 'react-organizational-chart';
-import _ from 'lodash';
+import _, { forEach } from 'lodash';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
-import Avatar from '@material-ui/core/Avatar';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import { getEmployees, getHierarchy } from '../../api/mainApi';
 import Badge from '@material-ui/core/Badge';
 import Tooltip from '@material-ui/core/Tooltip';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDrag, useDrop } from 'react-dnd';
 import organization from './org.json';
-
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
-import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 
-import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
-
+import { makeStyles } from '@material-ui/core/styles';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { Reportie, ReportiesListResponse } from '@/models/feed';
 const useStyles = makeStyles((theme) => ({
-  root: {
-    background: 'white',
-    display: 'inline-block',
-    borderRadius: 16,
-  },
+  root: {},
   expand: {
     transform: 'rotate(0deg)',
     marginTop: -10,
@@ -42,41 +31,12 @@ const useStyles = makeStyles((theme) => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
-  avatar: {
-    backgroundColor: '#ECECF4',
-  },
 }));
 function Organization({ org, onCollapse, collapsed }: any) {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const handleClick = (event: any) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const [{ canDrop, isOver }, drop] = useDrop({
-    accept: 'account',
-    drop: () => ({ name: org.tradingName }),
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-      canDrop: monitor.canDrop(),
-    }),
-  });
-  const isActive = canDrop && isOver;
-  let backgroundColor = 'white';
-  if (isActive) {
-    backgroundColor = '#ddffd2';
-  } else if (canDrop) {
-    backgroundColor = '#ffeedc';
-  }
+
   return (
-    <Card
-      variant="outlined"
-      className={classes.root}
-      ref={drop}
-      style={{ backgroundColor }}
-    >
+    <Card variant="outlined">
       <CardHeader
         avatar={
           <Tooltip
@@ -116,35 +76,40 @@ function Organization({ org, onCollapse, collapsed }: any) {
 }
 function Account({ a }: any) {
   const classes = useStyles();
-  const [{ isDragging }, drag] = useDrag({
-    item: { name: a.name, type: 'account' }, // Provide a 'type' property here
-    type: 'account', // Add type property here
-    end: (item, monitor) => {
-      const dropResult = monitor.getDropResult();
-      if (item && dropResult) {
-        alert(`You moved ${item.name} to ${item.name}`);
-      }
-    },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
-
-  const opacity = isDragging ? 0.4 : 1;
   return (
-    <Card
-      variant="outlined"
-      className={classes.root}
-      ref={drag}
-      style={{ cursor: 'pointer', opacity }}
-    >
+    <Card variant="outlined" className={classes.root}>
       <CardHeader avatar={<></>} title={a.name} />
     </Card>
   );
 }
-function Node({ o, parent }: any) {
+function findOrganizationNode(rootNode: any, tradingName: any) {
+  if (rootNode.id === tradingName) {
+    return rootNode;
+  } else if (rootNode.organizationChildRelationship) {
+    for (const childNode of rootNode.organizationChildRelationship) {
+      const foundNode = findOrganizationNode(childNode, tradingName);
+      if (foundNode) {
+        return foundNode;
+      }
+    }
+  }
+  return null;
+}
+
+function Node({ o, parent, fetchData }: any) {
   const [collapsed, setCollapsed] = React.useState(o.collapsed);
-  const handleCollapse = () => {
+
+  const handleCollapse = async () => {
+    if (o.datacome == false) {
+      const id = o.id;
+      let data = await fetchData(id);
+      const { normalReported, hierarhcyReportee } = checkNormalChildAndOthers(data?.data);
+      o.account = normalReported;
+      o.organizationChildRelationship = hierarhcyReportee;
+      // Push the new user data into the 'account' array
+      o.datacome = true;
+    }
+
     setCollapsed(!collapsed);
   };
   React.useEffect(() => {
@@ -153,7 +118,7 @@ function Node({ o, parent }: any) {
   const T = parent
     ? TreeNode
     : (props: any) => (
-        <Tree {...props} lineWidth={'2px'} lineColor={'#bbc'} lineBorderRadius={'12px'}>
+        <Tree {...props} lineWidth={'2px'} lineColor={'#bbc'} lineBorderRadius={'20%'}>
           {props.children}
         </Tree>
       );
@@ -167,16 +132,83 @@ function Node({ o, parent }: any) {
         <TreeNode label={<Account a={a} />}></TreeNode>
       ))}
       {_.map(o.organizationChildRelationship, (c) => (
-        <Node o={c} parent={o} />
+        <Node o={c} parent={o} fetchData={fetchData} />
       ))}
     </T>
   );
 }
+const checkNormalChildAndOthers = (data: any) => {
+  let normalReported: any = [];
+  let hierarhcyReportee: any = [];
+
+  data.reportie.forEach((element: Reportie) => {
+    if (element.reportings == true) {
+      hierarhcyReportee.push({
+        tradingName: element.name,
+        id: element.id,
+        datacome: false,
+        account: [],
+        organizationChildRelationship: [],
+      });
+    } else {
+      normalReported.push({
+        name: element.name,
+        id: element.id,
+      });
+    }
+  });
+  return {
+    normalReported,
+    hierarhcyReportee,
+  };
+};
 function OrgStructure() {
+  const [userData, setUserData] = React.useState(null);
+  let serverData = {};
+
+  const prepareData = (inputData: any) => {
+    const { normalReported, hierarhcyReportee } = checkNormalChildAndOthers(
+      inputData?.data,
+    );
+    serverData = {
+      tradingName: inputData?.data.name,
+      id: inputData?.data.id,
+      datacome: true,
+      account: normalReported,
+      organizationChildRelationship: hierarhcyReportee,
+    };
+    return serverData;
+  };
+
+  let defaultUserId = 31;
+  useEffect(() => {
+    const fetchDataWrapper = async (defaultUserId: number) => {
+      setUserData(await fetchData(defaultUserId));
+    };
+
+    fetchDataWrapper(defaultUserId);
+  }, [defaultUserId]);
+
+  const fetchData = async (UserId: number) => {
+    const response = await getHierarchy(UserId);
+    return response;
+  };
+
   return (
-    <DndProvider backend={HTML5Backend}>
-      <Node o={organization} />
-    </DndProvider>
+    <div>
+      <PerfectScrollbar
+        component="div"
+        style={{
+          height: '500px',
+        }}
+      >
+        {userData && (
+          <DndProvider backend={HTML5Backend}>
+            <Node o={prepareData(userData)} fetchData={fetchData} />
+          </DndProvider>
+        )}
+      </PerfectScrollbar>
+    </div>
   );
 }
 
