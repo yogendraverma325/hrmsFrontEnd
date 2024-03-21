@@ -2,20 +2,24 @@ import React, { useEffect } from 'react';
 import { Tree, TreeNode } from 'react-organizational-chart';
 import _ from 'lodash';
 import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import Tooltip from '@material-ui/core/Tooltip';
+// import Card from '@material-ui/core/Card';
+// import CardHeader from '@material-ui/core/CardHeader';
+// import IconButton from '@material-ui/core/IconButton';
+// import Badge from '@material-ui/core/Badge';
+// import Tooltip from '@material-ui/core/Tooltip';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import data from './org.json';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 import { Reportie } from '@/models/feed';
-import './structure.css';
+// import './structure.css';
 
+import { getHierarchy } from '@/api/mainApi';
+import { Box, CssBaseline, Tooltip } from '@mui/material';
+import { Badge, Card, CardHeader, IconButton } from '@mui/material';
+import { date } from 'yup';
 const useStyles = makeStyles((theme) => ({
   expand: {
     transform: 'rotate(0deg)',
@@ -28,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
+  // ...theme,
 }));
 
 function Organization({ org, onCollapse, collapsed }) {
@@ -35,24 +40,15 @@ function Organization({ org, onCollapse, collapsed }) {
 
   return (
     <Card variant="outlined">
+      <CssBaseline />
+
       <CardHeader
         avatar={
           <Tooltip
             title={`${_.size(org.organizationChildRelationship)} Sub Profile`}
             arrow
           >
-            <Badge
-              style={{ cursor: 'pointer' }}
-              color="secondary"
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
-              showZero
-              invisible={true}
-              overlap="circle"
-              onClick={onCollapse}
-            ></Badge>
+            <Badge />
           </Tooltip>
         }
         title={org.tradingName}
@@ -75,7 +71,7 @@ function Account({ a }) {
   const classes = useStyles();
   return (
     <Card variant="outlined" className={classes.root}>
-      <CardHeader avatar={<></>} title={a.name} />
+      <CardHeader title={a.name} />
     </Card>
   );
 }
@@ -181,18 +177,22 @@ function OrgStructure() {
   };
 
   return (
-    <PerfectScrollbar
-      component="div"
-      style={{
-        height: '500px',
-      }}
-    >
-      {data && (
-        <DndProvider backend={HTML5Backend}>
-          <Node o={data} fetchData={fetchData} />
-        </DndProvider>
+    <>
+      {userData && (
+        <Box bgcolor="background" padding={4}>
+          <DndProvider backend={HTML5Backend}>
+            <PerfectScrollbar
+              component="div"
+              style={{
+                height: 'auto',
+              }}
+            >
+              <Node o={prepareData(userData)} fetchData={fetchData} />
+            </PerfectScrollbar>
+          </DndProvider>
+        </Box>
       )}
-    </PerfectScrollbar>
+    </>
   );
 }
 
