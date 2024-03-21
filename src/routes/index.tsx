@@ -25,6 +25,14 @@ const BaseRoutes = () => {
           path="/addEmp"
           element={
             <AdminLayout>
+              <AddEmp />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="/org"
+          element={
+            <AdminLayout>
               <OrgStructure />
             </AdminLayout>
           }

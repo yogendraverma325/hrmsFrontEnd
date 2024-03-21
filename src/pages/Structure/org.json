@@ -1,11 +1,67 @@
 {
   "tradingName": "Prince singh",
   "id": "1",
-  "datacome": false,
   "account": [
     {
       "name": "Yogi"
     }
   ],
-  "organizationChildRelationship": []
+  "organizationChildRelationship": [
+    {
+      "tradingName": "nitesh gaur",
+      "id": "2",
+      "organizationChildRelationship": [
+        {
+          "tradingName": "test",
+          "id": "3",
+          "organizationChildRelationship": [
+            {
+              "tradingName": "test1",
+              "id": "5",
+              "datacome": false,
+              "account": [
+                {
+                  "name": "test2",
+                  "id": "6"
+                },
+                {
+                  "name": "test3",
+                  "id": "7"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+
+      "account": [
+        {
+          "name": "Sandeep",
+          "id": "8"
+        },
+        {
+          "name": "Kirti",
+          "id": "9"
+        }
+      ]
+    },
+    {
+      "tradingName": "Ankit",
+      "id": "10",
+      "account": [
+        {
+          "name": "Aman",
+          "id": "11"
+        }
+      ],
+      "organizationChildRelationship": [
+        {
+          "tradingName": "Coca-Cola Bangalore",
+          "id": "12",
+          "datacome": false,
+          "account": []
+        }
+      ]
+    }
+  ]
 }
