@@ -26,76 +26,33 @@ import DateField from '@/components/Forms/DateField';
 import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
 import pxToRem from '@/themes/functions/pxToRem';
+import { useQuery } from '@tanstack/react-query';
+import { debounce, forEach } from 'lodash';
 interface EMP {
-  title: string;
-  year: number;
+  name: string;
+  id: number;
 }
 
-const topFilms = [
-  { title: 'The Shawshank Redemption', year: 1994 },
-  { title: 'The Godfather', year: 1972 },
-  { title: 'The Godfather: Part II', year: 1974 },
-  { title: 'The Dark Knight', year: 2008 },
-  { title: '12 Angry Men', year: 1957 },
-  { title: "Schindler's List", year: 1993 },
-  { title: 'Pulp Fiction', year: 1994 },
-  {
-    title: 'The Lord of the Rings: The Return of the King',
-    year: 2003,
-  },
-  { title: 'The Good, the Bad and the Ugly', year: 1966 },
-  { title: 'Fight Club', year: 1999 },
-  {
-    title: 'The Lord of the Rings: The Fellowship of the Ring',
-    year: 2001,
-  },
-  {
-    title: 'Star Wars: Episode V - The Empire Strikes Back',
-    year: 1980,
-  },
-  { title: 'Forrest Gump', year: 1994 },
-  { title: 'Inception', year: 2010 },
-  {
-    title: 'The Lord of the Rings: The Two Towers',
-    year: 2002,
-  },
-  { title: "One Flew Over the Cuckoo's Nest", year: 1975 },
-  { title: 'Goodfellas', year: 1990 },
-  { title: 'The Matrix', year: 1999 },
-  { title: 'Seven Samurai', year: 1954 },
-  {
-    title: 'Star Wars: Episode IV - A New Hope',
-    year: 1977,
-  },
-  { title: 'City of God', year: 2002 },
-  { title: 'Se7en', year: 1995 },
-  { title: 'The Silence of the Lambs', year: 1991 },
-  { title: "It's a Wonderful Life", year: 1946 },
-  { title: 'Life Is Beautiful', year: 1997 },
-  { title: 'The Usual Suspects', year: 1995 },
-  { title: 'Léon: The Professional', year: 1994 },
-  { title: 'Spirited Away', year: 2001 },
-  { title: 'Saving Private Ryan', year: 1998 },
-  { title: 'Once Upon a Time in the West', year: 1968 },
-  { title: 'American History X', year: 1998 },
-  { title: 'Interstellar', year: 2014 },
-];
-
-function sleep(duration: number): Promise<void> {
-  return new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, duration);
-  });
-}
 const AddEmp = ({ ...others }) => {
-  const [searchString, setSearchString] = useState('Yogi');
-  const queryFn = () => getEmployees({ input: searchString });
-  // queryFn();
-
   const [open, setOpen] = React.useState(false);
+  const [searchQuery, setSearchQuery] = React.useState('');
   const [options, setOptions] = React.useState<readonly EMP[]>([]);
+  const handleSuggestionInput = (searchText: string) => {
+    console.log('hello', searchText);
+    setSearchQuery(searchText);
+  };
+  const debounceHandlerForSuggestions = React.useCallback(
+    debounce(handleSuggestionInput, 500),
+    [],
+  );
+
   const loading = open && options.length === 0;
+
+  const fetchData = async (input: string) => {
+    console.log('input', input);
+    const response = await getEmployees(input);
+    return response.data;
+  };
 
   React.useEffect(() => {
     let active = true;
@@ -105,17 +62,20 @@ const AddEmp = ({ ...others }) => {
     }
 
     (async () => {
-      await sleep(1e3); // For demo purposes.
-
+      let data = await fetchData(searchQuery);
+      let list: EMP[] = [];
+      data.forEach((element) => {
+        list.push({ name: element.name, id: element.id });
+      });
       if (active) {
-        setOptions([...topFilms]);
+        setOptions([...list]);
       }
     })();
 
     return () => {
       active = false;
     };
-  }, [loading]);
+  }, [searchQuery]);
 
   React.useEffect(() => {
     if (!open) {
@@ -193,13 +153,8 @@ const AddEmp = ({ ...others }) => {
     },
   });
   function handleAutocompleteChange(value: any, fieldName: string, idFieldName: string) {
-    console.log('value', value, 'fieldName', fieldName);
-    formik.setFieldValue(fieldName.trim(), value?.year);
+    formik.setFieldValue(fieldName.trim(), value?.id);
   }
-  //   const { data, error, isLoading, isSuccess } = useQuery({
-  //     queryKey: ['appriciation_list'],
-  //     queryFn: () => fetchAppriciationList('1'),
-  //   });
 
   return (
     <>
@@ -238,11 +193,14 @@ const AddEmp = ({ ...others }) => {
                             setOpen(false);
                           }}
                           isOptionEqualToValue={(option, value) =>
-                            option.title === value.title
+                            option.name === value.name
                           }
-                          getOptionLabel={(option) => option.title}
+                          getOptionLabel={(option) => option.name}
                           options={options}
                           loading={loading}
+                          onInputChange={(e, value) =>
+                            debounceHandlerForSuggestions(value)
+                          }
                           onChange={(event, newValue) => {
                             handleAutocompleteChange(
                               newValue,

@@ -5,7 +5,7 @@ import { apiClient } from './apiClient';
 
 export async function getEmployees(payload: any): Promise<EmpListResponse> {
   const { input } = payload ?? {};
-  let applyFilter = input ? `?search=${input}` : '';
+  let applyFilter = payload ? `?search=${payload}` : '';
   const response: AxiosResponse<EmpListResponse> = await apiClient.get(
     `master/employee${applyFilter}`,
   );
