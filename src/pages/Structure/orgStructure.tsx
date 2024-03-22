@@ -2,25 +2,25 @@ import React, { useEffect } from 'react';
 import { Tree, TreeNode } from 'react-organizational-chart';
 import _ from 'lodash';
 import clsx from 'clsx';
-// import Card from '@material-ui/core/Card';
-// import CardHeader from '@material-ui/core/CardHeader';
-// import IconButton from '@material-ui/core/IconButton';
-// import Badge from '@material-ui/core/Badge';
-// import Tooltip from '@material-ui/core/Tooltip';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import data from './org.json';
 import { makeStyles } from '@mui/styles';
 import { Reportie } from '@/models/feed';
-// import './structure.css';
 
 import { getHierarchy } from '@/api/mainApi';
-import { Box, CssBaseline, Tooltip } from '@mui/material';
+import { Box, CssBaseline, Tooltip, Typography } from '@mui/material';
 import { Badge, Card, CardHeader, IconButton } from '@mui/material';
 import { date } from 'yup';
 const useStyles = makeStyles((theme) => ({
+  root: {
+    background: 'white',
+    display: 'inline-block',
+    borderRadius: 16,
+  },
   expand: {
     transform: 'rotate(0deg)',
     marginTop: -10,
@@ -42,17 +42,7 @@ function Organization({ org, onCollapse, collapsed }) {
     <Card variant="outlined">
       <CssBaseline />
 
-      <CardHeader
-        avatar={
-          <Tooltip
-            title={`${_.size(org.organizationChildRelationship)} Sub Profile`}
-            arrow
-          >
-            <Badge />
-          </Tooltip>
-        }
-        title={org.tradingName}
-      />
+      <CardHeader variant="outlined" title={userObject(org)} />
 
       <IconButton
         size="small"
@@ -67,11 +57,27 @@ function Organization({ org, onCollapse, collapsed }) {
   );
 }
 
+const userObject = (input: any) => {
+  return (
+    <>
+      <AccountCircleOutlinedIcon style={{ fontSize: 40, width: 40, height: 40 }} />
+      <Typography variant="body1">
+        {input?.name.charAt(0).toUpperCase() + input?.name.slice(1)}
+      </Typography>
+      <Typography variant="body2">({input?.designation})</Typography>
+    </>
+  );
+};
 function Account({ a }) {
+  console.log('acount', a);
   const classes = useStyles();
   return (
-    <Card variant="outlined" className={classes.root}>
-      <CardHeader title={a.name} />
+    <Card
+      variant="outlined"
+      className={classes.root}
+      sx={{ minHeight: '98px', maxHeight: 'auto' }}
+    >
+      <CardHeader title={<>{userObject(a)}</>}></CardHeader>
     </Card>
   );
 }
@@ -127,7 +133,8 @@ const checkNormalChildAndOthers = (data) => {
   data.reportie.forEach((element) => {
     if (element.reportings === true) {
       hierarhcyReportee.push({
-        tradingName: element.name,
+        name: element.name,
+        designation: element.designationmaster.name,
         id: element.id,
         datacome: false,
         account: [],
@@ -137,6 +144,7 @@ const checkNormalChildAndOthers = (data) => {
       normalReported.push({
         name: element.name,
         id: element.id,
+        designation: element.designationmaster.name,
       });
     }
   });
@@ -164,11 +172,13 @@ function OrgStructure() {
   };
 
   const prepareData = (inputData) => {
+    console.log('inputData', inputData);
     const { normalReported, hierarhcyReportee } = checkNormalChildAndOthers(
       inputData?.data,
     );
     return {
-      tradingName: inputData?.data.name,
+      name: inputData?.data.name,
+      designation: inputData?.data?.designationmaster?.name,
       id: inputData?.data.id,
       datacome: false,
       account: normalReported,
