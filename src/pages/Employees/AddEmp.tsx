@@ -9,8 +9,8 @@ import {
   Typography,
   Paper,
   FormControl,
+  Autocomplete,
 } from '@mui/material';
-import Autocomplete from '@mui/material/Autocomplete';
 // third party
 import * as Yup from 'yup';
 import * as React from 'react';
@@ -38,7 +38,6 @@ const AddEmp = ({ ...others }) => {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [options, setOptions] = React.useState<readonly EMP[]>([]);
   const handleSuggestionInput = (searchText: string) => {
-    console.log('hello', searchText);
     setSearchQuery(searchText);
   };
   const debounceHandlerForSuggestions = React.useCallback(
@@ -49,7 +48,6 @@ const AddEmp = ({ ...others }) => {
   const loading = open && options.length === 0;
 
   const fetchData = async (input: string) => {
-    console.log('input', input);
     const response = await getEmployees(input);
     return response.data;
   };
@@ -180,11 +178,8 @@ const AddEmp = ({ ...others }) => {
                     <Grid container spacing={2}>
                       <Grid item sm={6} md={6} xs={12}>
                         <Autocomplete
-                          id="asynchronous-demo"
                           fullWidth
-                          sx={{
-                            height: `${pxToRem(24)} !important`,
-                          }}
+                          className="autocompleteHeight"
                           open={open}
                           onOpen={() => {
                             setOpen(true);
@@ -209,16 +204,12 @@ const AddEmp = ({ ...others }) => {
                             );
                           }}
                           renderInput={(params) => (
-                            <FormControl fullWidth size={'medium'}>
+                            <FormControl fullWidth>
                               <label htmlFor={`outlined-select-reportingManager}`}>
                                 Reporting Manager
                               </label>
                               <TextField
-                                sx={{
-                                  height: `${pxToRem(24)} !important`,
-                                  display: 'flex !important',
-                                  // padding: `${pxToRem(8)} ${pxToRem(28)} ${pxToRem(8)} ${pxToRem(12)} !important`,
-                                }}
+                                variant="outlined"
                                 {...params}
                                 label=""
                                 InputProps={{
@@ -226,7 +217,11 @@ const AddEmp = ({ ...others }) => {
                                   endAdornment: (
                                     <React.Fragment>
                                       {loading ? (
-                                        <CircularProgress color="inherit" size={20} />
+                                        <CircularProgress
+                                          color="inherit"
+                                          size={20}
+                                          style={{ marginBottom: '10px' }}
+                                        />
                                       ) : null}
                                       {params.InputProps.endAdornment}
                                     </React.Fragment>

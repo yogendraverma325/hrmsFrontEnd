@@ -16,7 +16,7 @@ import { MuiTextField } from './text-field';
 import { MuiSelect } from './select';
 import { MuiFormLabel } from './form-label';
 import { MuiDatePicker } from './date-picker';
-
+import { MuiAutocomplete } from './autocomplete';
 export const components: Components<Theme> = {
   MuiAvatar,
   MuiButton,
@@ -32,4 +32,5 @@ export const components: Components<Theme> = {
   MuiTextField,
   MuiSelect,
   MuiFormLabel,
+  MuiAutocomplete,
 };
