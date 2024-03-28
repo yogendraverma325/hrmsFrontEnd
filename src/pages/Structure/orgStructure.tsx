@@ -158,7 +158,9 @@ function OrgStructure() {
   const [userData, setUserData] = React.useState(null);
 
   useEffect(() => {
-    const defaultUserId = 31;
+    const user = JSON.parse(localStorage.getItem('userData'));
+    console.log('user', user.id);
+    const defaultUserId = user.id;
     const fetchDataWrapper = async (defaultUserId) => {
       setUserData(await fetchData(defaultUserId));
     };

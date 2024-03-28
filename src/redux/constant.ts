@@ -1,5 +1,7 @@
 // ==============================|| THEME CONFIG  ||============================== //
 
+export const gridSpacing = 3;
+
 const config = {
   defaultPath: '/addEmp',
   // apiUrl: 'http://192.168.10.29:8089/api',

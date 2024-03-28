@@ -5,6 +5,7 @@ import Lodable from '../components/Lodable';
 
 import AdminLayout from '../layout/MainLayout/Layout';
 import ProtectedRoute from './ProtectedRoute';
+import PersonalDetails from '@/pages/Profile/PersonalDetails';
 
 const Login = Lodable(lazy(() => import('../pages/auth/Login')));
 const AddEmp = Lodable(lazy(() => import('../pages/Employees/AddEmp')));
@@ -25,6 +26,14 @@ const BaseRoutes = () => {
           path="/addEmp"
           element={
             <AdminLayout>
+              <AddEmp />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="/dashbaord"
+          element={
+            <AdminLayout>
               <Dashboard />
             </AdminLayout>
           }
@@ -37,7 +46,16 @@ const BaseRoutes = () => {
             </AdminLayout>
           }
         />
+        <Route
+          path="/profile"
+          element={
+            <AdminLayout>
+              <PersonalDetails />
+            </AdminLayout>
+          }
+        />
       </Route>
+
       <Route path="*" element={<Navigate to={'/login'} replace />} />
     </Routes>
   );
