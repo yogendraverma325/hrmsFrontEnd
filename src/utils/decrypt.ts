@@ -14,7 +14,6 @@ export const Decrypt = () => {
 
   if (encryptedLocalStorageData) {
     const decryptedUserData: Employee = JSON.parse(encryptedLocalStorageData);
-    console.log('decryptedUserData', decryptedUserData);
 
     id = decryptedUserData.id || decryptedUserData?.id;
     name = decryptedUserData.name || decryptedUserData?.name;

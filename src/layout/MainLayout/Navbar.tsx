@@ -113,7 +113,7 @@ export default function NavBar() {
               </IconButton>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }} ref={userMenuRef}>
-                  <Avatar alt="Remy Sharp" src="/src/assets/img/user1.png" />
+                  <Avatar alt="Remy Sharp" src="/src/assets/images/avatar.jpg" />
                 </IconButton>
               </Tooltip>
             </Stack>

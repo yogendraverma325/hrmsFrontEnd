@@ -12,15 +12,18 @@ import {
   Typography,
 } from '@material-ui/core';
 
+import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
+import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import BrowseGalleryOutlinedIcon from '@mui/icons-material/BrowseGalleryOutlined';
+
 // project imports
 import MainCard from '../../../components/Cards/MainCards';
-// assets
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import { iconData } from '../Dashboard';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
   card: {
-    backgroundColor: '#d6cbd3',
     color: 'black',
     overflow: 'hidden',
     position: 'relative',
@@ -33,6 +36,11 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '50%',
       top: '-30px',
       right: '-180px',
+    },
+    '&:hover': {
+      // New hover effect
+      boxShadow: '0 4px 20px 0 rgba(0,0,0,0.12)',
+      transition: 'box-shadow 0.3s ease',
     },
     '&:before': {
       position: 'absolute',
@@ -82,7 +90,8 @@ const useStyles = makeStyles((theme) => ({
 
 //-----------------------|| DASHBOARD - TOTAL INCOME DARK CARD ||-----------------------//
 
-const Employees = ({ isLoading }) => {
+const Index = (props: iconData) => {
+  const { data } = props;
   const classes = useStyles();
 
   return (
@@ -92,7 +101,8 @@ const Employees = ({ isLoading }) => {
           <ListItem alignItems="center" disableGutters className={classes.padding}>
             <ListItemAvatar>
               <Avatar variant="rounded" className={classes.avatar}>
-                <AccountCircleOutlinedIcon fontSize="inherit" />
+                {data.icon}
+                {/* <AccountCircleOutlinedIcon fontSize="inherit" /> */}
               </Avatar>
             </ListItemAvatar>
             <ListItemText
@@ -103,12 +113,12 @@ const Employees = ({ isLoading }) => {
               }}
               primary={
                 <Typography variant="h4" className={classes.primary}>
-                  0
+                  {data.count}
                 </Typography>
               }
               secondary={
                 <Typography variant="subtitle2" className={classes.secondary}>
-                  Organization View
+                  {data.title}
                 </Typography>
               }
             />
@@ -119,4 +129,4 @@ const Employees = ({ isLoading }) => {
   );
 };
 
-export default Employees;
+export default Index;

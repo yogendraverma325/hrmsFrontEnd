@@ -29,7 +29,10 @@ import { gridSpacing } from '@/redux/constant';
 import { Decrypt } from '../../utils/decrypt';
 import PersonalDetails from './Personal';
 import OrgStructure from '../Structure/orgStructure';
+import { getProfile } from '@/api/mainApi';
+import { useQuery } from '@tanstack/react-query';
 const AccountProfile = (props: any) => {
+  const { data, isLoading, isError, error } = useQuery(['profile'], getProfile);
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const formRef = useRef(null);
@@ -83,129 +86,162 @@ const AccountProfile = (props: any) => {
       </Box>
       <TabPanel value={value} index={0}>
         <Box p={0}>
-          <Grid container spacing={gridSpacing}>
-            <Grid item xs={12} lg={12} />
-            <Grid item xs={12} lg={3} md={3}>
-              <SubCard content={false}>
-                <CardContent>
-                  <Grid container spacing={{ xs: 3 }} justifyContent="center">
-                    <Grid item xs={12}>
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          justifyContent: 'end',
-                        }}
-                      ></Box>
+          {isLoading && <div>Loading...</div>}
+          {data && (
+            <Grid container spacing={gridSpacing}>
+              <Grid item xs={12} lg={3} md={3}>
+                <SubCard content={false}>
+                  <CardContent>
+                    <Grid container spacing={{ xs: 3 }} justifyContent="center">
+                      <Grid item xs={12}>
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'end',
+                          }}
+                        ></Box>
+                      </Grid>
+                      <Grid item sm={3}>
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <Avatar
+                            sx={{ height: 100, width: 100 }}
+                            src={userProfileIcon}
+                            color="inherit"
+                          />
+                        </Box>
+                      </Grid>
+                      <Grid item xs={12} sm={6} lg={12} md={12}>
+                        <Stack
+                          flexDirection="column"
+                          justifyContent="center"
+                          alignItems="center"
+                        >
+                          <Typography variant="h4" textAlign="center">
+                            {Decrypt().firstName}
+                          </Typography>
+                        </Stack>
+                      </Grid>
                     </Grid>
-                    <Grid item sm={3}>
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}
-                      >
-                        <Avatar
-                          sx={{ height: 90, width: 90 }}
-                          src={userProfileIcon}
-                          color="inherit"
-                        />
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12} sm={6} lg={12} md={12}>
-                      <Stack
-                        flexDirection="column"
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <Typography variant="h4" textAlign="center">
-                          {Decrypt().firstName}
-                        </Typography>
-                      </Stack>
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </SubCard>
-            </Grid>
-            <Grid item xs={12} lg={9} md={9}>
-              <SubCard title="Personal Information">
-                <Box>
-                  <Grid container spacing={{ xs: 3 }}>
-                    <Grid item xs={12} sm={6}>
-                      <FormControl
-                        disabled
-                        size="small"
-                        fullWidth
-                        sx={{ ...theme.typography.customInput }}
-                      >
-                        <InputLabel htmlFor="for-name">First Name</InputLabel>
-                        <OutlinedInput
-                          id="for-name"
-                          value={
-                            Decrypt().firstName.split(' ').slice(0, -1).join(' ')
+                  </CardContent>
+                </SubCard>
+              </Grid>
+              <Grid item xs={12} lg={9} md={9}>
+                <SubCard title="Personal Information">
+                  <Box>
+                    <Grid container spacing={{ xs: 3 }}>
+                      <Grid item xs={12} sm={4}>
+                        <Stack direction="column" spacing={1} alignItems="flex-start">
+                          <Typography variant="subtitle1">First Name</Typography>
+                          <Typography variant="body2">
+                            {' '}
+                            {Decrypt().firstName.split(' ').slice(0, -1).join(' ')
                               .length === 0
                               ? Decrypt().firstName
-                              : Decrypt().firstName.split(' ').slice(0, -1).join(' ')
-                          }
-                          label="First Name"
-                        />
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <FormControl
-                        disabled
-                        size="small"
-                        fullWidth
-                        sx={{ ...theme.typography.customInput }}
-                      >
-                        <InputLabel htmlFor="for-last-name">Last Name</InputLabel>
-                        <OutlinedInput
-                          id="for-last-name"
-                          value={
-                            Decrypt().lastName.split(' ').slice(0, -1).join(' ')
+                              : Decrypt().firstName.split(' ').slice(0, -1).join(' ')}
+                          </Typography>
+                        </Stack>
+                      </Grid>
+                      <Grid item xs={12} sm={4}>
+                        <Stack direction="column" spacing={1} alignItems="flex-start">
+                          <Typography variant="subtitle1">Last Name</Typography>
+                          <Typography variant="body2">
+                            {' '}
+                            {Decrypt().lastName.split(' ').slice(0, -1).join(' ')
                               .length === 0
                               ? Decrypt().lastName
-                              : Decrypt().lastName.split(' ').slice(0, -1).join(' ')
-                          }
-                          label="Last Name"
-                        />
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <FormControl
-                        disabled
-                        size="small"
-                        fullWidth
-                        sx={{ ...theme.typography.customInput }}
-                      >
-                        <InputLabel htmlFor="for-email">Email Address</InputLabel>
-                        <OutlinedInput
-                          id="for-email"
-                          value={Decrypt().email}
-                          label="Email Address"
-                        />
-                      </FormControl>
-                    </Grid>
-                  </Grid>
-                </Box>
-              </SubCard>
-            </Grid>
+                              : Decrypt().lastName.split(' ').slice(0, -1).join(' ')}
+                          </Typography>
+                        </Stack>
+                      </Grid>
+                      <Grid item xs={12} sm={4}>
+                        <Stack direction="column" spacing={1} alignItems="flex-start">
+                          <Typography variant="subtitle1">Email</Typography>
+                          <Typography variant="body2">{Decrypt().email}</Typography>
+                        </Stack>
+                      </Grid>
 
-            <Grid item xs={12} lg={12} md={0}>
-              <PerfectScrollbar
-                component="div"
-                style={{
-                  height: 'auto',
-                }}
-              >
-                <SubCard title="Orgnizational Chart">
-                  <OrgStructure />
+                      <Grid item xs={12} sm={4}>
+                        <Stack direction="column" spacing={1} alignItems="flex-start">
+                          <Typography variant="subtitle1">
+                            Personal Mobile Number
+                          </Typography>
+                          <Typography variant="body2">
+                            {data?.data?.personalMobileNumber}
+                          </Typography>
+                        </Stack>
+                      </Grid>
+
+                      <Grid item xs={12} sm={4}>
+                        <Stack direction="column" spacing={1} alignItems="flex-start">
+                          <Typography variant="subtitle1">
+                            Office Mobile Number
+                          </Typography>
+                          <Typography variant="body2">
+                            {data?.data?.officeMobileNumber}
+                          </Typography>
+                        </Stack>
+                      </Grid>
+
+                      <Grid item xs={12} sm={4}>
+                        <Stack direction="column" spacing={1} alignItems="flex-start">
+                          <Typography variant="subtitle1">Designation</Typography>
+                          <Typography variant="body2">
+                            {data?.data?.designationmaster.name}
+                          </Typography>
+                        </Stack>
+                      </Grid>
+                      <Grid item xs={12} sm={4}>
+                        <Stack direction="column" spacing={1} alignItems="flex-start">
+                          <Typography variant="subtitle1">Department</Typography>
+                          <Typography variant="body2">
+                            {data?.data?.departmentmaster.departmentName}
+                          </Typography>
+                        </Stack>
+                      </Grid>
+                      <Grid item xs={12} sm={4}>
+                        <Stack direction="column" spacing={1} alignItems="flex-start">
+                          <Typography variant="subtitle1">Functional Area</Typography>
+                          <Typography variant="body2">
+                            {data?.data?.functionalareamaster.functionalAreaName}
+                          </Typography>
+                        </Stack>
+                      </Grid>
+                      <Grid item xs={12} sm={4}>
+                        <Stack direction="column" spacing={1} alignItems="flex-start">
+                          <Typography variant="subtitle1">BU</Typography>
+                          <Typography variant="body2">
+                            {data?.data?.bumaster.buName}
+                          </Typography>
+                        </Stack>
+                      </Grid>
+                    </Grid>
+                  </Box>
                 </SubCard>
-              </PerfectScrollbar>
+              </Grid>
+
+              <Grid item xs={12} lg={12} md={0}>
+                {/* Ensure key is unique */}
+                <PerfectScrollbar
+                  component="div"
+                  style={{
+                    height: 'auto',
+                  }}
+                >
+                  <SubCard title="Organizational Chart">
+                    <OrgStructure />
+                  </SubCard>
+                </PerfectScrollbar>
+              </Grid>
             </Grid>
-          </Grid>
+          )}
         </Box>
       </TabPanel>
       <TabPanel value={value} index={1}>

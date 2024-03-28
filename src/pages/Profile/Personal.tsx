@@ -3,97 +3,218 @@ import PropTypes from 'prop-types';
 
 import { Formik } from 'formik';
 import {
-  Box,
   Grid,
-  InputLabel,
-  FormControl,
-  FormHelperText,
-  OutlinedInput,
-  Button,
-  InputAdornment,
+  CardContent,
+  Avatar,
   IconButton,
+  FormControl,
+  InputLabel,
+  Stack,
+  Typography,
+  Box,
 } from '@mui/material';
 
 import SubCard from '../../components/Cards/SubCard';
-
+import { getpersonalDetails } from '@/api/mainApi';
 import { useTheme } from '@mui/system';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { gridSpacing } from '@/redux/constant';
 import { Decrypt } from '../../utils/decrypt';
+import { useQuery } from '@tanstack/react-query';
+import { Profile } from '@/models/feed';
 const PersonalDetails = (props: any) => {
   const theme = useTheme();
 
-  useEffect(() => {
-    // return () => {};
-  }, []);
+  const { data, isLoading, isError, error } = useQuery(['personal'], getpersonalDetails);
 
   return (
     <Box p={0}>
-      <Grid container spacing={gridSpacing} direction="column">
-        <Grid item xs />
-        <Grid item xs sx={{ paddingLeft: '0 !important' }}>
-          <SubCard title="Biographical Information">
-            <Box>
-              <Grid container spacing={{ xs: 3 }}>
-                <Grid item xs={12} sm={6}>
-                  <FormControl
-                    disabled
-                    size="small"
-                    fullWidth
-                    sx={{ ...theme.typography.customInput }}
-                  >
-                    <InputLabel htmlFor="for-name">First Name</InputLabel>
-                    <OutlinedInput
-                      id="for-name"
-                      value={
-                        Decrypt().firstName.split(' ').slice(0, -1).join(' ').length === 0
-                          ? Decrypt().firstName
-                          : Decrypt().firstName.split(' ').slice(0, -1).join(' ')
-                      }
-                      label="First Name"
-                    />
-                  </FormControl>
+      {isLoading && <div>Loading...</div>}
+
+      {data && (
+        <Grid container spacing={gridSpacing} direction="column">
+          {/* BIOGRAPHY DETAILS */}
+          <Grid item xs sx={{ paddingLeft: '0 !important' }}>
+            <SubCard title="Biographical Details">
+              <Box p={0}>
+                <Grid container spacing={gridSpacing}>
+                  <Grid item xs={12} lg={12} md={12}>
+                    <Box>
+                      <Grid container spacing={{ xs: 3 }}>
+                        <Grid item xs={12} sm={3} md={3}>
+                          <Stack direction="column" spacing={1} alignItems="flex-start">
+                            <Typography variant="subtitle1">Nationality</Typography>
+                            <Typography variant="body2">
+                              {data?.data?.employeebiographicaldetail.nationality}
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                        <Grid item xs={12} sm={3} md={3}>
+                          <Stack direction="column" spacing={1} alignItems="flex-start">
+                            <Typography variant="subtitle1">Marital Status</Typography>
+                            <Typography variant="body2">
+                              {data?.data?.employeebiographicaldetail.maritalStatus
+                                ? 'Single'
+                                : 'Married'}
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                        <Grid item xs={12} sm={3} md={3}>
+                          <Stack direction="column" spacing={1} alignItems="flex-start">
+                            <Typography variant="subtitle1">Mobile Access</Typography>
+                            <Typography variant="body2">
+                              {data?.data?.employeebiographicaldetail.mobileAccess
+                                ? 'Single'
+                                : 'Married'}
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                        <Grid item xs={12} sm={3} md={3}>
+                          <Stack direction="column" spacing={1} alignItems="flex-start">
+                            <Typography variant="subtitle1">Laptop System</Typography>
+                            <Typography variant="body2">
+                              {data?.data?.employeebiographicaldetail.laptopSystem}
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                        <Grid item xs={12} sm={3} md={3}>
+                          <Stack direction="column" spacing={1} alignItems="flex-start">
+                            <Typography variant="subtitle1">
+                              Background Verification
+                            </Typography>
+                            <Typography variant="body2">
+                              {data?.data?.employeebiographicaldetail
+                                .backgroundVerification
+                                ? 'Yes'
+                                : 'No'}
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                        <Grid item xs={12} sm={3} md={3}>
+                          <Stack direction="column" spacing={1} alignItems="flex-start">
+                            <Typography variant="subtitle1">Gender</Typography>
+                            <Typography variant="body2">
+                              {data?.data?.employeebiographicaldetail.gender}
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                        <Grid item xs={12} sm={3} md={3}>
+                          <Stack direction="column" spacing={1} alignItems="flex-start">
+                            <Typography variant="subtitle1">Date Of Birth</Typography>
+                            <Typography variant="body2">
+                              {data?.data?.employeebiographicaldetail.dateOfBirth}
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                      </Grid>
+                    </Box>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                  <FormControl
-                    disabled
-                    size="small"
-                    fullWidth
-                    sx={{ ...theme.typography.customInput }}
-                  >
-                    <InputLabel htmlFor="for-last-name">Last Name</InputLabel>
-                    <OutlinedInput
-                      id="for-last-name"
-                      value={
-                        Decrypt().lastName.split(' ').slice(0, -1).join(' ').length === 0
-                          ? Decrypt().lastName
-                          : Decrypt().lastName.split(' ').slice(0, -1).join(' ')
-                      }
-                      label="Last Name"
-                    />
-                  </FormControl>
+              </Box>
+            </SubCard>
+          </Grid>
+          {/* JOB DETAILS */}
+          <Grid item xs sx={{ paddingLeft: '0 !important' }}>
+            <SubCard title="Job Details">
+              <Box p={0}>
+                <Grid container spacing={gridSpacing}>
+                  <Grid item xs={12} lg={12} md={12}>
+                    <Box>
+                      <Grid container spacing={{ xs: 3 }}>
+                        <Grid item xs={12} sm={3} md={3}>
+                          <Stack direction="column" spacing={1} alignItems="flex-start">
+                            <Typography variant="subtitle1">Employee Code</Typography>
+                            <Typography variant="body2">{data?.data?.empCode}</Typography>
+                          </Stack>
+                        </Grid>
+                        <Grid item xs={12} sm={3} md={3}>
+                          <Stack direction="column" spacing={1} alignItems="flex-start">
+                            <Typography variant="subtitle1">Date Of Joining</Typography>
+                            <Typography variant="body2">
+                              {data?.data?.employeejobdetail.dateOfJoining}
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                        <Grid item xs={12} sm={3} md={3}>
+                          <Stack direction="column" spacing={1} alignItems="flex-start">
+                            <Typography variant="subtitle1">Probation Period</Typography>
+                            <Typography variant="body2">
+                              {data?.data?.employeejobdetail.probationPeriod}
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                        <Grid item xs={12} sm={3} md={3}>
+                          <Stack direction="column" spacing={1} alignItems="flex-start">
+                            <Typography variant="subtitle1">languages Spoken</Typography>
+                            <Typography variant="body2">
+                              {data?.data?.employeejobdetail.languagesSpoken}
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                      </Grid>
+                    </Box>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                  <FormControl
-                    disabled
-                    size="small"
-                    fullWidth
-                    sx={{ ...theme.typography.customInput }}
-                  >
-                    <InputLabel htmlFor="for-email">Email Address</InputLabel>
-                    <OutlinedInput
-                      id="for-email"
-                      value={Decrypt().email}
-                      label="Email Address"
-                    />
-                  </FormControl>
+              </Box>
+            </SubCard>
+          </Grid>
+          {/* JOB DETAILS */}
+
+          {/* EMERGENCY DETAILS */}
+          <Grid item xs sx={{ paddingLeft: '0 !important' }}>
+            <SubCard title="Emergency Details">
+              <Box p={0}>
+                <Grid container spacing={gridSpacing}>
+                  <Grid item xs={12} lg={12} md={12}>
+                    <Box>
+                      <Grid container spacing={{ xs: 3 }}>
+                        <Grid item xs={12} sm={3} md={3}>
+                          <Stack direction="column" spacing={1} alignItems="flex-start">
+                            <Typography variant="subtitle1">
+                              Emergency Contact Name
+                            </Typography>
+                            <Typography variant="body2">
+                              {data?.data?.employeeemergencycontact.emergencyContactName}
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                        <Grid item xs={12} sm={3} md={3}>
+                          <Stack direction="column" spacing={1} alignItems="flex-start">
+                            <Typography variant="subtitle1">
+                              Emergency Contact Mobile
+                            </Typography>
+                            <Typography variant="body2">
+                              {
+                                data?.data?.employeeemergencycontact
+                                  .emergencyContactNumber
+                              }
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                        <Grid item xs={12} sm={3} md={3}>
+                          <Stack direction="column" spacing={1} alignItems="flex-start">
+                            <Typography variant="subtitle1">
+                              Emergency Contact Relation
+                            </Typography>
+                            <Typography variant="body2">
+                              {
+                                data?.data?.employeeemergencycontact
+                                  .emergencyContactRelation
+                              }
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                      </Grid>
+                    </Box>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Box>
-          </SubCard>
+              </Box>
+            </SubCard>
+          </Grid>
+          {/* EMERGENCY DETAILS */}
         </Grid>
-      </Grid>
+      )}
     </Box>
   );
 };

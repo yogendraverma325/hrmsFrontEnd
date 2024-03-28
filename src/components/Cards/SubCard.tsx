@@ -83,9 +83,10 @@ SubCard.propTypes = {
   secondary: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object]),
   sx: PropTypes.object,
   contentSX: PropTypes.object,
-  title: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object]),
+  title: PropTypes.string,
 };
 
+// Default props
 SubCard.defaultProps = {
   content: true,
 };

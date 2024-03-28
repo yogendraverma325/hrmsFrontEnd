@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Organization({ org, onCollapse, collapsed }) {
   const classes = useStyles();
-  console.log('org', org);
   return (
     <Card variant="outlined">
       <CssBaseline />
@@ -69,7 +68,6 @@ const userObject = (input: any) => {
   );
 };
 function Account({ a }) {
-  console.log('acount', a);
   const classes = useStyles();
   return (
     <Card
@@ -175,7 +173,6 @@ function OrgStructure() {
   };
 
   const prepareData = (inputData) => {
-    console.log('inputData', inputData);
     const { normalReported, hierarhcyReportee } = checkNormalChildAndOthers(
       inputData?.data,
     );
