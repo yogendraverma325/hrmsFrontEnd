@@ -107,7 +107,7 @@ const Attandence = ({ isLoading }) => {
               }
               secondary={
                 <Typography variant="subtitle2" className={classes.secondary}>
-                  Attandence
+                  Attendance
                 </Typography>
               }
             />

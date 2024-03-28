@@ -108,7 +108,7 @@ const Employees = ({ isLoading }) => {
               }
               secondary={
                 <Typography variant="subtitle2" className={classes.secondary}>
-                  Employees
+                  Organization View
                 </Typography>
               }
             />

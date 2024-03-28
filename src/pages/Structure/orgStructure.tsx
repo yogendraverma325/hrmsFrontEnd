@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Organization({ org, onCollapse, collapsed }) {
   const classes = useStyles();
-
+  console.log('org', org);
   return (
     <Card variant="outlined">
       <CssBaseline />
@@ -51,7 +51,7 @@ function Organization({ org, onCollapse, collapsed }) {
           [classes.expandOpen]: !collapsed,
         })}
       >
-        <KeyboardArrowUpOutlinedIcon />
+        {org.child > 0 && <KeyboardArrowUpOutlinedIcon />}
       </IconButton>
     </Card>
   );
@@ -138,12 +138,14 @@ const checkNormalChildAndOthers = (data) => {
         id: element.id,
         datacome: false,
         account: [],
+        child: true,
         organizationChildRelationship: [],
       });
     } else {
       normalReported.push({
         name: element.name,
         id: element.id,
+        child: false,
         designation: element.designationmaster.name,
       });
     }
@@ -159,7 +161,6 @@ function OrgStructure() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('userData'));
-    console.log('user', user.id);
     const defaultUserId = user.id;
     const fetchDataWrapper = async (defaultUserId) => {
       setUserData(await fetchData(defaultUserId));
@@ -183,6 +184,7 @@ function OrgStructure() {
       designation: inputData?.data?.designationmaster?.name,
       id: inputData?.data.id,
       datacome: false,
+      child: normalReported.length > 0 || hierarhcyReportee.length > 0 ? true : false,
       account: normalReported,
       organizationChildRelationship: hierarhcyReportee,
     };

@@ -5,7 +5,7 @@ import Lodable from '../components/Lodable';
 
 import AdminLayout from '../layout/MainLayout/Layout';
 import ProtectedRoute from './ProtectedRoute';
-import PersonalDetails from '@/pages/Profile/PersonalDetails';
+import PersonalDetails from '@/pages/Profile';
 
 const Login = Lodable(lazy(() => import('../pages/auth/Login')));
 const AddEmp = Lodable(lazy(() => import('../pages/Employees/AddEmp')));

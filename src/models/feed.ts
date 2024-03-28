@@ -5,6 +5,16 @@ interface User {
   lastName: string;
   email: string;
 }
+export interface Employee {
+  id: number;
+  name: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  manager: number;
+  role_id: number;
+  designation_id: number;
+}
 
 export interface EmpListResponse {
   statusCode: string;

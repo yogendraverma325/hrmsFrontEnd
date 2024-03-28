@@ -30,11 +30,12 @@ import {
 } from '@mui/material';
 import MainCard from '../../components/Cards/MainCards';
 import Transitions from '../../components/extended/Transitions';
-import NotificationList from '../../components/Notification';
+import NotificationList from '../../components/Notifications';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '@/redux/reducers/utilitesSlice';
 import { RootState } from '@/redux/reducers';
+import { useNavigate } from 'react-router-dom';
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -50,7 +51,7 @@ export default function NavBar() {
   const dispatch = useDispatch();
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
-
+  const navigate = useNavigate();
   const handleDrawer = () => {
     dispatch(toggleModal({ isActive: !Utils.isActive }));
   };
@@ -75,6 +76,9 @@ export default function NavBar() {
     serUserMenuOn(false);
   };
 
+  const handleListItemClick = (URL: string) => {
+    navigate(URL, { replace: true });
+  };
   return (
     <>
       <AppBar position="fixed" open={Utils.isActive} sx={{ backgroundColor: '#104155' }}>
@@ -218,28 +222,27 @@ export default function NavBar() {
                       {/* REMINDER: ADD SHADOW FOR BETTER UI */}
                       <MainCard border={false} elevation={16} content={false} boxShadow>
                         <List>
-                          <ListItem>
+                          <ListItem onClick={() => handleListItemClick('/profile')}>
                             <ListItemIcon>
                               <Person />
                             </ListItemIcon>
                             <Typography textAlign="center">Profile</Typography>
                           </ListItem>
 
-                          <ListItem>
-                            <ListItemIcon>
-                              <AccountCircle />
-                            </ListItemIcon>
-                            <Typography textAlign="center">Account</Typography>
-                          </ListItem>
-
-                          <ListItem>
+                          <ListItem onClick={() => handleListItemClick('/dashbaord')}>
                             <ListItemIcon>
                               <Dashboard />
                             </ListItemIcon>
                             <Typography textAlign="center">Dashboard</Typography>
                           </ListItem>
                           <Divider />
-                          <ListItem>
+
+                          <ListItem
+                            onClick={() => {
+                              localStorage.clear();
+                              navigate('auth/login', { replace: true });
+                            }}
+                          >
                             <ListItemIcon>
                               <ExitToApp />
                             </ListItemIcon>

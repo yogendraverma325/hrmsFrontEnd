@@ -5,26 +5,18 @@ import React, { forwardRef } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 
-// constant
-const headerSX = {
-  '& .MuiCardHeader-action': { mr: 0 },
-};
+// ==============================|| CUSTOM SUB CARD ||============================== //
 
-// ==============================|| CUSTOM MAIN CARD ||============================== //
-
-const MainCard = forwardRef(
+const SubCard = forwardRef(
   (
     {
-      border = true,
-      boxShadow,
       children,
-      content = true,
-      contentClass = '',
-      contentSX = {},
+      content,
+      contentClass,
       darkTitle,
       secondary,
-      shadow,
       sx = {},
+      contentSX = {},
       title,
       ...others
     },
@@ -35,36 +27,45 @@ const MainCard = forwardRef(
     return (
       <Card
         ref={ref}
-        {...others}
         sx={{
-          border: border ? '0.5px solid' : 'none',
-          borderColor: '##104155',
+          border: '0px solid',
+          borderColor: theme.palette.primary.dark,
           ':hover': {
-            boxShadow: boxShadow
-              ? shadow || '0 2px 14px 0 rgb(32 40 45 / 8%)'
-              : 'inherit',
+            boxShadow: '0 2px 14px 0 rgb(32 40 45 / 8%)',
           },
           ...sx,
         }}
+        {...others}
       >
         {/* card header and action */}
         {!darkTitle && title && (
-          <CardHeader sx={headerSX} title={title} action={secondary} />
+          <CardHeader
+            sx={{ p: 2.5 }}
+            title={<Typography variant="h5">{title}</Typography>}
+            action={secondary}
+          />
         )}
         {darkTitle && title && (
           <CardHeader
-            sx={headerSX}
-            title={<Typography variant="h3">{title}</Typography>}
+            sx={{ p: 2.5 }}
+            title={<Typography variant="h4">{title}</Typography>}
             action={secondary}
           />
         )}
 
         {/* content & header divider */}
-        {title && <Divider />}
+        {title && (
+          <Divider
+            sx={{
+              opacity: 0,
+              borderColor: theme.palette.primary.light,
+            }}
+          />
+        )}
 
         {/* card content */}
         {content && (
-          <CardContent sx={contentSX} className={contentClass}>
+          <CardContent sx={{ p: 2.5, ...contentSX }} className={contentClass || ''}>
             {children}
           </CardContent>
         )}
@@ -74,18 +75,19 @@ const MainCard = forwardRef(
   },
 );
 
-MainCard.propTypes = {
-  border: PropTypes.bool,
-  boxShadow: PropTypes.bool,
+SubCard.propTypes = {
   children: PropTypes.node,
   content: PropTypes.bool,
   contentClass: PropTypes.string,
-  contentSX: PropTypes.object,
   darkTitle: PropTypes.bool,
   secondary: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object]),
-  shadow: PropTypes.string,
   sx: PropTypes.object,
+  contentSX: PropTypes.object,
   title: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object]),
 };
 
-export default MainCard;
+SubCard.defaultProps = {
+  content: true,
+};
+
+export default SubCard;
