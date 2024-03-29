@@ -133,7 +133,7 @@ const PersonalDetails = (props: any) => {
                           <Stack direction="column" spacing={1} alignItems="flex-start">
                             <Typography variant="subtitle1">Date Of Joining</Typography>
                             <Typography variant="body2">
-                              {data?.data?.employeejobdetail.dateOfJoining}
+                              {data?.data?.employeejobdetail?.dateOfJoining}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -141,7 +141,7 @@ const PersonalDetails = (props: any) => {
                           <Stack direction="column" spacing={1} alignItems="flex-start">
                             <Typography variant="subtitle1">Probation Period</Typography>
                             <Typography variant="body2">
-                              {data?.data?.employeejobdetail.probationPeriod}
+                              {data?.data?.employeejobdetail?.probationPeriod}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -149,7 +149,7 @@ const PersonalDetails = (props: any) => {
                           <Stack direction="column" spacing={1} alignItems="flex-start">
                             <Typography variant="subtitle1">languages Spoken</Typography>
                             <Typography variant="body2">
-                              {data?.data?.employeejobdetail.languagesSpoken}
+                              {data?.data?.employeejobdetail?.languagesSpoken}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -161,6 +161,57 @@ const PersonalDetails = (props: any) => {
             </SubCard>
           </Grid>
           {/* JOB DETAILS */}
+
+          {/* PAYMENT DETAILS */}
+          <Grid item xs sx={{ paddingLeft: '0 !important' }}>
+            <SubCard title="Payment Details">
+              <Box p={0}>
+                <Grid container spacing={gridSpacing}>
+                  <Grid item xs={12} lg={12} md={12}>
+                    <Box>
+                      <Grid container spacing={{ xs: 3 }}>
+                        <Grid item xs={12} sm={3} md={3}>
+                          <Stack direction="column" spacing={1} alignItems="flex-start">
+                            <Typography variant="subtitle1">Account Number</Typography>
+                            <Typography variant="body2">
+                              {data?.data?.employeepaymentdetail?.paymentAccountNumber}
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                        <Grid item xs={12} sm={3} md={3}>
+                          <Stack direction="column" spacing={1} alignItems="flex-start">
+                            <Typography variant="subtitle1">
+                              Account Holder Name
+                            </Typography>
+                            <Typography variant="body2">
+                              {data?.data?.employeepaymentdetail?.paymentHolderName}
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                        <Grid item xs={12} sm={3} md={3}>
+                          <Stack direction="column" spacing={1} alignItems="flex-start">
+                            <Typography variant="subtitle1">Bank Name</Typography>
+                            <Typography variant="body2">
+                              {data?.data?.employeepaymentdetail?.paymentBankName}
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                        <Grid item xs={12} sm={3} md={3}>
+                          <Stack direction="column" spacing={1} alignItems="flex-start">
+                            <Typography variant="subtitle1">IFSC</Typography>
+                            <Typography variant="body2">
+                              {data?.data?.employeepaymentdetail?.paymentBankIfsc}
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                      </Grid>
+                    </Box>
+                  </Grid>
+                </Grid>
+              </Box>
+            </SubCard>
+          </Grid>
+          {/* PAYMENT DETAILS */}
 
           {/* EMERGENCY DETAILS */}
           <Grid item xs sx={{ paddingLeft: '0 !important' }}>
@@ -176,7 +227,7 @@ const PersonalDetails = (props: any) => {
                               Emergency Contact Name
                             </Typography>
                             <Typography variant="body2">
-                              {data?.data?.employeeemergencycontact.emergencyContactName}
+                              {data?.data?.employeeemergencycontact?.emergencyContactName}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -188,7 +239,7 @@ const PersonalDetails = (props: any) => {
                             <Typography variant="body2">
                               {
                                 data?.data?.employeeemergencycontact
-                                  .emergencyContactNumber
+                                  ?.emergencyContactNumber
                               }
                             </Typography>
                           </Stack>
@@ -201,7 +252,7 @@ const PersonalDetails = (props: any) => {
                             <Typography variant="body2">
                               {
                                 data?.data?.employeeemergencycontact
-                                  .emergencyContactRelation
+                                  ?.emergencyContactRelation
                               }
                             </Typography>
                           </Stack>

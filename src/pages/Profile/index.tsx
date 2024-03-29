@@ -125,7 +125,7 @@ const AccountProfile = (props: any) => {
                           alignItems="center"
                         >
                           <Typography variant="h4" textAlign="center">
-                            {Decrypt().firstName}
+                            {data?.data?.name}
                           </Typography>
                         </Stack>
                       </Grid>
@@ -141,11 +141,10 @@ const AccountProfile = (props: any) => {
                         <Stack direction="column" spacing={1} alignItems="flex-start">
                           <Typography variant="subtitle1">First Name</Typography>
                           <Typography variant="body2">
-                            {' '}
-                            {Decrypt().firstName.split(' ').slice(0, -1).join(' ')
+                            {data?.data?.firstName.split(' ').slice(0, -1).join(' ')
                               .length === 0
-                              ? Decrypt().firstName
-                              : Decrypt().firstName.split(' ').slice(0, -1).join(' ')}
+                              ? data?.data?.firstName
+                              : data?.data?.firstName.split(' ').slice(0, -1).join(' ')}
                           </Typography>
                         </Stack>
                       </Grid>
@@ -154,10 +153,10 @@ const AccountProfile = (props: any) => {
                           <Typography variant="subtitle1">Last Name</Typography>
                           <Typography variant="body2">
                             {' '}
-                            {Decrypt().lastName.split(' ').slice(0, -1).join(' ')
+                            {data?.data?.lastName.split(' ').slice(0, -1).join(' ')
                               .length === 0
-                              ? Decrypt().lastName
-                              : Decrypt().lastName.split(' ').slice(0, -1).join(' ')}
+                              ? data?.data?.lastName
+                              : data?.data?.lastName.split(' ').slice(0, -1).join(' ')}
                           </Typography>
                         </Stack>
                       </Grid>
