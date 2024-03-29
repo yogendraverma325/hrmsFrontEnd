@@ -12,6 +12,7 @@ import {
   Stack,
   Typography,
   Box,
+  Card,
 } from '@mui/material';
 
 import SubCard from '../../components/Cards/SubCard';
@@ -169,7 +170,7 @@ const PersonalDetails = (props: any) => {
                   <Grid item xs={12} lg={12} md={12}>
                     <Box>
                       <Grid container spacing={{ xs: 3 }}>
-                        <Grid item xs={12} sm={3} md={3}>
+                        <Grid item xs={12} sm={4} md={4}>
                           <Stack direction="column" spacing={1} alignItems="flex-start">
                             <Typography variant="subtitle1">
                               Emergency Contact Name
@@ -179,7 +180,7 @@ const PersonalDetails = (props: any) => {
                             </Typography>
                           </Stack>
                         </Grid>
-                        <Grid item xs={12} sm={3} md={3}>
+                        <Grid item xs={12} sm={4} md={4}>
                           <Stack direction="column" spacing={1} alignItems="flex-start">
                             <Typography variant="subtitle1">
                               Emergency Contact Mobile
@@ -192,7 +193,7 @@ const PersonalDetails = (props: any) => {
                             </Typography>
                           </Stack>
                         </Grid>
-                        <Grid item xs={12} sm={3} md={3}>
+                        <Grid item xs={12} sm={4} md={4}>
                           <Stack direction="column" spacing={1} alignItems="flex-start">
                             <Typography variant="subtitle1">
                               Emergency Contact Relation
@@ -213,6 +214,193 @@ const PersonalDetails = (props: any) => {
             </SubCard>
           </Grid>
           {/* EMERGENCY DETAILS */}
+
+          {/* FAMILY DETAILS */}
+          <Grid item xs sx={{ paddingLeft: '0 !important' }}>
+            <SubCard title="Family Details">
+              <Box p={0}>
+                <Grid container spacing={gridSpacing}>
+                  {data?.data?.employeefamilydetails.map((element: any) => {
+                    return (
+                      <Grid item xs={12} lg={12} md={12}>
+                        <Card style={{ marginTop: 2 }}>
+                          <CardContent>
+                            <Box>
+                              <CardContent>
+                                <Grid container spacing={{ xs: 10 }}>
+                                  <Grid item xs={12} sm={2.5} md={2.5}>
+                                    <Stack
+                                      direction="column"
+                                      spacing={1}
+                                      alignItems="flex-start"
+                                    >
+                                      <Typography variant="subtitle1">Name</Typography>
+                                      <Typography variant="body2">
+                                        {element.name}
+                                      </Typography>
+                                    </Stack>
+                                  </Grid>
+                                  <Grid item xs={12} sm={2.5} md={2.5}>
+                                    <Stack
+                                      direction="column"
+                                      spacing={1}
+                                      alignItems="flex-start"
+                                    >
+                                      <Typography variant="subtitle1">DOB</Typography>
+                                      <Typography variant="body2">
+                                        {element.dob}
+                                      </Typography>
+                                    </Stack>
+                                  </Grid>
+                                  <Grid item xs={12} sm={2.5} md={2.5}>
+                                    <Stack
+                                      direction="column"
+                                      spacing={1}
+                                      alignItems="flex-start"
+                                    >
+                                      <Typography variant="subtitle1">
+                                        Mobile No
+                                      </Typography>
+                                      <Typography variant="body2">
+                                        {element.mobileNo}
+                                      </Typography>
+                                    </Stack>
+                                  </Grid>
+                                  <Grid item xs={12} sm={2} md={2}>
+                                    <Stack
+                                      direction="column"
+                                      spacing={1}
+                                      alignItems="flex-start"
+                                    >
+                                      <Typography variant="subtitle1">
+                                        Relation
+                                      </Typography>
+                                      <Typography variant="body2">
+                                        {element.relationWithEmp}
+                                      </Typography>
+                                    </Stack>
+                                  </Grid>
+                                  <Grid item xs={12} sm={2.5} md={2.5}>
+                                    <Stack
+                                      direction="column"
+                                      spacing={1}
+                                      alignItems="flex-start"
+                                    >
+                                      <Typography variant="subtitle1">Gender</Typography>
+                                      <Typography variant="body2">
+                                        {element.gender}
+                                      </Typography>
+                                    </Stack>
+                                  </Grid>
+                                </Grid>
+                              </CardContent>
+                            </Box>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    );
+                  })}
+                </Grid>
+              </Box>
+            </SubCard>
+          </Grid>
+          {/* FAMILY DETAILS */}
+          {/* FAMILY DETAILS */}
+          <Grid item xs sx={{ paddingLeft: '0 !important' }}>
+            <SubCard title="Education Details">
+              <Box p={0}>
+                <Grid container spacing={gridSpacing}>
+                  {data?.data?.employeeeducationdetails.map((element: any) => {
+                    return (
+                      <Grid item xs={12} lg={12} md={12}>
+                        <Card style={{ marginTop: 2 }}>
+                          <CardContent>
+                            <Box>
+                              <CardContent>
+                                <Grid container spacing={{ xs: 10 }}>
+                                  <Grid item xs={12} sm={2.5} md={2.5}>
+                                    <Stack
+                                      direction="column"
+                                      spacing={1}
+                                      alignItems="flex-start"
+                                    >
+                                      <Typography variant="subtitle1">
+                                        Education
+                                      </Typography>
+                                      <Typography variant="body2">
+                                        {element.degreemaster.degreeName}
+                                      </Typography>
+                                    </Stack>
+                                  </Grid>
+                                  <Grid item xs={12} sm={3} md={3}>
+                                    <Stack
+                                      direction="column"
+                                      spacing={1}
+                                      alignItems="flex-start"
+                                    >
+                                      <Typography variant="subtitle1">
+                                        Institute
+                                      </Typography>
+                                      <Typography variant="body2">
+                                        {element.educationInstitute}
+                                      </Typography>
+                                    </Stack>
+                                  </Grid>
+                                  <Grid item xs={12} sm={2.5} md={2.5}>
+                                    <Stack
+                                      direction="column"
+                                      spacing={1}
+                                      alignItems="flex-start"
+                                    >
+                                      <Typography variant="subtitle1">
+                                        Specialisation
+                                      </Typography>
+                                      <Typography variant="body2">
+                                        {element.educationSpecialisation}
+                                      </Typography>
+                                    </Stack>
+                                  </Grid>
+                                  <Grid item xs={12} sm={2} md={2}>
+                                    <Stack
+                                      direction="column"
+                                      spacing={1}
+                                      alignItems="flex-start"
+                                    >
+                                      <Typography variant="subtitle1">
+                                        Start Date
+                                      </Typography>
+                                      <Typography variant="body2">
+                                        {element.educationStartDate}
+                                      </Typography>
+                                    </Stack>
+                                  </Grid>
+                                  <Grid item xs={12} sm={2} md={2}>
+                                    <Stack
+                                      direction="column"
+                                      spacing={1}
+                                      alignItems="flex-start"
+                                    >
+                                      <Typography variant="subtitle1">
+                                        End Date
+                                      </Typography>
+                                      <Typography variant="body2">
+                                        {element.educationCompletionDate}
+                                      </Typography>
+                                    </Stack>
+                                  </Grid>
+                                </Grid>
+                              </CardContent>
+                            </Box>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    );
+                  })}
+                </Grid>
+              </Box>
+            </SubCard>
+          </Grid>
+          {/* FAMILY DETAILS */}
         </Grid>
       )}
     </Box>

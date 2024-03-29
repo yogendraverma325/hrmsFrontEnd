@@ -122,7 +122,7 @@ const Login = () => {
                   submit: null,
                 }}
                 validationSchema={Yup.object({
-                  username: Yup.string().max(255).required('Email is required'),
+                  username: Yup.string().max(255).required('TMC is required'),
                   password: Yup.string().max(255).required('Password is required'),
                 })}
                 onSubmit={handleUserSubmit}
@@ -146,7 +146,7 @@ const Login = () => {
                             <input
                               {...field}
                               type="text"
-                              placeholder="User Name"
+                              placeholder="TMC"
                               className="user"
                             />
                             <ErrorMessage
