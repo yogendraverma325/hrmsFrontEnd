@@ -56,8 +56,8 @@ const PersonalDetails = (props: any) => {
                             <Typography variant="subtitle1">Marital Status</Typography>
                             <Typography variant="body2">
                               {data?.data?.employeebiographicaldetail.maritalStatus
-                                ? 'Single'
-                                : 'Married'}
+                                ? 'Married'
+                                : 'Single'}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -66,8 +66,8 @@ const PersonalDetails = (props: any) => {
                             <Typography variant="subtitle1">Mobile Access</Typography>
                             <Typography variant="body2">
                               {data?.data?.employeebiographicaldetail.mobileAccess
-                                ? 'Single'
-                                : 'Married'}
+                                ? 'Yes'
+                                : 'No'}
                             </Typography>
                           </Stack>
                         </Grid>
