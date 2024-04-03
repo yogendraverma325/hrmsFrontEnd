@@ -117,7 +117,7 @@ const Login = () => {
             <div className="row">
               <Formik
                 initialValues={{
-                  username: 'manishmaurya@teamcomputers.com',
+                  tmc: '13675',
                   password: 'test1234',
                   submit: null,
                 }}
