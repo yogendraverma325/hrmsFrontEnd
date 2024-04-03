@@ -35,13 +35,16 @@ const useStyles = makeStyles((theme) => ({
   // ...theme,
 }));
 
-function Organization({ org, onCollapse, collapsed }) {
+function Organization({ org, onCollapse, collapsed, handleNodeClick }) {
   const classes = useStyles();
+  const handleClick = () => {
+    handleNodeClick(org);
+  };
   return (
     <Card variant="outlined">
       <CssBaseline />
 
-      <CardHeader variant="outlined" title={userObject(org)} />
+      <CardHeader variant="outlined" title={userObject(org)} onClick={handleClick} />
 
       <IconButton
         size="small"
@@ -56,31 +59,37 @@ function Organization({ org, onCollapse, collapsed }) {
   );
 }
 
-const userObject = (input: any) => {
+const userObject = (input: any, handleNodeClick: any) => {
   return (
     <>
       <AccountCircleOutlinedIcon style={{ fontSize: 40, width: 40, height: 40 }} />
-      <Typography variant="body1">
+      <Typography
+        variant="body1"
+        onClick={() => {
+          handleNodeClick(input);
+        }}
+      >
         {input?.name.charAt(0).toUpperCase() + input?.name.slice(1)}
       </Typography>
       <Typography variant="body2">({input?.designation})</Typography>
     </>
   );
 };
-function Account({ a }) {
+function Account({ a, handleNodeClick }) {
   const classes = useStyles();
+
   return (
     <Card
       variant="outlined"
       className={classes.root}
       sx={{ minHeight: '98px', maxHeight: 'auto' }}
     >
-      <CardHeader title={<>{userObject(a)}</>}></CardHeader>
+      <CardHeader title={<>{userObject(a, handleNodeClick)}</>} id={a.name}></CardHeader>
     </Card>
   );
 }
 
-function Node({ o, parent, fetchData }) {
+function Node({ o, parent, fetchData, handleNodeClick }) {
   const [collapsed, setCollapsed] = React.useState(!o.collapsed);
 
   const handleCollapse = async () => {
@@ -110,15 +119,40 @@ function Node({ o, parent, fetchData }) {
 
   return collapsed ? (
     <T
-      label={<Organization org={o} onCollapse={handleCollapse} collapsed={collapsed} />}
+      label={
+        <Organization
+          org={o}
+          onCollapse={handleCollapse}
+          collapsed={collapsed}
+          handleNodeClick={handleNodeClick}
+        />
+      }
     />
   ) : (
-    <T label={<Organization org={o} onCollapse={handleCollapse} collapsed={collapsed} />}>
+    <T
+      label={
+        <Organization
+          org={o}
+          onCollapse={handleCollapse}
+          collapsed={collapsed}
+          handleNodeClick={handleNodeClick}
+        />
+      }
+    >
       {_.map(o.account, (a) => (
-        <TreeNode key={a.id} label={<Account a={a} />} />
+        <TreeNode
+          key={a.id}
+          label={<Account a={a} handleNodeClick={handleNodeClick} />}
+        />
       ))}
       {_.map(o.organizationChildRelationship, (c) => (
-        <Node key={c.id} o={c} parent={o} fetchData={fetchData} />
+        <Node
+          key={c.id}
+          o={c}
+          parent={o}
+          fetchData={fetchData}
+          handleNodeClick={handleNodeClick}
+        />
       ))}
     </T>
   );
@@ -167,12 +201,12 @@ function OrgStructure() {
     fetchDataWrapper(defaultUserId);
   }, []);
 
-  const fetchData = async (UserId) => {
+  const fetchData = async (UserId: number) => {
     const response = await getHierarchy(UserId);
     return response;
   };
 
-  const prepareData = (inputData) => {
+  const prepareData = (inputData: any) => {
     const { normalReported, hierarhcyReportee } = checkNormalChildAndOthers(
       inputData?.data,
     );
@@ -187,6 +221,10 @@ function OrgStructure() {
     };
   };
 
+  const handleNodeClick = (inputData: any) => {
+    console.log('inputData', inputData, inputData.id);
+  };
+
   return (
     <>
       {userData && (
@@ -198,7 +236,11 @@ function OrgStructure() {
                 height: 'auto',
               }}
             >
-              <Node o={prepareData(userData)} fetchData={fetchData} />
+              <Node
+                o={prepareData(userData)}
+                fetchData={fetchData}
+                handleNodeClick={handleNodeClick}
+              />
             </PerfectScrollbar>
           </DndProvider>
         </Box>
