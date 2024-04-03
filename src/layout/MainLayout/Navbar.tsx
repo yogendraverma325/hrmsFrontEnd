@@ -77,7 +77,13 @@ export default function NavBar() {
   };
 
   const handleListItemClick = (URL: string) => {
-    navigate(URL, { replace: true });
+    const user = JSON.parse(localStorage.getItem('userData'));
+    const defaultUserId = user.id;
+    if (URL == '/profile') {
+      navigate(`/profile/${defaultUserId}`);
+    } else {
+      navigate(URL, { replace: true });
+    }
   };
   return (
     <>

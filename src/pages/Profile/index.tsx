@@ -31,8 +31,16 @@ import PersonalDetails from './Personal';
 import OrgStructure from '../Structure/orgStructure';
 import { getProfile } from '@/api/mainApi';
 import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
 const AccountProfile = (props: any) => {
-  const { data, isLoading, isError, error } = useQuery(['profile'], getProfile);
+  const { userId } = useParams();
+  const queryFunction = () => getProfile(userId);
+
+  // Pass the closure function as the query function to useQuery
+  const { data, isLoading, isError, error } = useQuery(
+    ['profile', userId],
+    queryFunction,
+  );
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const formRef = useRef(null);
@@ -235,7 +243,7 @@ const AccountProfile = (props: any) => {
                   }}
                 >
                   <SubCard title="Organizational Chart">
-                    <OrgStructure />
+                    <OrgStructure userId={userId} />
                   </SubCard>
                 </PerfectScrollbar>
               </Grid>
@@ -244,7 +252,7 @@ const AccountProfile = (props: any) => {
         </Box>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <PersonalDetails />
+        <PersonalDetails userId={userId} />
       </TabPanel>
     </MainCard>
   );

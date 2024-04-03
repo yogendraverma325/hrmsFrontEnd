@@ -25,9 +25,15 @@ import { Decrypt } from '../../utils/decrypt';
 import { useQuery } from '@tanstack/react-query';
 import { Profile } from '@/models/feed';
 const PersonalDetails = (props: any) => {
+  let { userId } = props;
   const theme = useTheme();
+  const queryFunction = () => getpersonalDetails(userId);
 
-  const { data, isLoading, isError, error } = useQuery(['personal'], getpersonalDetails);
+  // Pass the closure function as the query function to useQuery
+  const { data, isLoading, isError, error } = useQuery(
+    ['personalDetails', userId],
+    queryFunction,
+  );
 
   return (
     <Box p={0}>
@@ -47,7 +53,7 @@ const PersonalDetails = (props: any) => {
                           <Stack direction="column" spacing={1} alignItems="flex-start">
                             <Typography variant="subtitle1">Nationality</Typography>
                             <Typography variant="body2">
-                              {data?.data?.employeebiographicaldetail.nationality}
+                              {data?.data?.employeebiographicaldetail?.nationality}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -55,7 +61,7 @@ const PersonalDetails = (props: any) => {
                           <Stack direction="column" spacing={1} alignItems="flex-start">
                             <Typography variant="subtitle1">Marital Status</Typography>
                             <Typography variant="body2">
-                              {data?.data?.employeebiographicaldetail.maritalStatus
+                              {data?.data?.employeebiographicaldetail?.maritalStatus
                                 ? 'Married'
                                 : 'Single'}
                             </Typography>
@@ -65,7 +71,7 @@ const PersonalDetails = (props: any) => {
                           <Stack direction="column" spacing={1} alignItems="flex-start">
                             <Typography variant="subtitle1">Mobile Access</Typography>
                             <Typography variant="body2">
-                              {data?.data?.employeebiographicaldetail.mobileAccess
+                              {data?.data?.employeebiographicaldetail?.mobileAccess
                                 ? 'Yes'
                                 : 'No'}
                             </Typography>
@@ -75,7 +81,7 @@ const PersonalDetails = (props: any) => {
                           <Stack direction="column" spacing={1} alignItems="flex-start">
                             <Typography variant="subtitle1">Laptop System</Typography>
                             <Typography variant="body2">
-                              {data?.data?.employeebiographicaldetail.laptopSystem}
+                              {data?.data?.employeebiographicaldetail?.laptopSystem}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -86,7 +92,7 @@ const PersonalDetails = (props: any) => {
                             </Typography>
                             <Typography variant="body2">
                               {data?.data?.employeebiographicaldetail
-                                .backgroundVerification
+                                ?.backgroundVerification
                                 ? 'Yes'
                                 : 'No'}
                             </Typography>
@@ -96,7 +102,7 @@ const PersonalDetails = (props: any) => {
                           <Stack direction="column" spacing={1} alignItems="flex-start">
                             <Typography variant="subtitle1">Gender</Typography>
                             <Typography variant="body2">
-                              {data?.data?.employeebiographicaldetail.gender}
+                              {data?.data?.employeebiographicaldetail?.gender}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -104,7 +110,7 @@ const PersonalDetails = (props: any) => {
                           <Stack direction="column" spacing={1} alignItems="flex-start">
                             <Typography variant="subtitle1">Date Of Birth</Typography>
                             <Typography variant="body2">
-                              {data?.data?.employeebiographicaldetail.dateOfBirth}
+                              {data?.data?.employeebiographicaldetail?.dateOfBirth}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -271,7 +277,7 @@ const PersonalDetails = (props: any) => {
             <SubCard title="Family Details">
               <Box p={0}>
                 <Grid container spacing={gridSpacing}>
-                  {data?.data?.employeefamilydetails.map((element: any) => {
+                  {data?.data?.employeefamilydetails?.map((element: any) => {
                     return (
                       <Grid item xs={12} lg={12} md={12}>
                         <Card style={{ marginTop: 2 }}>
@@ -358,10 +364,10 @@ const PersonalDetails = (props: any) => {
           {/* FAMILY DETAILS */}
           {/* FAMILY DETAILS */}
           <Grid item xs sx={{ paddingLeft: '0 !important' }}>
-            <SubCard title="Education Details">
+            <SubCard title="Educational Details">
               <Box p={0}>
                 <Grid container spacing={gridSpacing}>
-                  {data?.data?.employeeeducationdetails.map((element: any) => {
+                  {data?.data?.employeeeducationdetails?.map((element: any) => {
                     return (
                       <Grid item xs={12} lg={12} md={12}>
                         <Card style={{ marginTop: 2 }}>

@@ -47,7 +47,7 @@ const BaseRoutes = () => {
           }
         />
         <Route
-          path="/profile"
+          path="profile/:userId"
           element={
             <AdminLayout>
               <PersonalDetails />

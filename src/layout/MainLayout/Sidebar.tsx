@@ -60,6 +60,7 @@ const Sidebar = () => {
           borderRight: 'none',
         },
       }}
+      BackdropProps={{ invisible: true }}
       open={Utils.isActive}
       onClose={() => dispatch(toggleModal({ isActive: false }))}
       onOpen={() => dispatch(toggleModal({ isActive: true }))}

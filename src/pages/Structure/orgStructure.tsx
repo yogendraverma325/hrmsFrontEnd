@@ -15,6 +15,7 @@ import { getHierarchy } from '@/api/mainApi';
 import { Box, CssBaseline, Tooltip, Typography } from '@mui/material';
 import { Badge, Card, CardHeader, IconButton } from '@mui/material';
 import { date } from 'yup';
+import { useNavigate } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
   root: {
     background: 'white',
@@ -188,17 +189,16 @@ const checkNormalChildAndOthers = (data) => {
   };
 };
 
-function OrgStructure() {
+const OrgStructure = (props: any) => {
+  let { userId } = props;
   const [userData, setUserData] = React.useState(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('userData'));
-    const defaultUserId = user.id;
-    const fetchDataWrapper = async (defaultUserId) => {
-      setUserData(await fetchData(defaultUserId));
+    const fetchDataWrapper = async (userId) => {
+      setUserData(await fetchData(userId));
     };
 
-    fetchDataWrapper(defaultUserId);
+    fetchDataWrapper(userId);
   }, []);
 
   const fetchData = async (UserId: number) => {
@@ -222,7 +222,7 @@ function OrgStructure() {
   };
 
   const handleNodeClick = (inputData: any) => {
-    console.log('inputData', inputData, inputData.id);
+    window.open(`/profile/${inputData.id}`, '_blank');
   };
 
   return (
@@ -247,6 +247,6 @@ function OrgStructure() {
       )}
     </>
   );
-}
+};
 
 export default OrgStructure;

@@ -20,12 +20,17 @@ export async function getHierarchy(payload: number): Promise<ReportiesListRespon
   return response.data;
 }
 
-export async function getpersonalDetails(): Promise<Profile> {
-  const response: AxiosResponse<Profile> = await apiClient.get(`user/personalDetails`);
+export async function getpersonalDetails(userId: string): Promise<Profile> {
+  const response: AxiosResponse<Profile> = await apiClient.get(
+    `user/personalDetails?user=${userId}`,
+  );
   return response.data;
 }
 
-export async function getProfile(): Promise<Profile> {
-  const response: AxiosResponse<Profile> = await apiClient.get(`user/profileDetails`);
+export async function getProfile(userId: string): Promise<Profile> {
+  console.log('hello', userId);
+  const response: AxiosResponse<Profile> = await apiClient.get(
+    `user/profileDetails?user=${userId}`,
+  );
   return response.data;
 }
