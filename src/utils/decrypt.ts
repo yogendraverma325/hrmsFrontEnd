@@ -9,7 +9,7 @@ export const Decrypt = () => {
   let lastName;
   let role_id;
   let designation_id;
-
+  let designation;
   const encryptedLocalStorageData: string | null = localStorage.getItem('userData');
 
   if (encryptedLocalStorageData) {
@@ -20,9 +20,9 @@ export const Decrypt = () => {
     email = decryptedUserData.email || decryptedUserData?.email;
     firstName = decryptedUserData.firstName || decryptedUserData?.firstName;
     lastName = decryptedUserData.lastName || decryptedUserData?.lastName;
-    role_id = decryptedUserData.role_id || decryptedUserData?.role_id;
-    designation_id =
-      decryptedUserData.designation_id || decryptedUserData?.designation_id;
+    role_id = decryptedUserData?.role?.role_id;
+    designation_id = decryptedUserData?.designationmaster?.designationId;
+    designation = decryptedUserData?.designationmaster?.name;
     // Now decryptedUserData is typed as Employee
   }
 
@@ -34,5 +34,6 @@ export const Decrypt = () => {
     lastName,
     role_id,
     designation_id,
+    designation,
   };
 };

@@ -1,7 +1,7 @@
 // ==============================|| THEME CONFIG  ||============================== //
 
 export const gridSpacing = 3;
-
+export const drawerWidth = 240;
 const config = {
   defaultPath: '/dashbaord',
   // apiUrl: 'http://192.168.10.29:8089/api',

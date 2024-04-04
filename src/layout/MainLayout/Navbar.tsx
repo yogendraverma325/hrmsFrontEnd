@@ -36,7 +36,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '@/redux/reducers/utilitesSlice';
 import { RootState } from '@/redux/reducers';
 import { useNavigate } from 'react-router-dom';
-
+import { Decrypt } from '@/utils/decrypt';
+import { convertTimeStampToDate } from '@/utils/DateConverter';
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })<any>(({ theme, open }) => ({
@@ -47,6 +48,7 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 export default function NavBar() {
+  let { name, designation, id } = Decrypt();
   const Utils = useSelector((state: RootState) => state.utils);
   const dispatch = useDispatch();
   const theme = useTheme();
@@ -77,14 +79,13 @@ export default function NavBar() {
   };
 
   const handleListItemClick = (URL: string) => {
-    const user = JSON.parse(localStorage.getItem('userData'));
-    const defaultUserId = user.id;
     if (URL == '/profile') {
-      navigate(`/profile/${defaultUserId}`);
+      navigate(`/profile/${id}`);
     } else {
       navigate(URL, { replace: true });
     }
   };
+
   return (
     <>
       <AppBar position="fixed" open={Utils.isActive} sx={{ backgroundColor: '#104155' }}>
@@ -106,7 +107,15 @@ export default function NavBar() {
 
           <Box sx={{ flexGrow: 0 }}>
             <Stack direction="row" gap={1}>
-              <IconButton
+              <Typography>
+                <Typography variant="subtitle1">
+                  {name} ({designation})
+                </Typography>
+                <Typography variant="subtitle2">
+                  Last Login:{convertTimeStampToDate('2023-07-01')}
+                </Typography>
+              </Typography>
+              {/* <IconButton
                 size="large"
                 aria-label="show 17 new notifications"
                 color="inherit"
@@ -116,7 +125,7 @@ export default function NavBar() {
                 <Badge badgeContent={17} color="success">
                   <NotificationsIcon />
                 </Badge>
-              </IconButton>
+              </IconButton> */}
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }} ref={userMenuRef}>
                   <Avatar alt="Remy Sharp" src="/src/assets/images/avatar.jpg" />

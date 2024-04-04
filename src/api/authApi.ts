@@ -13,7 +13,7 @@ import { apiClient } from './apiClient';
 export async function login(credentials: LoginCredentials): Promise<AuthResponse> {
   const { username, password } = credentials;
   let formObject = {
-    email: username,
+    tmc: username,
     password: password,
   };
   const response: AxiosResponse<any> = await apiClient.post('auth/login', formObject);

@@ -7,13 +7,36 @@ interface User {
 }
 export interface Employee {
   id: number;
+  empCode: string;
   name: string;
   email: string;
   firstName: string;
   lastName: string;
+  profileImage: string | null;
+  password: string;
+  officeMobileNumber: string;
+  personalMobileNumber: string;
   manager: number;
   role_id: number;
   designation_id: number;
+  functionalAreaId: number;
+  buId: number;
+  departmentId: number;
+  companyId: number;
+  lastLogin: string;
+  role: {
+    role_id: number;
+    name: string;
+  };
+  designationmaster: {
+    designationId: number;
+    name: string;
+    createdAt: string;
+    createdBy: string | null;
+    updatedBy: string | null;
+    updatedAt: string | null;
+    isActive: boolean;
+  };
 }
 
 export interface EmpListResponse {

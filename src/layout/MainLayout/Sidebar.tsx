@@ -1,6 +1,4 @@
-import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuList from './Sidebar/MenuList';
 import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom'; // If you're using React Router
@@ -8,11 +6,12 @@ import Typography from '@mui/material/Typography';
 import { BrowserView, MobileView } from 'react-device-detect';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { RootState } from '@/redux/reducers';
-import { toggleModal } from '@/redux/reducers/utilitesSlice';
 import { DrawerHeader } from './Header';
+import Drawer from '@mui/material/Drawer';
+import { drawerWidth } from '@/redux/constant';
 
 const drawer = () => (
-  <Box sx={{ width: 250 }}>
+  <Box sx={{ width: 200 }}>
     <Box>
       <Box>
         <DrawerHeader>
@@ -22,7 +21,7 @@ const drawer = () => (
                 className="brand-img"
                 src="/src/assets/images/Fevicon-white.png"
                 alt="brand"
-                style={{ width: '26px', height: '26px', marginRight: '8px' }}
+                style={{ width: '24px', height: '24px' }}
               />
               <Typography variant="h6" component="span" className="brand-text">
                 Team Computers
@@ -49,24 +48,25 @@ const drawer = () => (
 );
 const Sidebar = () => {
   const Utils = useSelector((state: RootState) => state.utils);
-  const dispatch = useDispatch();
   return (
-    <SwipeableDrawer
+    <Drawer
       sx={{
-        backgroundColor: 'none',
+        width: drawerWidth,
+        flexShrink: 0,
         '& .MuiDrawer-paper': {
           backgroundColor: '#104155',
           color: 'white', // Set text color to white
-          borderRight: 'none',
+          width: drawerWidth,
+          boxSizing: 'border-box',
         },
       }}
-      BackdropProps={{ invisible: true }}
+      variant="persistent"
+      anchor="left"
       open={Utils.isActive}
-      onClose={() => dispatch(toggleModal({ isActive: false }))}
-      onOpen={() => dispatch(toggleModal({ isActive: true }))}
     >
+      <DrawerHeader />
       {drawer()}
-    </SwipeableDrawer>
+    </Drawer>
   );
 };
 

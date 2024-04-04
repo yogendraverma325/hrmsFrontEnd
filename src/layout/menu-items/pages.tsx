@@ -16,25 +16,27 @@ const pages = {
   children: [
     {
       id: 'authentication',
-      title: 'Employees',
-      type: 'collapse',
+      title: 'Leave',
+      type: 'item',
       icon: icons.IconKey,
-      children: [
-        {
-          id: 'login3',
-          title: 'Add Employee',
-          type: 'item',
-          url: '/pages/login/login3',
-          target: true,
-        },
-        {
-          id: 'register3',
-          title: 'Update Employee',
-          type: 'item',
-          url: '/pages/register/register3',
-          target: true,
-        },
-      ],
+    },
+    {
+      id: 'authentication',
+      title: 'Attendance',
+      type: 'item',
+      icon: icons.IconKey,
+    },
+    {
+      id: 'authentication',
+      title: 'Task',
+      type: 'item',
+      icon: icons.IconKey,
+    },
+    {
+      id: 'authentication',
+      title: 'Organizarion',
+      type: 'item',
+      icon: icons.IconKey,
     },
   ],
 };
