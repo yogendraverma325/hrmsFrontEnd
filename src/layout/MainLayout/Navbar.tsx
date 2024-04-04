@@ -48,7 +48,7 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 export default function NavBar() {
-  let { name, designation, id } = Decrypt();
+  let { name, designation, id, lastLogin } = Decrypt();
   const Utils = useSelector((state: RootState) => state.utils);
   const dispatch = useDispatch();
   const theme = useTheme();
@@ -112,7 +112,7 @@ export default function NavBar() {
                   {name} ({designation})
                 </Typography>
                 <Typography variant="subtitle2">
-                  Last Login:{convertTimeStampToDate('2023-07-01')}
+                  Last Login:{convertTimeStampToDate(lastLogin)}
                 </Typography>
               </Typography>
               {/* <IconButton
