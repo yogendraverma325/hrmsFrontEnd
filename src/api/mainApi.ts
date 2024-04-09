@@ -27,7 +27,7 @@ export async function getpersonalDetails(userId: string): Promise<Profile> {
   return response.data;
 }
 
-export async function getProfile(userId: string): Promise<Profile> {
+export async function getProfile(userId: string | number): Promise<Profile> {
   console.log('hello', userId);
   const response: AxiosResponse<Profile> = await apiClient.get(
     `user/profileDetails?user=${userId}`,

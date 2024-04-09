@@ -76,12 +76,8 @@ const Dashboard = () => {
     },
   ];
 
-  const handleListItemClick = (URLData: iconData) => {
-    if (URLData.urlType == 'INTERNAL') {
-      navigate(URLData.url, { replace: true });
-    } else if (URLData.urlType == 'EXTERNAL') {
-      window.open(URLData.url, '_blank');
-    }
+  const handleListItemClick = (URLData: string) => {
+    navigate(URLData);
   };
 
   return (
@@ -151,7 +147,11 @@ const Dashboard = () => {
               lg={2}
               sx={{ marginRight: '10px', marginLeft: '10px' }}
             >
-              <Box>
+              <Box
+                onClick={() => {
+                  handleListItemClick('/org');
+                }}
+              >
                 <OverviewTotalProfit
                   sx={{ height: '100%' }}
                   name="Organization"

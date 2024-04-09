@@ -162,7 +162,7 @@ export default function NavBar() {
                 backgroundColor: 'white',
                 borderRadius: '10px',
                 padding: '0.5rem',
-                marginLeft: '32rem',
+                marginLeft: '25rem',
                 width: '35%',
               }}
               startAdornment={
