@@ -12,22 +12,19 @@ import { RootState } from '@/redux/reducers';
 import { useSelector } from 'react-redux';
 export default function AdminLayout({ children }: any) {
   const Utils = useSelector((state: RootState) => state.utils);
-  const Main = styled('main', { shouldForwardProp: (prop: any) => prop !== 'open' })<{
-    open?: boolean;
-  }>(({ theme, open }: any) => ({
+
+  const Main = styled('main', {
+    shouldForwardProp: (prop: any) => prop !== 'open',
+  })<{ open?: boolean }>(({ theme, open }: any) => ({
     flexGrow: 1,
     padding: theme.spacing(4),
     transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+      easing: 'cubic-bezier(0.4, 0, 0.2, 1)', // Smooth transition
+      duration: open
+        ? theme.transitions.duration.enteringScreen
+        : theme.transitions.duration.leavingScreen,
     }),
-    ...(open && {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: `${drawerWidth - 10}px`,
-    }),
+    marginLeft: open ? `${drawerWidth - 10}px` : 0,
   }));
 
   return (
