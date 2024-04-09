@@ -1,43 +1,47 @@
-import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import { AccountCircle, Dashboard, ExitToApp, Person } from '@mui/icons-material';
-// third-party
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Tooltip from '@mui/material/Tooltip';
-import Avatar from '@mui/material/Avatar';
-import Badge from '@mui/material/Badge';
+import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-
+import SearchIcon from '@mui/icons-material/Search';
 import {
   Button,
   CardActions,
   ClickAwayListener,
   Grid,
+  InputAdornment,
+  InputBase,
   Paper,
   Popper,
   Stack,
   useMediaQuery,
 } from '@mui/material';
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import Avatar from '@mui/material/Avatar';
+import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import { styled, useTheme } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
+// third-party
+import PerfectScrollbar from 'react-perfect-scrollbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { RootState } from '@/redux/reducers';
+import { toggleModal } from '@/redux/reducers/utilitesSlice';
+import { convertTimeStampToDate } from '@/utils/DateConverter';
+import { Decrypt } from '@/utils/decrypt';
+
 import MainCard from '../../components/Cards/MainCards';
 import Transitions from '../../components/extended/Transitions';
 import NotificationList from '../../components/Notifications';
-
-import { useDispatch, useSelector } from 'react-redux';
-import { toggleModal } from '@/redux/reducers/utilitesSlice';
-import { RootState } from '@/redux/reducers';
-import { useNavigate } from 'react-router-dom';
-import { Decrypt } from '@/utils/decrypt';
-import { convertTimeStampToDate } from '@/utils/DateConverter';
+import { DrawerHeader } from './Header';
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })<any>(({ theme, open }) => ({
@@ -48,7 +52,7 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 export default function NavBar() {
-  let { name, designation, id, lastLogin } = Decrypt();
+  const { name, designation, id, lastLogin } = Decrypt();
   const Utils = useSelector((state: RootState) => state.utils);
   const dispatch = useDispatch();
   const theme = useTheme();
@@ -60,6 +64,12 @@ export default function NavBar() {
 
   const [userMenuOn, serUserMenuOn] = React.useState(false);
   const [notificationOn, setNotificationOn] = React.useState(false);
+  const [searchTerm, setSearchTerm] = React.useState('');
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+    // Perform search operations here
+  };
   const anchorRef = React.useRef(null);
   const userMenuRef = React.useRef(null);
   const handleOpenNotificationMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -96,26 +106,87 @@ export default function NavBar() {
             onClick={handleDrawer}
             edge="start"
             sx={{
-              marginRight: 5,
+              marginRight: 1,
               //   ...(open && { display: 'none' }),
             }}
           >
             <MenuIcon />
           </IconButton>
-
-          <Box sx={{ flexGrow: 1 }} />
+          <Box>
+            <Box>
+              <DrawerHeader>
+                <div className="logo-wrap">
+                  <Link
+                    to="index.html"
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                  >
+                    <img
+                      className="brand-img"
+                      src="/src/assets/images/team-logo.png"
+                      alt="brand"
+                      style={{
+                        width: '70%',
+                        height: '39px',
+                        marginRight: '3rem',
+                      }}
+                    />
+                  </Link>
+                </div>
+                <div className="logo-wrap">
+                  <Link
+                    to="index.html"
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                  >
+                    <img
+                      className="brand-img"
+                      src="/src/assets/images/WhatisHRMSSoftwareBanner-1024x786.png"
+                      alt="brand"
+                      style={{
+                        width: '70%',
+                        height: '39px',
+                        marginRight: '3rem',
+                      }}
+                    />
+                  </Link>
+                </div>
+              </DrawerHeader>
+            </Box>
+          </Box>
+          <Box sx={{ flexGrow: 1 }}>
+            <InputBase
+              placeholder="Search by Employee Name, Designation"
+              inputProps={{ 'aria-label': 'search' }}
+              value={searchTerm}
+              onChange={handleSearch}
+              sx={{
+                backgroundColor: 'white',
+                borderRadius: '10px',
+                padding: '0.5rem',
+                marginLeft: '32rem',
+                width: '35%',
+              }}
+              startAdornment={
+                // Add startAdornment to place the search icon
+                <InputAdornment position="start">
+                  <IconButton aria-label="search">
+                    <SearchIcon /> {/* Assuming SearchIcon is imported */}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Stack direction="row" gap={1}>
-              <Typography>
+              {/* <Typography>
                 <Typography variant="subtitle1">
-                  {name} ({designation})
+                  {name.toUpperCase()} ({designation.toUpperCase()})
                 </Typography>
                 <Typography variant="subtitle2">
-                  Last Login:{convertTimeStampToDate(lastLogin)}
+                  Last Login: {convertTimeStampToDate(lastLogin)}
                 </Typography>
-              </Typography>
-              {/* <IconButton
+              </Typography> */}
+              <IconButton
                 size="large"
                 aria-label="show 17 new notifications"
                 color="inherit"
@@ -125,7 +196,7 @@ export default function NavBar() {
                 <Badge badgeContent={17} color="success">
                   <NotificationsIcon />
                 </Badge>
-              </IconButton> */}
+              </IconButton>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }} ref={userMenuRef}>
                   <Avatar alt="Remy Sharp" src="/src/assets/images/avatar.jpg" />
@@ -237,14 +308,20 @@ export default function NavBar() {
                       {/* REMINDER: ADD SHADOW FOR BETTER UI */}
                       <MainCard border={false} elevation={16} content={false} boxShadow>
                         <List>
-                          <ListItem onClick={() => handleListItemClick('/profile')}>
+                          <ListItem
+                            onClick={() => handleListItemClick('/profile')}
+                            style={{ cursor: 'pointer' }}
+                          >
                             <ListItemIcon>
                               <Person />
                             </ListItemIcon>
                             <Typography textAlign="center">Profile</Typography>
                           </ListItem>
 
-                          <ListItem onClick={() => handleListItemClick('/dashbaord')}>
+                          <ListItem
+                            onClick={() => handleListItemClick('/dashbaord')}
+                            style={{ cursor: 'pointer' }}
+                          >
                             <ListItemIcon>
                               <Dashboard />
                             </ListItemIcon>
@@ -253,6 +330,7 @@ export default function NavBar() {
                           <Divider />
 
                           <ListItem
+                            style={{ cursor: 'pointer' }}
                             onClick={() => {
                               localStorage.clear();
                               navigate('auth/login', { replace: true });

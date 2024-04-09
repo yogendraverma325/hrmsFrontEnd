@@ -1,53 +1,21 @@
-import { useSelector } from 'react-redux';
-import MenuList from './Sidebar/MenuList';
-import Box from '@mui/material/Box';
-import { Link } from 'react-router-dom'; // If you're using React Router
 import Typography from '@mui/material/Typography';
 import { BrowserView, MobileView } from 'react-device-detect';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { RootState } from '@/redux/reducers';
-import { DrawerHeader } from './Header';
-import Drawer from '@mui/material/Drawer';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom'; // If you're using React Router
+import { Decrypt } from '@/utils/decrypt';
 import { drawerWidth } from '@/redux/constant';
+import { RootState } from '@/redux/reducers';
 
-const drawer = () => (
-  <Box sx={{ width: 200 }}>
-    <Box>
-      <Box>
-        <DrawerHeader>
-          <div className="logo-wrap">
-            <Link to="index.html" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <img
-                className="brand-img"
-                src="/src/assets/images/Fevicon-white.png"
-                alt="brand"
-                style={{ width: '24px', height: '24px' }}
-              />
-              <Typography variant="h6" component="span" className="brand-text">
-                Team Computers
-              </Typography>
-            </Link>
-          </div>
-        </DrawerHeader>
-      </Box>
-    </Box>
-    <BrowserView>
-      <PerfectScrollbar
-        component="div"
-        style={{
-          height: 'calc(100vh - 56px)',
-        }}
-      >
-        <MenuList />
-      </PerfectScrollbar>
-    </BrowserView>
-    <MobileView>
-      <Box sx={{ px: 2 }}>{/* <MenuList /> */}</Box>
-    </MobileView>
-  </Box>
-);
+import { DrawerHeader } from './Header';
+import MenuList from './Sidebar/MenuList';
+import { Box, Drawer, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import MenuCard from './Sidebar/MenuCard';
 const Sidebar = () => {
+  const theme = useTheme();
   const Utils = useSelector((state: RootState) => state.utils);
+  const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));
   return (
     <Drawer
       sx={{
@@ -69,5 +37,29 @@ const Sidebar = () => {
     </Drawer>
   );
 };
-
+const drawer = () => (
+  <>
+    <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+      <Box sx={{ display: 'flex', p: 2, mx: 'auto' }}>{/* <LogoSection /> */}</Box>
+    </Box>
+    <BrowserView>
+      <PerfectScrollbar
+        component="div"
+        style={{
+          paddingLeft: '16px',
+          paddingRight: '16px',
+        }}
+      >
+        <MenuCard userDetails={Decrypt()} />
+        <MenuList />
+      </PerfectScrollbar>
+    </BrowserView>
+    <MobileView>
+      <Box sx={{ px: 2 }}>
+        <MenuCard userDetails={Decrypt()} />
+        <MenuList />
+      </Box>
+    </MobileView>
+  </>
+);
 export default Sidebar;

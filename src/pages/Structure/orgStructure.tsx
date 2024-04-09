@@ -1,21 +1,22 @@
-import React, { useEffect } from 'react';
-import { Tree, TreeNode } from 'react-organizational-chart';
-import _ from 'lodash';
-import clsx from 'clsx';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import data from './org.json';
-import { makeStyles } from '@mui/styles';
-import { Reportie } from '@/models/feed';
-
-import { getHierarchy } from '@/api/mainApi';
+import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import { Box, CssBaseline, Tooltip, Typography } from '@mui/material';
 import { Badge, Card, CardHeader, IconButton } from '@mui/material';
-import { date } from 'yup';
+import { makeStyles } from '@mui/styles';
+import clsx from 'clsx';
+import _ from 'lodash';
+import React, { useEffect } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { Tree, TreeNode } from 'react-organizational-chart';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useNavigate } from 'react-router-dom';
+import { date } from 'yup';
+
+import { getHierarchy } from '@/api/mainApi';
+import { Reportie } from '@/models/feed';
+
+import data from './org.json';
 const useStyles = makeStyles((theme) => ({
   root: {
     background: 'white',
@@ -96,7 +97,7 @@ function Node({ o, parent, fetchData, handleNodeClick }) {
   const handleCollapse = async () => {
     if (o.datacome === false) {
       const id = o.id;
-      let data = await fetchData(id);
+      const data = await fetchData(id);
       const { normalReported, hierarhcyReportee } = checkNormalChildAndOthers(data?.data);
       o.account = normalReported;
       o.organizationChildRelationship = hierarhcyReportee;
@@ -160,8 +161,8 @@ function Node({ o, parent, fetchData, handleNodeClick }) {
 }
 
 const checkNormalChildAndOthers = (data) => {
-  let normalReported = [];
-  let hierarhcyReportee = [];
+  const normalReported = [];
+  const hierarhcyReportee = [];
 
   data.reportie.forEach((element) => {
     if (element.reportings === true) {
@@ -190,7 +191,7 @@ const checkNormalChildAndOthers = (data) => {
 };
 
 const OrgStructure = (props: any) => {
-  let { userId } = props;
+  const { userId } = props;
   const [userData, setUserData] = React.useState(null);
   const navigate = useNavigate();
   useEffect(() => {

@@ -1,4 +1,5 @@
-import { Components, Theme, colors } from '@mui/material';
+import { colors, Components, Theme } from '@mui/material';
+
 import pxToRem from '../functions/pxToRem';
 
 const { grey } = colors;

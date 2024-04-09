@@ -1,4 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+import './Login.css';
+
 import { TextField, Typography } from '@mui/material';
 import {
   ErrorMessage,
@@ -21,7 +23,6 @@ import config from '../../redux/constant';
 import { enableLoading } from '../../redux/reducers/loadSlice';
 import { setSnackbar } from '../../redux/reducers/snackbarSlice';
 import ForgotPassoword from './ForgotPassoword';
-import './Login.css';
 const Login = () => {
   const navigate = useNavigate();
   const { setToken } = useAuth();
@@ -49,22 +50,13 @@ const Login = () => {
       setToken(status.data.tokens.accessToken);
       dispatch(
         setSnackbar({
-          snackbarMessage: 'Login Successful',
+          snackbarMessage: status?.message,
           snackbarOpen: true,
           snackbarType: 'success',
         }),
       );
       localStorage.setItem('userData', JSON.stringify(status.data.emp));
       navigate(config.defaultPath, { replace: true });
-      if (status.statusCode != '10000') {
-        dispatch(
-          setSnackbar({
-            snackbarMessage: status?.message,
-            snackbarOpen: true,
-            snackbarType: 'error',
-          }),
-        );
-      }
     } catch (err: any) {
       dispatch(
         setSnackbar({

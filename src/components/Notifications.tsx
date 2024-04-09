@@ -1,5 +1,4 @@
 // material-ui
-import { useTheme, styled } from '@mui/material/styles';
 import {
   Avatar,
   Button,
@@ -16,6 +15,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import { styled, useTheme } from '@mui/material/styles';
 
 import User1 from '/src/assets/images/avatar.jpg';
 

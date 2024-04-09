@@ -1,6 +1,7 @@
 import { Autocomplete, TextField } from '@mui/material';
-import pxToRem from '../functions/pxToRem';
+
 import borders from '../borders';
+import pxToRem from '../functions/pxToRem';
 
 export const MuiAutocomplete = {
   styleOverrides: {

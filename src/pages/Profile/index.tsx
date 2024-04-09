@@ -1,37 +1,36 @@
-import React, { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-
+import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
+import FingerprintOutlinedIcon from '@mui/icons-material/FingerprintOutlined';
 import {
-  Grid,
-  CardContent,
   Avatar,
-  IconButton,
+  CardContent,
   FormControl,
+  Grid,
+  IconButton,
   InputLabel,
   Stack,
 } from '@mui/material';
-
-import { useTheme } from '@mui/system';
-
+import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import MainCard from '../../components/Cards/MainCards';
-import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
-import FingerprintOutlinedIcon from '@mui/icons-material/FingerprintOutlined';
+import { useTheme } from '@mui/system';
+import { useQuery } from '@tanstack/react-query';
+import PropTypes from 'prop-types';
+import React, { useRef, useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch } from 'react-redux';
-import Tabs, { a11yProps, TabPanel } from '../../components/Tabs';
+import { useParams } from 'react-router-dom';
+
+import { getProfile } from '@/api/mainApi';
+import { gridSpacing } from '@/redux/constant';
+
+import userProfileIcon from '../../assets/images/avatar.jpg';
+import MainCard from '../../components/Cards/MainCards';
 import SubCard from '../../components/Cards/SubCard';
 import { OutlinedInput } from '../../components/OutlinedInput';
-import userProfileIcon from '../../assets/images/avatar.jpg';
-import { gridSpacing } from '@/redux/constant';
+import Tabs, { a11yProps, TabPanel } from '../../components/Tabs';
 import { Decrypt } from '../../utils/decrypt';
-import PersonalDetails from './Personal';
 import OrgStructure from '../Structure/orgStructure';
-import { getProfile } from '@/api/mainApi';
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import PersonalDetails from './Personal';
 const AccountProfile = (props: any) => {
   const { userId } = useParams();
   const queryFunction = () => getProfile(userId);
@@ -48,11 +47,11 @@ const AccountProfile = (props: any) => {
   const handleChange = (event: any, newValue: any) => {
     setValue(newValue);
   };
-  let { name } = Decrypt();
+  const { name } = Decrypt();
 
-  let user_Name = name === undefined ? 'djs' : name;
+  const user_Name = name === undefined ? 'djs' : name;
 
-  let word = user_Name.match(/\b(\w)/g);
+  const word = user_Name.match(/\b(\w)/g);
 
   return (
     <MainCard>

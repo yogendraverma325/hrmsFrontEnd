@@ -1,4 +1,4 @@
-function pxToRem(number: number, baseNumber: number = 16) {
+function pxToRem(number: number, baseNumber = 16) {
   return `${number / baseNumber}rem`;
 }
 
