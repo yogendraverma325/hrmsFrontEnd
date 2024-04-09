@@ -2,15 +2,16 @@ import { Grid } from '@material-ui/core';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined';
 import BrowseGalleryOutlinedIcon from '@mui/icons-material/BrowseGalleryOutlined';
+import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
+import { makeStyles } from '@mui/styles'; // Import makeStyles from @mui/styles
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { gridSpacing } from '@/redux/constant';
+
 import Main from './Cards';
 import OverviewTotalProfit from './Cards/OverviewTotalProfit';
-import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
-
-import { makeStyles } from '@mui/styles'; // Import makeStyles from @mui/styles
 
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
 export type iconData = {
@@ -27,9 +28,9 @@ const useStyles = makeStyles((theme) => ({
   gridItem: {
     transition: 'transform 0.3s', // Apply transition to the transform property
     '&:hover': {
-      transform: 'scale(1.05)' // Scale the grid item by 5% when hovering
-    }
-  }
+      transform: 'scale(1.05)', // Scale the grid item by 5% when hovering
+    },
+  },
 }));
 
 const Dashboard = () => {
@@ -44,8 +45,7 @@ const Dashboard = () => {
     {
       icon: <TableChartOutlinedIcon />,
       count: 0,
-      urlImage:
-        '/src/assets/images/image23.jpg',
+      urlImage: '/src/assets/images/image23.jpg',
       title: 'Leave',
       url: '',
       urlType: 'NONE',
@@ -53,8 +53,7 @@ const Dashboard = () => {
     {
       icon: <BrowseGalleryOutlinedIcon />,
       count: 0,
-      urlImage:
-        '/src/assets/images/image23.jpg',
+      urlImage: '/src/assets/images/image23.jpg',
       title: 'Attendance',
       url: '',
       urlType: 'NONE',
@@ -62,8 +61,7 @@ const Dashboard = () => {
     {
       icon: <AssignmentIndOutlinedIcon />,
       count: 0,
-      urlImage:
-        '/src/assets/images/image23.jpg',
+      urlImage: '/src/assets/images/image23.jpg',
       title: 'Task',
       url: 'https://intranet.teamcomputers.com/#/',
       urlType: 'EXTERNAL',
@@ -71,8 +69,7 @@ const Dashboard = () => {
     {
       icon: <AccountCircleOutlinedIcon />,
       count: 0,
-      urlImage:
-        '/src/assets/images/image23.jpg',
+      urlImage: '/src/assets/images/image23.jpg',
       title: 'Organization View',
       url: '/org',
       urlType: 'INTERNAL',
@@ -95,7 +92,10 @@ const Dashboard = () => {
             {dashboardCards.map((element) => (
               <Grid
                 key={element.url}
-                item xs={12} sm={6} lg={3}
+                item
+                xs={12}
+                sm={6}
+                lg={3}
                 onClick={() => {
                   handleListItemClick(element);
                 }}

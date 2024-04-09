@@ -1,5 +1,6 @@
-import { Employee } from '@/models/feed';
 import { useNavigate } from 'react-router-dom';
+
+import { Employee } from '@/models/feed';
 
 export const Decrypt = () => {
   let id;

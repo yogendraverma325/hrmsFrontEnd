@@ -1,33 +1,34 @@
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import {
+  Autocomplete,
   Box,
   Button,
-  Grid,
   Card,
+  FormControl,
+  Grid,
+  Paper,
   Stack,
   Typography,
-  Paper,
-  FormControl,
-  Autocomplete,
 } from '@mui/material';
-// third party
-import * as Yup from 'yup';
-import * as React from 'react';
-import { Form, FormikProvider, useFormik } from 'formik';
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { getEmployees } from '../../api/mainApi';
-import { RootState } from '../../redux/reducers';
-
-import SelectField from '@/components/Forms/SelectField';
-import InputField from '@/components/Forms/InputField';
-import DateField from '@/components/Forms/DateField';
 import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
-import pxToRem from '@/themes/functions/pxToRem';
 import { useQuery } from '@tanstack/react-query';
+import { Form, FormikProvider, useFormik } from 'formik';
 import { debounce, forEach } from 'lodash';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+// third party
+import * as Yup from 'yup';
+
+import DateField from '@/components/Forms/DateField';
+import InputField from '@/components/Forms/InputField';
+import SelectField from '@/components/Forms/SelectField';
+import pxToRem from '@/themes/functions/pxToRem';
+
+import { getEmployees } from '../../api/mainApi';
+import { RootState } from '../../redux/reducers';
 interface EMP {
   name: string;
   id: number;
@@ -60,8 +61,8 @@ const AddEmp = ({ ...others }) => {
     }
 
     (async () => {
-      let data = await fetchData(searchQuery);
-      let list: EMP[] = [];
+      const data = await fetchData(searchQuery);
+      const list: EMP[] = [];
       data.forEach((element) => {
         list.push({ name: element.name, id: element.id });
       });

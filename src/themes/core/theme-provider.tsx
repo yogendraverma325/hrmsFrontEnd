@@ -1,8 +1,8 @@
 'use client';
 
-import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles';
+import * as React from 'react';
 
 import { createTheme } from '@/themes/create-theme';
 

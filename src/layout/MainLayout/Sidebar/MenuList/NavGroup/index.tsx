@@ -1,11 +1,12 @@
 // material-ui
-import { useTheme } from '@mui/material/styles';
 import { Divider, List, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
+import pxToRem from '@/themes/functions/pxToRem';
+
+import NavCollapse from '../NavCollapse';
 // project imports
 import NavItem from '../NavItem';
-import NavCollapse from '../NavCollapse';
-import pxToRem from '@/themes/functions/pxToRem';
 
 // ==============================|| SIDEBAR MENU LIST GROUP ||============================== //
 

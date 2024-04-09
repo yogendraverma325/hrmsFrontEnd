@@ -1,8 +1,8 @@
 // assets
 import {
-  IconTypography,
   IconPalette,
   IconShadow,
+  IconTypography,
   IconWindmill,
 } from '@tabler/icons-react';
 

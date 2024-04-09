@@ -1,6 +1,7 @@
-import pxToRem from '@/themes/functions/pxToRem';
 import { Components } from '@mui/material';
 import { Component } from 'react';
+
+import pxToRem from '@/themes/functions/pxToRem';
 
 export const MuiSelect = {
   styleOverrides: {

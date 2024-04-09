@@ -4,6 +4,7 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios';
+
 import config from '../../src/redux/constant';
 
 const apiClient: AxiosInstance = axios.create({

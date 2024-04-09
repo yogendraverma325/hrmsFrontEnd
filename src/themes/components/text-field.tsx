@@ -1,9 +1,9 @@
 import { Components } from '@mui/material';
 import { Component } from 'react';
 
-import type { Theme } from '../types';
-import pxToRem from '../functions/pxToRem';
 import borders from '../borders';
+import pxToRem from '../functions/pxToRem';
+import type { Theme } from '../types';
 
 const { borderWidth, borderRadius } = borders;
 

@@ -1,8 +1,9 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
-import { publishAnnoucements } from '@/redux/reducers/utilitesSlice';
-import { RootState } from '@/redux/reducers';
 import { useDispatch, useSelector } from 'react-redux';
+import { Outlet } from 'react-router-dom';
+
+import { RootState } from '@/redux/reducers';
+import { publishAnnoucements } from '@/redux/reducers/utilitesSlice';
 
 const Announcements = () => {
   const Utils = useSelector((state: RootState) => state.utils);

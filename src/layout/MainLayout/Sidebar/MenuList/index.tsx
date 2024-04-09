@@ -1,9 +1,9 @@
 // material-ui
 import { Typography } from '@mui/material';
 
+import menuItem from '../../../menu-items';
 // project imports
 import NavGroup from './NavGroup';
-import menuItem from '../../../menu-items';
 
 // ==============================|| SIDEBAR MENU LIST ||============================== //
 

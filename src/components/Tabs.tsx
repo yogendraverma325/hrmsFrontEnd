@@ -1,11 +1,11 @@
-import React from 'react';
-// third party library for prop typecheking
-import PropTypes from 'prop-types';
-// mui-material
-import { shouldForwardProp } from '@mui/system';
+import { Box, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import MuiTabs from '@mui/material/Tabs';
-import { Typography, Box } from '@mui/material';
+// mui-material
+import { shouldForwardProp } from '@mui/system';
+// third party library for prop typecheking
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const Tabs = styled(MuiTabs, { shouldForwardProp })(({ theme }) => ({
   '& .MuiTab-root.MuiButtonBase-root.MuiTab-labelIcon.MuiTab-textColorPrimary': {

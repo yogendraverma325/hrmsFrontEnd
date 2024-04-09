@@ -1,11 +1,11 @@
 import { lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import Lodable from '../components/Lodable';
+import PersonalDetails from '@/pages/Profile';
 
+import Lodable from '../components/Lodable';
 import AdminLayout from '../layout/MainLayout/Layout';
 import ProtectedRoute from './ProtectedRoute';
-import PersonalDetails from '@/pages/Profile';
 
 const Login = Lodable(lazy(() => import('../pages/auth/Login')));
 const AddEmp = Lodable(lazy(() => import('../pages/Employees/AddEmp')));
@@ -22,30 +22,10 @@ const BaseRoutes = () => {
       <Route index element={<Navigate to={'/login'} replace />} />
       {/* <Route element={<ProtectedRoute />}> */}
       <Route element={<AdminLayout />}>
-        <Route
-          path="/addEmp"
-          element={
-            <AddEmp />
-          }
-        />
-        <Route
-          path="/dashbaord"
-          element={
-            <Dashboard />
-          }
-        />
-        <Route
-          path="/org"
-          element={
-            <OrgStructure />
-          }
-        />
-        <Route
-          path="profile/:userId"
-          element={
-            <PersonalDetails />
-          }
-        />
+        <Route path="/addEmp" element={<AddEmp />} />
+        <Route path="/dashbaord" element={<Dashboard />} />
+        <Route path="/org" element={<OrgStructure />} />
+        <Route path="profile/:userId" element={<PersonalDetails />} />
       </Route>
 
       <Route path="*" element={<Navigate to={'/login'} replace />} />

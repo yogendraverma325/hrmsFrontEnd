@@ -1,18 +1,19 @@
-import { useSelector } from 'react-redux';
-import MenuList from './Sidebar/MenuList';
 import Box from '@mui/material/Box';
-import { Link } from 'react-router-dom'; // If you're using React Router
+import Drawer from '@mui/material/Drawer';
 import Typography from '@mui/material/Typography';
 import { BrowserView, MobileView } from 'react-device-detect';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { RootState } from '@/redux/reducers';
-import { DrawerHeader } from './Header';
-import Drawer from '@mui/material/Drawer';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom'; // If you're using React Router
+
 import { drawerWidth } from '@/redux/constant';
+import { RootState } from '@/redux/reducers';
+
+import { DrawerHeader } from './Header';
+import MenuList from './Sidebar/MenuList';
 
 const drawer = () => (
   <Box sx={{ width: 200 }}>
-    
     <BrowserView>
       <PerfectScrollbar
         component="div"

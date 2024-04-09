@@ -5,7 +5,7 @@ import { apiClient } from './apiClient';
 
 export async function getEmployees(payload: any): Promise<EmpListResponse> {
   const { input } = payload ?? {};
-  let applyFilter = payload ? `?search=${payload}` : '';
+  const applyFilter = payload ? `?search=${payload}` : '';
   const response: AxiosResponse<EmpListResponse> = await apiClient.get(
     `master/employee${applyFilter}`,
   );
@@ -13,7 +13,7 @@ export async function getEmployees(payload: any): Promise<EmpListResponse> {
 }
 
 export async function getHierarchy(payload: number): Promise<ReportiesListResponse> {
-  let applyFilter = payload ? `?manager=${payload}` : '';
+  const applyFilter = payload ? `?manager=${payload}` : '';
   const response: AxiosResponse<ReportiesListResponse> = await apiClient.get(
     `master/reporties${applyFilter}`,
   );

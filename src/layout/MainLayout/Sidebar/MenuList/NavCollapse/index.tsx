@@ -1,10 +1,5 @@
-import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router';
-
-// material-ui
-import { useTheme } from '@mui/material/styles';
+// assets
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import {
   Collapse,
   List,
@@ -13,13 +8,16 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
+// material-ui
+import { useTheme } from '@mui/material/styles';
+import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router';
 
 // project imports
 import NavItem from '../NavItem';
-
-// assets
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 
 // ==============================|| SIDEBAR MENU LIST COLLAPSE ITEMS ||============================== //
 

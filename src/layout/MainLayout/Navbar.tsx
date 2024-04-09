@@ -1,23 +1,7 @@
-import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import { AccountCircle, Dashboard, ExitToApp, Person } from '@mui/icons-material';
-// third-party
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Tooltip from '@mui/material/Tooltip';
-import Avatar from '@mui/material/Avatar';
-import Badge from '@mui/material/Badge';
+import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-
+import SearchIcon from '@mui/icons-material/Search';
 import {
   Button,
   CardActions,
@@ -30,17 +14,33 @@ import {
   Stack,
   useMediaQuery,
 } from '@mui/material';
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import Avatar from '@mui/material/Avatar';
+import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import { styled, useTheme } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
+// third-party
+import PerfectScrollbar from 'react-perfect-scrollbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { RootState } from '@/redux/reducers';
+import { toggleModal } from '@/redux/reducers/utilitesSlice';
+import { convertTimeStampToDate } from '@/utils/DateConverter';
+import { Decrypt } from '@/utils/decrypt';
+
 import MainCard from '../../components/Cards/MainCards';
 import Transitions from '../../components/extended/Transitions';
 import NotificationList from '../../components/Notifications';
-import SearchIcon from '@mui/icons-material/Search';
-
-import { useDispatch, useSelector } from 'react-redux';
-import { toggleModal } from '@/redux/reducers/utilitesSlice';
-import { RootState } from '@/redux/reducers';
-import { Link, useNavigate } from 'react-router-dom';
-import { Decrypt } from '@/utils/decrypt';
-import { convertTimeStampToDate } from '@/utils/DateConverter';
 import { DrawerHeader } from './Header';
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -52,7 +52,7 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 export default function NavBar() {
-  let { name, designation, id, lastLogin } = Decrypt();
+  const { name, designation, id, lastLogin } = Decrypt();
   const Utils = useSelector((state: RootState) => state.utils);
   const dispatch = useDispatch();
   const theme = useTheme();
@@ -116,7 +116,10 @@ export default function NavBar() {
             <Box>
               <DrawerHeader>
                 <div className="logo-wrap">
-                  <Link to="index.html" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <Link
+                    to="index.html"
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                  >
                     <img
                       className="brand-img"
                       src="/src/assets/images/team-logo.png"
@@ -141,8 +144,15 @@ export default function NavBar() {
               inputProps={{ 'aria-label': 'search' }}
               value={searchTerm}
               onChange={handleSearch}
-              sx={{ backgroundColor: 'white', borderRadius: '999px', padding: '0.5rem', marginLeft: '32rem', width: '35%' }}
-              startAdornment={ // Add startAdornment to place the search icon
+              sx={{
+                backgroundColor: 'white',
+                borderRadius: '999px',
+                padding: '0.5rem',
+                marginLeft: '32rem',
+                width: '35%',
+              }}
+              startAdornment={
+                // Add startAdornment to place the search icon
                 <InputAdornment position="start">
                   <IconButton aria-label="search">
                     <SearchIcon /> {/* Assuming SearchIcon is imported */}
@@ -150,7 +160,6 @@ export default function NavBar() {
                 </InputAdornment>
               }
             />
-
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -285,14 +294,20 @@ export default function NavBar() {
                       {/* REMINDER: ADD SHADOW FOR BETTER UI */}
                       <MainCard border={false} elevation={16} content={false} boxShadow>
                         <List>
-                          <ListItem onClick={() => handleListItemClick('/profile')} style={{ cursor: 'pointer' }}>
+                          <ListItem
+                            onClick={() => handleListItemClick('/profile')}
+                            style={{ cursor: 'pointer' }}
+                          >
                             <ListItemIcon>
                               <Person />
                             </ListItemIcon>
                             <Typography textAlign="center">Profile</Typography>
                           </ListItem>
 
-                          <ListItem onClick={() => handleListItemClick('/dashbaord')} style={{ cursor: 'pointer' }}>
+                          <ListItem
+                            onClick={() => handleListItemClick('/dashbaord')}
+                            style={{ cursor: 'pointer' }}
+                          >
                             <ListItemIcon>
                               <Dashboard />
                             </ListItemIcon>

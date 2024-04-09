@@ -8,12 +8,12 @@ import {
 } from '@material-ui/core';
 // material-ui
 import { makeStyles } from '@material-ui/styles';
+import { Card, CardContent, CardMedia } from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import MainCard from '../../../components/Cards/MainCards';
 import { iconData } from '../Dashboard';
-import { Card, CardContent, CardMedia } from '@mui/material';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -107,15 +107,15 @@ const Index = (props: iconData) => {
             style={{ width: '100%', height: '100%', borderRadius: '50%' }}
           />
           {/* White text */}
-          <Typography variant="h6" component="div" style={{ color: '#fff', position: 'absolute', textAlign: 'center' }}>
+          <Typography
+            variant="h6"
+            component="div"
+            style={{ color: '#fff', position: 'absolute', textAlign: 'center' }}
+          >
             {data.title}
           </Typography>
         </CardMedia>
-
-
       </Card>
-
-
     </React.Fragment>
   );
 };

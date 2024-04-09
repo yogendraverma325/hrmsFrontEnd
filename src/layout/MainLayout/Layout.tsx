@@ -1,16 +1,18 @@
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import Sidebar from './Sidebar';
-import Footer from './Footer';
-import NavBar from './Navbar';
-import { DrawerHeader } from './Header';
-import Marquee from 'react-fast-marquee';
-import Announcements from './Announcements';
 import { styled, useTheme } from '@mui/material/styles';
-import { drawerWidth } from '@/redux/constant';
-import { RootState } from '@/redux/reducers';
+import Marquee from 'react-fast-marquee';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router';
+
+import { drawerWidth } from '@/redux/constant';
+import { RootState } from '@/redux/reducers';
+
+import Announcements from './Announcements';
+import Footer from './Footer';
+import { DrawerHeader } from './Header';
+import NavBar from './Navbar';
+import Sidebar from './Sidebar';
 export default function AdminLayout({ children }: any) {
   const Utils = useSelector((state: RootState) => state.utils);
   const Main = styled('main', { shouldForwardProp: (prop: any) => prop !== 'open' })<{

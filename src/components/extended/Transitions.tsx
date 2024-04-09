@@ -1,7 +1,7 @@
-import React, { forwardRef, ReactNode } from 'react';
-import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
 import { Collapse, Fade, Grow, Slide, Zoom } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { forwardRef, ReactNode } from 'react';
 
 interface TransitionsProps {
   children?: ReactNode;

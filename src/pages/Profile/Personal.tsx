@@ -1,31 +1,31 @@
-import React, { useState, useRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
-
-import { Formik } from 'formik';
 import {
-  Grid,
-  CardContent,
   Avatar,
-  IconButton,
+  Box,
+  Card,
+  CardContent,
   FormControl,
+  Grid,
+  IconButton,
   InputLabel,
   Stack,
   Typography,
-  Box,
-  Card,
 } from '@mui/material';
-
-import SubCard from '../../components/Cards/SubCard';
-import { getpersonalDetails } from '@/api/mainApi';
 import { useTheme } from '@mui/system';
+import { useQuery } from '@tanstack/react-query';
+import { Formik } from 'formik';
+import PropTypes from 'prop-types';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { gridSpacing } from '@/redux/constant';
-import { Decrypt } from '../../utils/decrypt';
-import { useQuery } from '@tanstack/react-query';
+
+import { getpersonalDetails } from '@/api/mainApi';
 import { Profile } from '@/models/feed';
+import { gridSpacing } from '@/redux/constant';
+
+import SubCard from '../../components/Cards/SubCard';
+import { Decrypt } from '../../utils/decrypt';
 const PersonalDetails = (props: any) => {
-  let { userId } = props;
+  const { userId } = props;
   const theme = useTheme();
   const queryFunction = () => getpersonalDetails(userId);
 

@@ -12,7 +12,7 @@ import { apiClient } from './apiClient';
 
 export async function login(credentials: LoginCredentials): Promise<AuthResponse> {
   const { username, password } = credentials;
-  let formObject = {
+  const formObject = {
     tmc: username,
     password: password,
   };

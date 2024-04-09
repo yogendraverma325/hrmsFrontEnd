@@ -1,5 +1,5 @@
-import { Card, CardContent, Stack, SvgIcon, Typography } from '@mui/material';
 import { keyframes } from '@emotion/react';
+import { Card, CardContent, Stack, SvgIcon, Typography } from '@mui/material';
 
 const blinkAnimation = keyframes`
   0% {

@@ -1,4 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+import './Login.css';
+
 import { TextField, Typography } from '@mui/material';
 import {
   ErrorMessage,
@@ -21,7 +23,6 @@ import config from '../../redux/constant';
 import { enableLoading } from '../../redux/reducers/loadSlice';
 import { setSnackbar } from '../../redux/reducers/snackbarSlice';
 import ForgotPassoword from './ForgotPassoword';
-import './Login.css';
 const Login = () => {
   const navigate = useNavigate();
   const { setToken } = useAuth();
@@ -56,7 +57,6 @@ const Login = () => {
       );
       localStorage.setItem('userData', JSON.stringify(status.data.emp));
       navigate(config.defaultPath, { replace: true });
-     
     } catch (err: any) {
       dispatch(
         setSnackbar({
