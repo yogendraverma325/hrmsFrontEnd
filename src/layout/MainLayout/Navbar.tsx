@@ -23,6 +23,8 @@ import {
   CardActions,
   ClickAwayListener,
   Grid,
+  InputAdornment,
+  InputBase,
   Paper,
   Popper,
   Stack,
@@ -31,13 +33,15 @@ import {
 import MainCard from '../../components/Cards/MainCards';
 import Transitions from '../../components/extended/Transitions';
 import NotificationList from '../../components/Notifications';
+import SearchIcon from '@mui/icons-material/Search';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '@/redux/reducers/utilitesSlice';
 import { RootState } from '@/redux/reducers';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Decrypt } from '@/utils/decrypt';
 import { convertTimeStampToDate } from '@/utils/DateConverter';
+import { DrawerHeader } from './Header';
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })<any>(({ theme, open }) => ({
@@ -60,6 +64,12 @@ export default function NavBar() {
 
   const [userMenuOn, serUserMenuOn] = React.useState(false);
   const [notificationOn, setNotificationOn] = React.useState(false);
+  const [searchTerm, setSearchTerm] = React.useState('');
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+    // Perform search operations here
+  };
   const anchorRef = React.useRef(null);
   const userMenuRef = React.useRef(null);
   const handleOpenNotificationMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -96,23 +106,61 @@ export default function NavBar() {
             onClick={handleDrawer}
             edge="start"
             sx={{
-              marginRight: 5,
+              marginRight: 1,
               //   ...(open && { display: 'none' }),
             }}
           >
             <MenuIcon />
           </IconButton>
+          <Box>
+            <Box>
+              <DrawerHeader>
+                <div className="logo-wrap">
+                  <Link to="index.html" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <img
+                      className="brand-img"
+                      src="/src/assets/images/team-logo.png"
+                      alt="brand"
+                      style={{
+                        width: '70%',
+                        height: '39px',
+                        marginRight: '3rem',
+                      }}
+                    />
+                    {/* <Typography variant="h6" component="span" className="brand-text">
+                Team Computers
+              </Typography> */}
+                  </Link>
+                </div>
+              </DrawerHeader>
+            </Box>
+          </Box>
+          <Box sx={{ flexGrow: 1 }}>
+            <InputBase
+              placeholder="Search by Employee Name, Designation or Department"
+              inputProps={{ 'aria-label': 'search' }}
+              value={searchTerm}
+              onChange={handleSearch}
+              sx={{ backgroundColor: 'white', borderRadius: '999px', padding: '0.5rem', marginLeft: '32rem', width: '35%' }}
+              startAdornment={ // Add startAdornment to place the search icon
+                <InputAdornment position="start">
+                  <IconButton aria-label="search">
+                    <SearchIcon /> {/* Assuming SearchIcon is imported */}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
 
-          <Box sx={{ flexGrow: 1 }} />
+          </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Stack direction="row" gap={1}>
               <Typography>
                 <Typography variant="subtitle1">
-                  {name} ({designation})
+                  {name.toUpperCase()} ({designation.toUpperCase()})
                 </Typography>
                 <Typography variant="subtitle2">
-                  Last Login:{convertTimeStampToDate(lastLogin)}
+                  Last Login: {convertTimeStampToDate(lastLogin)}
                 </Typography>
               </Typography>
               {/* <IconButton
@@ -237,14 +285,14 @@ export default function NavBar() {
                       {/* REMINDER: ADD SHADOW FOR BETTER UI */}
                       <MainCard border={false} elevation={16} content={false} boxShadow>
                         <List>
-                          <ListItem onClick={() => handleListItemClick('/profile')}>
+                          <ListItem onClick={() => handleListItemClick('/profile')} style={{ cursor: 'pointer' }}>
                             <ListItemIcon>
                               <Person />
                             </ListItemIcon>
                             <Typography textAlign="center">Profile</Typography>
                           </ListItem>
 
-                          <ListItem onClick={() => handleListItemClick('/dashbaord')}>
+                          <ListItem onClick={() => handleListItemClick('/dashbaord')} style={{ cursor: 'pointer' }}>
                             <ListItemIcon>
                               <Dashboard />
                             </ListItemIcon>
@@ -253,6 +301,7 @@ export default function NavBar() {
                           <Divider />
 
                           <ListItem
+                            style={{ cursor: 'pointer' }}
                             onClick={() => {
                               localStorage.clear();
                               navigate('auth/login', { replace: true });

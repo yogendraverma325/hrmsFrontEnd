@@ -12,25 +12,7 @@ import { drawerWidth } from '@/redux/constant';
 
 const drawer = () => (
   <Box sx={{ width: 200 }}>
-    <Box>
-      <Box>
-        <DrawerHeader>
-          <div className="logo-wrap">
-            <Link to="index.html" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <img
-                className="brand-img"
-                src="/src/assets/images/Fevicon-white.png"
-                alt="brand"
-                style={{ width: '24px', height: '24px' }}
-              />
-              <Typography variant="h6" component="span" className="brand-text">
-                Team Computers
-              </Typography>
-            </Link>
-          </div>
-        </DrawerHeader>
-      </Box>
-    </Box>
+    
     <BrowserView>
       <PerfectScrollbar
         component="div"

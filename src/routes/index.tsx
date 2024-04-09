@@ -21,37 +21,29 @@ const BaseRoutes = () => {
       <Route index path="/login" element={<Login />} />
       <Route index element={<Navigate to={'/login'} replace />} />
       {/* <Route element={<ProtectedRoute />}> */}
-      <Route>
+      <Route element={<AdminLayout />}>
         <Route
           path="/addEmp"
           element={
-            <AdminLayout>
-              <AddEmp />
-            </AdminLayout>
+            <AddEmp />
           }
         />
         <Route
           path="/dashbaord"
           element={
-            <AdminLayout>
-              <Dashboard />
-            </AdminLayout>
+            <Dashboard />
           }
         />
         <Route
           path="/org"
           element={
-            <AdminLayout>
-              <OrgStructure />
-            </AdminLayout>
+            <OrgStructure />
           }
         />
         <Route
           path="profile/:userId"
           element={
-            <AdminLayout>
-              <PersonalDetails />
-            </AdminLayout>
+            <PersonalDetails />
           }
         />
       </Route>

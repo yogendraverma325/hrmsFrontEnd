@@ -10,6 +10,7 @@ import { styled, useTheme } from '@mui/material/styles';
 import { drawerWidth } from '@/redux/constant';
 import { RootState } from '@/redux/reducers';
 import { useSelector } from 'react-redux';
+import { Outlet } from 'react-router';
 export default function AdminLayout({ children }: any) {
   const Utils = useSelector((state: RootState) => state.utils);
   const Main = styled('main', { shouldForwardProp: (prop: any) => prop !== 'open' })<{
@@ -43,7 +44,8 @@ export default function AdminLayout({ children }: any) {
         <Marquee pauseOnHover={true}>
           <Announcements />
         </Marquee>
-        {children}
+        <Outlet />
+        {/* {children} */}
       </Main>
 
       <Footer />

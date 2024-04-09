@@ -49,22 +49,14 @@ const Login = () => {
       setToken(status.data.tokens.accessToken);
       dispatch(
         setSnackbar({
-          snackbarMessage: 'Login Successful',
+          snackbarMessage: status?.message,
           snackbarOpen: true,
           snackbarType: 'success',
         }),
       );
       localStorage.setItem('userData', JSON.stringify(status.data.emp));
       navigate(config.defaultPath, { replace: true });
-      if (status.statusCode != '10000') {
-        dispatch(
-          setSnackbar({
-            snackbarMessage: status?.message,
-            snackbarOpen: true,
-            snackbarType: 'error',
-          }),
-        );
-      }
+     
     } catch (err: any) {
       dispatch(
         setSnackbar({

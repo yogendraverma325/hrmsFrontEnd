@@ -13,6 +13,7 @@ import React from 'react';
 
 import MainCard from '../../../components/Cards/MainCards';
 import { iconData } from '../Dashboard';
+import { Card, CardContent, CardMedia } from '@mui/material';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -79,23 +80,42 @@ const Index = (props: iconData) => {
 
   return (
     <React.Fragment>
-      <MainCard border={false} className={classes.card}>
-        <List>
-          <ListItem alignItems="center" disableGutters>
-            <ListItemAvatar className={classes.avatarContainer}>
-              {/* Displaying the image as the Avatar */}
-              <Avatar className={classes.avatar}>
-                <img src={data.urlImage} alt="avatar" />
-              </Avatar>
-            </ListItemAvatar>
-          </ListItem>
-          <ListItem>
-            <ListItemText
-              primary={<Typography className={classes.primary}>{data.title}</Typography>}
-            />
-          </ListItem>
-        </List>
-      </MainCard>
+      <Card
+        style={{
+          maxWidth: 150,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          border: '1px solid #e0e0e0',
+        }}
+      >
+        <CardMedia
+          component="div"
+          style={{
+            height: 150,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'relative',
+            padding: '10px',
+          }}
+        >
+          {/* Image */}
+          <img
+            src={data.urlImage} // Image URL
+            alt="Person Image"
+            style={{ width: '100%', height: '100%', borderRadius: '50%' }}
+          />
+          {/* White text */}
+          <Typography variant="h6" component="div" style={{ color: '#fff', position: 'absolute', textAlign: 'center' }}>
+            {data.title}
+          </Typography>
+        </CardMedia>
+
+
+      </Card>
+
+
     </React.Fragment>
   );
 };
