@@ -1,15 +1,9 @@
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined';
-import BrowseGalleryOutlinedIcon from '@mui/icons-material/BrowseGalleryOutlined';
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
-import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 import { makeStyles } from '@mui/styles'; // Import makeStyles from @mui/styles
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { icons } from '@/layout/menu-items/pages';
 import { Grid, Box, useMediaQuery } from '@mui/material';
-
-import Main from './Cards';
 import OverviewTotalProfit from './Cards/OverviewTotalProfit';
 
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
