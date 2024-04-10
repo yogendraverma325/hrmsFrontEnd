@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 // Define the type for the state of the 'utils' slice
 type UtilState = {
   isActive: boolean;
-  annoucements: string;
+  annoucements?: string;
 };
 
 // Define the initial state for the 'utils' slice
