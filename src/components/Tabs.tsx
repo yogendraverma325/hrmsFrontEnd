@@ -53,12 +53,6 @@ export function TabPanel(props: any) {
   );
 }
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
 export function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,

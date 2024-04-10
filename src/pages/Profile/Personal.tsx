@@ -24,8 +24,14 @@ import { gridSpacing } from '@/redux/constant';
 
 import SubCard from '../../components/Cards/SubCard';
 import { Decrypt } from '../../utils/decrypt';
-const PersonalDetails = (props: any) => {
-  const { userId } = props;
+interface PersonalDetailsProps {
+  userId?: string;
+}
+
+const PersonalDetails: React.FC<PersonalDetailsProps> = ({ userId }) => {
+  if (!userId) {
+    return <Typography variant="h2">User ID not provided!</Typography>;
+  }
   const theme = useTheme();
   const queryFunction = () => getpersonalDetails(userId);
 
@@ -463,7 +469,5 @@ const PersonalDetails = (props: any) => {
     </Box>
   );
 };
-
-PersonalDetails.propTypes = {};
 
 export default PersonalDetails;
