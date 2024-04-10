@@ -12,7 +12,6 @@ import NavItem from '../NavItem';
 
 const NavGroup = ({ item }: any) => {
   const theme = useTheme();
-
   // menu list collapse & items
   const items = item.children?.map((menu: any) => {
     switch (menu.type) {
@@ -44,9 +43,6 @@ const NavGroup = ({ item }: any) => {
                 textTransform: 'uppercase',
                 fontWeight: 600,
                 color: '#b2aeae',
-                '&:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                },
               }}
             >
               {item.title}
@@ -55,9 +51,6 @@ const NavGroup = ({ item }: any) => {
                   variant="caption"
                   sx={{
                     listStyleType: 'none',
-                    '&:hover': {
-                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                    },
                   }}
                 >
                   {item.caption}
@@ -82,9 +75,6 @@ const NavGroup = ({ item }: any) => {
           '.MuiListItemText-root > .MuiTypography-root': {
             my: 0,
             fontSize: '14px',
-          },
-          '&:hover': {
-            backgroundColor: 'rgba(255, 255, 255, 0.05)',
           },
         }}
       >

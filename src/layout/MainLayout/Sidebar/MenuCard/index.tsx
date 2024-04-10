@@ -11,6 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 
+import { convertTimeStampToDate } from '@/utils/DateConverter';
 // assets
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
@@ -36,7 +37,7 @@ const CardStyle = styled(Card)(({ theme }) => ({
 const MenuCard = ({ userDetails }: any) => {
   return (
     <CardStyle>
-      <CardContent sx={{ p: 2 }}>
+      <CardContent sx={{ p: 1 }}>
         <List sx={{ p: 0, m: 0 }}>
           <ListItem alignItems="flex-start" disableGutters sx={{ p: 0 }}>
             <ListItemAvatar sx={{ mt: 0 }}>
@@ -65,6 +66,9 @@ const MenuCard = ({ userDetails }: any) => {
               }
             />
           </ListItem>
+          <Typography variant="subtitle2" sx={{ fontSize: 10, color: 'white' }}>
+            Last Login: {convertTimeStampToDate(userDetails?.lastLogin)}
+          </Typography>
         </List>
       </CardContent>
     </CardStyle>

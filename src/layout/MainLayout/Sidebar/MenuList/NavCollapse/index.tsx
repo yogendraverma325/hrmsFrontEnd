@@ -166,9 +166,6 @@ const NavCollapse = ({ menu, level }: any) => {
               my: 0,
               fontSize: '14px',
             },
-            '&:hover': {
-              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-            },
           }}
         >
           {menus}

@@ -181,7 +181,7 @@ const Login = () => {
                     <div className="col-md-12 col-sm-12 col-xs-12 fr-psw">
                       <div className="row">
                         <div className="col-md-10">
-                          <p> Forgot your password?</p>
+                          <br></br>
                         </div>
                       </div>
                     </div>

@@ -1,6 +1,5 @@
 import { keyframes } from '@emotion/react';
 import { Card, CardContent, Stack, SvgIcon, Typography } from '@mui/material';
-
 const blinkAnimation = keyframes`
   0% {
     opacity: 1;
@@ -23,24 +22,25 @@ const styles: { [key: string]: React.CSSProperties } = {
 interface OverviewTotalProfitProps {
   name: string;
   backgroundColor: string;
-  svgPath1: string;
-  svgPath2: string;
-  color: string;
+  svgPath: any;
+  color?: string;
   value?: string;
 }
 
 const OverviewTotalProfit: React.FC<OverviewTotalProfitProps> = ({
   name,
   backgroundColor,
-  svgPath1,
-  svgPath2,
-  color,
+  svgPath,
   value,
 }) => {
+  const IconComponent = svgPath;
   return (
     <Card
       sx={{
         backgroundColor: backgroundColor,
+        marginTop: '30px',
+        marginLeft: '10px',
+        marginRight: '10px',
       }}
     >
       <CardContent>
@@ -48,10 +48,10 @@ const OverviewTotalProfit: React.FC<OverviewTotalProfitProps> = ({
           alignItems="flex-start"
           direction="row"
           justifyContent="space-between"
-          spacing={3}
+          spacing={2}
         >
           <Stack>
-            <Typography paddingTop={4} variant="h7" color={'white'} fontWeight={500}>
+            <Typography paddingTop={2} variant="h6" color={'white'} fontWeight={500}>
               {name}
             </Typography>
             <Typography
@@ -65,16 +65,15 @@ const OverviewTotalProfit: React.FC<OverviewTotalProfitProps> = ({
           </Stack>
 
           <Typography>
-            <SvgIcon
-              sx={{
-                height: 86,
-                width: 86,
-                color: { color },
-              }}
-            >
-              <path d={svgPath1} opacity=".4" />
-              <path d={svgPath2} />
-            </SvgIcon>
+            {IconComponent && (
+              <IconComponent
+                sx={{
+                  height: 70,
+                  width: 70,
+                  color: 'white',
+                }}
+              />
+            )}
           </Typography>
         </Stack>
       </CardContent>
