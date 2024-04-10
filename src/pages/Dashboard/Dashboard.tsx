@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Dashboard = () => {
-  console.log('icons.HolidayVillageIcon', icons.HolidayVillageIcon);
   const isDesktop = useMediaQuery('(min-width: 1280px)');
   const classes = useStyles();
   const [isLoading, setLoading] = useState(true);

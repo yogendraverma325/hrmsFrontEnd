@@ -3,7 +3,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { styled, useTheme } from '@mui/material/styles';
 import Marquee from 'react-fast-marquee';
 import { useSelector } from 'react-redux';
-import { Outlet } from 'react-router';
+import { Outlet, useLocation } from 'react-router';
 
 import { drawerWidth } from '@/redux/constant';
 import { RootState } from '@/redux/reducers';
@@ -13,9 +13,10 @@ import Footer from './Footer';
 import { DrawerHeader } from './Header';
 import NavBar from './Navbar';
 import Sidebar from './Sidebar';
+import BreadCrums from './BreadCrums';
 export default function AdminLayout({ children }: any) {
   const Utils = useSelector((state: RootState) => state.utils);
-
+  const location = useLocation();
   const Main = styled('main', {
     shouldForwardProp: (prop: any) => prop !== 'open',
   })<{ open?: boolean }>(({ theme, open }: any) => ({
@@ -29,7 +30,7 @@ export default function AdminLayout({ children }: any) {
     }),
     marginLeft: open ? `${drawerWidth - 10}px` : 0,
   }));
-
+  const isDashboardPage = location.pathname !== '/dashbaord';
   return (
     <>
       <Box sx={{ display: 'flex' }}>
@@ -40,9 +41,13 @@ export default function AdminLayout({ children }: any) {
 
       <Main open={Utils.isActive} sx={{ flexGrow: 1, p: 2 }}>
         <DrawerHeader />
-        <Marquee pauseOnHover={true}>
-          <Announcements />
-        </Marquee>
+        <div className="sticky-wrapper">
+          <Marquee pauseOnHover={true}>
+            <Announcements />
+          </Marquee>
+        </div>
+        {isDashboardPage && <BreadCrums />}
+
         <Outlet />
         {/* {children} */}
       </Main>

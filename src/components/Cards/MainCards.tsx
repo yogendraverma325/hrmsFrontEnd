@@ -47,7 +47,6 @@ const MainCard = forwardRef<HTMLDivElement, SubCardProps>(
         ref={ref}
         {...others}
         sx={{
-          border: border ? '0.5px solid' : 'none',
           borderColor: '##104155',
           ':hover': {
             boxShadow: boxShadow
