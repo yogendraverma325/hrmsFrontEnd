@@ -27,9 +27,6 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(0deg)',
     marginTop: -10,
     marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.short,
-    }),
   },
   expandOpen: {
     transform: 'rotate(180deg)',
@@ -37,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   // ...theme,
 }));
 
-function Organization({ org, onCollapse, collapsed, handleNodeClick }) {
+function Organization({ org, onCollapse, collapsed, handleNodeClick }: any) {
   const classes = useStyles();
   const handleClick = () => {
     handleNodeClick(org);
@@ -46,7 +43,11 @@ function Organization({ org, onCollapse, collapsed, handleNodeClick }) {
     <Card variant="outlined">
       <CssBaseline />
 
-      <CardHeader variant="outlined" title={userObject(org)} onClick={handleClick} />
+      <CardHeader
+        variant="outlined"
+        title={userObject(org, handleNodeClick)}
+        onClick={handleClick}
+      />
 
       <IconButton
         size="small"
@@ -77,7 +78,7 @@ const userObject = (input: any, handleNodeClick: any) => {
     </>
   );
 };
-function Account({ a, handleNodeClick }) {
+function Account({ a, handleNodeClick }: any) {
   const classes = useStyles();
 
   return (
@@ -91,7 +92,7 @@ function Account({ a, handleNodeClick }) {
   );
 }
 
-function Node({ o, parent, fetchData, handleNodeClick }) {
+function Node({ o, parent, fetchData, handleNodeClick }: any) {
   const [collapsed, setCollapsed] = React.useState(!o.collapsed);
 
   const handleCollapse = async () => {
@@ -113,7 +114,7 @@ function Node({ o, parent, fetchData, handleNodeClick }) {
 
   const T = parent
     ? TreeNode
-    : (props) => (
+    : (props: any) => (
         <Tree {...props} lineWidth={'2px'} lineColor={'#bbc'} lineBorderRadius={'20%'}>
           {props.children}
         </Tree>
@@ -160,11 +161,11 @@ function Node({ o, parent, fetchData, handleNodeClick }) {
   );
 }
 
-const checkNormalChildAndOthers = (data) => {
-  const normalReported = [];
-  const hierarhcyReportee = [];
+const checkNormalChildAndOthers = (data: any) => {
+  const normalReported: any = [];
+  const hierarhcyReportee: any = [];
 
-  data.reportie.forEach((element) => {
+  data.reportie.forEach((element: any) => {
     if (element.reportings === true) {
       hierarhcyReportee.push({
         name: element.name,
@@ -195,7 +196,7 @@ const OrgStructure = (props: any) => {
   const [userData, setUserData] = React.useState(null);
   const navigate = useNavigate();
   useEffect(() => {
-    const fetchDataWrapper = async (userId) => {
+    const fetchDataWrapper = async (userId: number) => {
       setUserData(await fetchData(userId));
     };
 

@@ -1,5 +1,3 @@
-import type { ColorSystemOptions } from '@mui/material/styles';
-
 import {
   california,
   kepple,
@@ -11,7 +9,7 @@ import {
 } from './colors';
 import type { ColorScheme } from './types';
 
-export const colorSchemes: Partial<Record<ColorScheme, ColorSystemOptions>> = {
+export const colorSchemes: Partial<Record<ColorScheme, any>> = {
   dark: {
     palette: {
       action: { disabledBackground: 'rgba(0, 0, 0, 0.12)' },

@@ -77,7 +77,7 @@ const pages = {
     },
     {
       id: 'HRDocuments',
-      title: 'HRDocuments',
+      title: 'HR Documents',
       type: 'item',
       icon: icons.DocumentScannerIcon,
     },

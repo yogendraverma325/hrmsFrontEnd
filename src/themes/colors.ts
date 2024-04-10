@@ -1,6 +1,12 @@
-import type { PaletteOptions } from '@mui/material/styles/createPalette';
+export interface CustomPaletteOptions {
+  main?: string;
+  light?: string;
+  dark?: string;
+  contrastText?: string;
+  [key: string]: string | undefined;
+}
 
-export const california: PaletteOptions = {
+export const california: CustomPaletteOptions = {
   50: '#fffaea',
   100: '#fff3c6',
   200: '#ffe587',
@@ -14,7 +20,7 @@ export const california: PaletteOptions = {
   950: '#471701',
 };
 
-export const kepple: PaletteOptions = {
+export const kepple: CustomPaletteOptions = {
   50: '#f0fdfa',
   100: '#ccfbef',
   200: '#9af5e1',
@@ -28,7 +34,7 @@ export const kepple: PaletteOptions = {
   950: '#042f2c',
 };
 
-export const neonBlue: PaletteOptions = {
+export const neonBlue: CustomPaletteOptions = {
   50: '#ecf0ff',
   100: '#dde3ff',
   200: '#c2cbff',
@@ -42,7 +48,7 @@ export const neonBlue: PaletteOptions = {
   950: '#1e1650',
 };
 
-export const nevada: PaletteOptions = {
+export const nevada: CustomPaletteOptions = {
   50: '#fbfcfe',
   100: '#f0f4f8',
   200: '#dde7ee',
@@ -56,7 +62,7 @@ export const nevada: PaletteOptions = {
   950: '#090a0b',
 };
 
-export const redOrange: PaletteOptions = {
+export const redOrange: CustomPaletteOptions = {
   50: '#fef3f2',
   100: '#fee4e2',
   200: '#ffcdc9',
@@ -70,7 +76,7 @@ export const redOrange: PaletteOptions = {
   950: '#460d09',
 };
 
-export const shakespeare: PaletteOptions = {
+export const shakespeare: CustomPaletteOptions = {
   50: '#ecfdff',
   100: '#cff7fe',
   200: '#a4eefd',
@@ -84,7 +90,7 @@ export const shakespeare: PaletteOptions = {
   950: '#082f44',
 };
 
-export const stormGrey: PaletteOptions = {
+export const stormGrey: CustomPaletteOptions = {
   50: '#f9fafb',
   100: '#f1f1f4',
   200: '#dcdfe4',

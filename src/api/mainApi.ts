@@ -12,7 +12,7 @@ export async function getEmployees(payload: any): Promise<EmpListResponse> {
   return response.data;
 }
 
-export async function getHierarchy(payload: number): Promise<ReportiesListResponse> {
+export async function getHierarchy(payload: number): Promise<any> {
   const applyFilter = payload ? `?manager=${payload}` : '';
   const response: AxiosResponse<ReportiesListResponse> = await apiClient.get(
     `master/reporties${applyFilter}`,
