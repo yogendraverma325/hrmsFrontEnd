@@ -24,7 +24,7 @@ interface OverviewTotalProfitProps {
   backgroundColor: string;
   svgPath: any;
   color?: string;
-  value?: string;
+  value?: any;
 }
 
 const OverviewTotalProfit: React.FC<OverviewTotalProfitProps> = ({

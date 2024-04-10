@@ -1,6 +1,11 @@
 import { AxiosResponse } from 'axios';
 
-import { EmpListResponse, Profile, ReportiesListResponse } from '../models/feed';
+import {
+  EmpListResponse,
+  ApiResponse,
+  PersonalData,
+  ReportiesListResponse,
+} from '../models/feed';
 import { apiClient } from './apiClient';
 
 export async function getEmployees(payload: any): Promise<EmpListResponse> {
@@ -20,18 +25,18 @@ export async function getHierarchy(payload: number): Promise<any> {
   return response.data;
 }
 
-export async function getpersonalDetails(userId: string): Promise<Profile> {
-  const response: AxiosResponse<Profile> = await apiClient.get(
+export async function getpersonalDetails(userId: string): Promise<PersonalData> {
+  const response: AxiosResponse<PersonalData> = await apiClient.get(
     `user/personalDetails?user=${userId}`,
   );
   return response.data;
 }
 
-export async function getProfile(userId: string | number): Promise<Profile> {
+export async function getProfile(userId: string | undefined): Promise<ApiResponse> {
   if (!userId) {
     false;
   }
-  const response: AxiosResponse<Profile> = await apiClient.get(
+  const response: AxiosResponse<ApiResponse> = await apiClient.get(
     `user/profileDetails?user=${userId}`,
   );
   return response.data;

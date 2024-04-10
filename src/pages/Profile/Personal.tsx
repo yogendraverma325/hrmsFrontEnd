@@ -19,7 +19,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
 import { getpersonalDetails } from '@/api/mainApi';
-import { Profile } from '@/models/feed';
+import { PersonalData } from '@/models/feed';
 import { gridSpacing } from '@/redux/constant';
 
 import SubCard from '../../components/Cards/SubCard';
@@ -36,7 +36,7 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({ userId }) => {
   const queryFunction = () => getpersonalDetails(userId);
 
   // Pass the closure function as the query function to useQuery
-  const { data, isLoading, isError, error } = useQuery(
+  const { data, isLoading, isError, error } = useQuery<PersonalData>(
     ['personalDetails', userId],
     queryFunction,
   );

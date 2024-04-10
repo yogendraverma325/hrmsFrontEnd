@@ -95,44 +95,126 @@ export interface Reportie {
   reportings: boolean;
 }
 
-export interface Profile {
+export interface PersonalData {
+  data: {
+    empCode: string;
+    employeebiographicaldetail: {
+      nationality: string;
+      maritalStatus: boolean;
+      mobileAccess: boolean;
+      laptopSystem: string;
+      backgroundVerification: boolean;
+      gender: string;
+      dateOfBirth: string;
+      // Add other properties as needed
+    };
+    employeejobdetail: {
+      dateOfJoining: string;
+      probationPeriod: string;
+      languagesSpoken: string;
+      // Add other properties as needed
+    };
+    employeepaymentdetail: {
+      paymentAccountNumber: string;
+      paymentHolderName: string;
+      paymentBankName: string;
+      paymentBankIfsc: string;
+      // Add other properties as needed
+    };
+    employeeemergencycontact: {
+      emergencyContactName: string;
+      emergencyContactNumber: string;
+      emergencyContactRelation: string;
+      // Add other properties as needed
+    };
+    employeefamilydetails: {
+      name: string;
+      dob: string;
+      mobileNo: string;
+      relationWithEmp: string;
+      gender: string;
+      // Add other properties as needed
+    }[];
+    employeeeducationdetails: {
+      degreemaster: {
+        degreeName: string;
+        // Add other properties as needed
+      };
+      educationInstitute: string;
+      educationSpecialisation: string;
+      educationStartDate: string;
+      educationCompletionDate: string;
+      // Add other properties as needed
+    }[];
+    // Add other properties as needed
+  };
+}
+
+export interface ApiResponse {
+  statusCode: number;
+  status: boolean;
+  data: UserData;
+}
+
+interface UserData {
   id: number;
   empCode: string;
   name: string;
   email: string;
   firstName: string;
   lastName: string;
+  profileImage: string | null;
   officeMobileNumber: string;
   personalMobileNumber: string;
-  dateOfJoining: string;
   manager: number;
   functionalAreaId: number;
   buId: number;
   departmentId: number;
   companyId: number;
-  employeebiographicaldetail: {
-    biographicalId: number;
-    userId: number;
-    nationality: string;
-    maritalStatus: boolean;
-    mobileAccess: boolean;
-    laptopSystem: string;
-    backgroundVerification: boolean;
-    gender: string;
-    dateOfBirth: string;
+  lastLogin: string;
+  functionalareamaster: {
+    functionalAreaId: number;
+    functionalAreaName: string;
+    functionalAreaCode: string;
   };
-  employeejobdetail: {
-    jobId: number;
-    userId: number;
-    dateOfJoining: string;
-    probationPeriod: string;
-    languagesSpoken: string;
+  bumaster: {
+    buId: number;
+    buName: string;
+    buCode: string;
   };
-  employeeemergencycontact: {
-    emergencyContactId: number;
-    userId: number;
-    emergencyContactName: string;
-    emergencyContactNumber: string;
-    emergencyContactRelation: string;
+  departmentmaster: {
+    departmentId: number;
+    departmentCode: string;
+    departmentName: string;
   };
+  companymaster: {
+    companyId: number;
+    companyName: string;
+    companyCode: string;
+    groupcompanymaster: {
+      groupId: number;
+      groupCode: string;
+      groupName: string;
+      groupShortName: string;
+    };
+  };
+  managerData: {
+    name: string;
+    role: {
+      role_id: number;
+      name: string;
+    };
+    designationmaster: {
+      designationId: number;
+      name: string;
+    };
+  };
+  role: {
+    name: string;
+  };
+  designationmaster: {
+    designationId: number;
+    name: string;
+  };
+  reportie: any[]; // You might want to create an interface for this array items
 }

@@ -31,13 +31,13 @@ import Tabs, { a11yProps, TabPanel } from '../../components/Tabs';
 import { Decrypt } from '../../utils/decrypt';
 import OrgStructure from '../Structure/orgStructure';
 import PersonalDetails from './Personal';
-import { Profile } from '@/models/feed';
+import { ApiResponse } from '@/models/feed';
 const AccountProfile = (props: any) => {
   const { userId } = useParams();
   const queryFunction = () => getProfile(userId);
 
   // Pass the closure function as the query function to useQuery
-  const { data, isLoading, isError, error } = useQuery<Profile>(
+  const { data, isLoading, isError, error } = useQuery<ApiResponse>(
     ['profile', userId],
     queryFunction,
   );
