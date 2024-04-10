@@ -1,21 +1,29 @@
 import { Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import PropTypes from 'prop-types';
-import React, { forwardRef } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 
-// ==============================|| CUSTOM SUB CARD ||============================== //
+interface SubCardProps {
+  children?: ReactNode;
+  content?: boolean;
+  contentClass?: string;
+  darkTitle?: boolean;
+  secondary?: ReactNode | string | object;
+  sx?: object; // Custom styles for the Card component
+  contentSX?: object; // Custom styles for the CardContent component
+  title?: string;
+}
 
-const SubCard = forwardRef(
+const SubCard = forwardRef<HTMLDivElement, SubCardProps>(
   (
     {
       children,
-      content,
+      content = true,
       contentClass,
       darkTitle,
       secondary,
-      sx = {},
-      contentSX = {},
+      sx = {}, // Custom styles for the Card component
+      contentSX = {}, // Custom styles for the CardContent component
       title,
       ...others
     },
@@ -32,7 +40,7 @@ const SubCard = forwardRef(
           ':hover': {
             boxShadow: '0 2px 14px 0 rgb(32 40 45 / 8%)',
           },
-          ...sx,
+          ...sx, // Apply custom styles for the Card component
         }}
         {...others}
       >
@@ -80,8 +88,8 @@ SubCard.propTypes = {
   contentClass: PropTypes.string,
   darkTitle: PropTypes.bool,
   secondary: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object]),
-  sx: PropTypes.object,
-  contentSX: PropTypes.object,
+  sx: PropTypes.object, // Prop for custom styles for the Card component
+  contentSX: PropTypes.object, // Prop for custom styles for the CardContent component
   title: PropTypes.string,
 };
 

@@ -55,9 +55,6 @@ const NavItem = ({ item, level }: any) => {
       <Link ref={ref as null} {...props} to={item.url} target={itemTarget} />
     )),
   };
-  if (item?.external) {
-    listItemProps = { component: 'a', href: item.url, target: itemTarget };
-  }
 
   const itemHandler = (id: string) => {
     dispatch({ type: MENU_OPEN, id });
