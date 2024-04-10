@@ -132,7 +132,13 @@ const AccountProfile = (props: any) => {
                           alignItems="center"
                         >
                           <Typography variant="h4" textAlign="center">
-                            {data?.data?.name}
+                            {data?.data?.name
+                              ? data?.data?.name.charAt(0).toUpperCase() +
+                                data?.data?.name.slice(1)
+                              : ' Get Extra Space'}
+                          </Typography>
+                          <Typography variant="h7" textAlign="center">
+                            ({data?.data?.designationmaster?.name})
                           </Typography>
                         </Stack>
                       </Grid>
