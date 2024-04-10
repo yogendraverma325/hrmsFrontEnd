@@ -1,17 +1,28 @@
 import { Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import PropTypes from 'prop-types';
-import React, { forwardRef } from 'react';
-
+import React, { forwardRef, ReactNode } from 'react';
 // constant
 const headerSX = {
   '& .MuiCardHeader-action': { mr: 0 },
 };
 
 // ==============================|| CUSTOM MAIN CARD ||============================== //
-
-const MainCard = forwardRef(
+interface SubCardProps {
+  children?: ReactNode;
+  border?: Boolean;
+  boxShadow?: boolean;
+  shadow?: string;
+  content?: boolean;
+  contentClass?: string;
+  elevation?: number;
+  darkTitle?: boolean;
+  secondary?: ReactNode | string | object;
+  sx?: object; // Custom styles for the Card component
+  contentSX?: object; // Custom styles for the CardContent component
+  title?: string;
+}
+const MainCard = forwardRef<HTMLDivElement, SubCardProps>(
   (
     {
       border = true,
@@ -84,7 +95,7 @@ MainCard.propTypes = {
   secondary: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object]),
   shadow: PropTypes.string,
   sx: PropTypes.object,
-  title: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object]),
+  title: PropTypes.oneOfType([PropTypes.string]),
 };
 
 export default MainCard;

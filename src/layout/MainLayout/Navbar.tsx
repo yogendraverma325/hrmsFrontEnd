@@ -231,7 +231,7 @@ export default function NavBar() {
                   <Paper>
                     <ClickAwayListener onClickAway={handleCloseNotificationMenu}>
                       {/* REMINDER: ADD SHADOW FOR BETTER UI */}
-                      <MainCard border={false} elevation={16} content={false} boxShadow>
+                      <MainCard border={false} content={false} boxShadow>
                         <Grid container direction="column" spacing={2}>
                           <Grid item xs={12}>
                             <Grid
