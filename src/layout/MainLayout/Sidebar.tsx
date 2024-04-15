@@ -52,8 +52,8 @@ const drawer = () => (
         }}
       >
         <MenuCard2 userDetails={Decrypt()} />
-        <br></br>
-        <MenuCard userDetails={Decrypt()} />
+        {/* <br></br>
+        <MenuCard userDetails={Decrypt()} /> */}
 
         <MenuList />
       </PerfectScrollbar>

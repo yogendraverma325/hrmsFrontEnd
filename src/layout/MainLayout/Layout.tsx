@@ -49,9 +49,9 @@ export default function AdminLayout({ children }: any) {
         {isDashboardPage && <BreadCrums />}
 
         <Outlet />
+
         {/* {children} */}
       </Main>
-
       <Footer />
     </>
   );
