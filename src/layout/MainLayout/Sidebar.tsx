@@ -12,6 +12,7 @@ import MenuList from './Sidebar/MenuList';
 import { Box, Drawer, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MenuCard from './Sidebar/MenuCard';
+import MenuCard2 from './Sidebar/MenuCard/index2';
 const Sidebar = () => {
   const theme = useTheme();
   const Utils = useSelector((state: RootState) => state.utils);
@@ -50,7 +51,10 @@ const drawer = () => (
           paddingRight: '16px',
         }}
       >
+        <MenuCard2 userDetails={Decrypt()} />
+        <br></br>
         <MenuCard userDetails={Decrypt()} />
+
         <MenuList />
       </PerfectScrollbar>
     </BrowserView>
