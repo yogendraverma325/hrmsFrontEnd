@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     '& button': {
       margin: 1,
-      color: '#FF5E63',
+      color: 'white',
     },
   },
 }));
@@ -58,7 +58,7 @@ const Footer = () => {
   return (
     <footer className={classes.root}>
       <Container className={classes.container} maxWidth="lg">
-        <Stack>
+        <Stack direction="row" alignItems="center" spacing={2}>
           <Box className={classes.nav}>
             <Typography variant="h6" color="inherit" sx={{ fontSize: 'small' }}>
               Team Computers Pvt. Ltd. © 2024 | All rights reserved.

@@ -31,32 +31,11 @@ const Announcements = () => {
   const Utils = useSelector((state: RootState) => state.utils);
   return Utils.annoucements ? (
     <>
-      <Paper
-        elevation={0}
-        style={{
-          zIndex: 10,
-          top: 0,
-          left: 'auto',
-          right: 0,
-          backgroundColor: '#104155',
-          borderRadius: '999px',
-          color: '#F0F7FF',
-          boxShadow: 'none',
-          backgroundImage: 'none',
-          marginTop: '16px',
-        }}
-      >
-        <Toolbar
-          sx={{
-            minHeight: '5px',
-            backgroundColor: 'rgba(255, 255, 255, 0.4)',
-          }}
-        >
-          <Typography style={{ color: 'blue' }} fontWeight={500}>
+      
+          <Typography variant='h6' component='h5'>
             {Utils.annoucements}
           </Typography>
-        </Toolbar>
-      </Paper>
+        
     </>
   ) : (
     <></>
