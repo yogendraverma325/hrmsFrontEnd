@@ -51,7 +51,7 @@ const OverviewTotalProfit: React.FC<OverviewTotalProfitProps> = ({
           spacing={2}
         >
           <Stack>
-            <Typography paddingTop={2} variant="h6" color={'white'} fontWeight={500}>
+            <Typography padding={2} variant="h6" color={'white'} fontWeight={500}>
               {name}
             </Typography>
             <Typography
@@ -68,8 +68,8 @@ const OverviewTotalProfit: React.FC<OverviewTotalProfitProps> = ({
             {IconComponent && (
               <IconComponent
                 sx={{
-                  height: 70,
-                  width: 70,
+                  height: 30,
+                  width: 30,
                   color: 'white',
                 }}
               />

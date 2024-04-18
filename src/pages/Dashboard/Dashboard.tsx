@@ -1,27 +1,30 @@
-import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
-import { makeStyles } from '@mui/styles'; // Import makeStyles from @mui/styles
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { icons } from '@/layout/menu-items/pages';
-import { Grid, Box, useMediaQuery } from '@mui/material';
+import { Grid, Box, Typography, useMediaQuery } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import OverviewTotalProfit from './Cards/OverviewTotalProfit';
-
-//-----------------------|| DEFAULT DASHBOARD ||-----------------------//
-export type iconData = {
-  icon: any;
-  urlImage: string;
-  count: number;
-  title: string;
-  url: string;
-  urlType: 'NONE' | 'EXTERNAL' | 'INTERNAL';
-};
+import { icons } from '@/layout/menu-items/pages';
+import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 
 // Define styles using makeStyles from @mui/styles
 const useStyles = makeStyles((theme) => ({
   gridItem: {
-    transition: 'transform 0.3s', // Apply transition to the transform property
+    transition: 'transform 1.3s',
     '&:hover': {
-      transform: 'scale(1.05)', // Scale the grid item by 5% when hovering
+      transform: 'scale(1.05)',
+    },
+  },
+  cardBox: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: theme.spacing(4),
+    borderRadius: theme.spacing(2),
+    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+    cursor: 'pointer',
+    transition: 'box-shadow 1s, transform 0.80s ease-in-out', // Added transition
+    '&:hover': {
+      boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.2)',
+      transform: 'scale(1.05) rotateX(360deg)', // Vertical rotation on hover
     },
   },
 }));
@@ -29,195 +32,109 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
   const isDesktop = useMediaQuery('(min-width: 1280px)');
   const classes = useStyles();
-  const [isLoading, setLoading] = useState(true);
+  const [hoveredCardIndex, setHoveredCardIndex] = useState(-1); // State to track hovered card index
   const navigate = useNavigate();
-  useEffect(() => {
-    setLoading(false);
-  }, []);
 
-  const handleListItemClick = (URLData: string) => {
-    navigate(URLData);
+  const handleCardClick = (url: string) => {
+    navigate(url);
   };
 
-  return (
-    <>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '60vh',
-        }}
-      >
-        <Grid container justifyContent="center" sx={{ marginTop: '30px' }}>
-          <Grid item xs={12} lg={12}>
-            <Grid container spacing={4}>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                lg={2}
-                sx={{ marginRight: '10px', marginLeft: isDesktop ? '80px' : '9px' }}
-              >
-                <Box>
-                  <OverviewTotalProfit
-                    name="Leave"
-                    backgroundColor="rgb(103, 58, 183)"
-                    svgPath={icons.HolidayVillageIcon}
-                  />
-                </Box>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                lg={2}
-                sx={{ marginRight: '10px', marginLeft: '10px' }}
-              >
-                <Box>
-                  <OverviewTotalProfit
-                    name="Attendance"
-                    backgroundColor="rgb(30, 136, 229)"
-                    svgPath={icons.AccessAlarmIcon}
-                  />
-                </Box>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                lg={2}
-                sx={{ marginRight: '10px', marginLeft: '10px' }}
-              >
-                <Box>
-                  <OverviewTotalProfit
-                    name="Task Box"
-                    backgroundColor="rgb(216, 67, 21)"
-                    svgPath={icons.AssignmentIcon}
-                    value={<CircleNotificationsIcon />}
-                  />
-                </Box>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                lg={2}
-                sx={{ marginRight: '10px', marginLeft: '10px' }}
-              >
-                <Box
-                  onClick={() => {
-                    handleListItemClick('/org');
-                  }}
-                >
-                  <OverviewTotalProfit
-                    name="Organization"
-                    svgPath={icons.AccountTreeIcon}
-                    backgroundColor="rgb(0, 200, 83)"
-                  />
-                </Box>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                lg={2}
-                sx={{ marginRight: '10px', marginLeft: '10px' }}
-              >
-                <Box>
-                  <OverviewTotalProfit
-                    name="HR Care Desk"
-                    svgPath={icons.WifiCalling3Icon}
-                    backgroundColor="rgb(103, 58, 183)"
-                  />
-                </Box>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                lg={2}
-                sx={{ marginRight: '10px', marginLeft: isDesktop ? '80px' : '9px' }}
-              >
-                <Box>
-                  <OverviewTotalProfit
-                    name="Recruitment"
-                    svgPath={icons.PersonSearchIcon}
-                    backgroundColor="rgb(199, 05, 29)"
-                  />
-                </Box>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                lg={2}
-                sx={{ marginRight: '10px', marginLeft: '10px' }}
-              >
-                <Box>
-                  <OverviewTotalProfit
-                    name="Compensation"
-                    svgPath={icons.AttachMoneyIcon}
-                    backgroundColor="rgb(30, 90, 40)"
-                  />
-                </Box>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                lg={2}
-                sx={{ marginRight: '10px', marginLeft: '10px' }}
-              >
-                <Box>
-                  <OverviewTotalProfit
-                    name="HR Documents"
-                    svgPath={icons.DocumentScannerIcon}
-                    backgroundColor="rgb(90, 67, 21)"
-                  />
-                </Box>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                lg={2}
-                sx={{ marginRight: '10px', marginLeft: '10px' }}
-              >
-                <Box>
-                  <OverviewTotalProfit
-                    name="Performance"
-                    svgPath={icons.TrendingUpIcon}
-                    backgroundColor="rgb(250,100, 83)"
-                  />
-                </Box>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                lg={2}
-                sx={{ marginRight: '10px', marginLeft: '10px' }}
-              >
-                <Box
-                  onClick={() => {
-                    handleListItemClick('/functionStructure');
-                  }}
-                >
-                  <OverviewTotalProfit
-                    name="Function Structure"
-                    svgPath={icons.CalendarMonthIcon}
-                    backgroundColor="rgb(32, 58, 183)"
-                  />
-                </Box>
-              </Grid>
+  // Define dynamic card data
+  const dynamicCards = [
+    {
+      name: 'Task',
+      backgroundColor: 'rgba(253, 29, 29, 100)',
+      svgPath: CircleNotificationsIcon,
+      url: '/org',
+    },
+    {
+      name: 'Leave',
+      backgroundColor: 'rgb(103, 58, 183)',
+      svgPath: icons.HolidayVillageIcon,
+      url: '/org',
+    },
+    {
+      name: 'Attendance',
+      backgroundColor: 'rgb(30, 136, 229)',
+      svgPath: icons.AccessAlarmIcon,
+      url: '/org',
+    },
+    {
+      name: 'Organization',
+      backgroundColor: 'rgb(0, 200, 83)',
+      svgPath: icons.AccountTreeIcon,
+      url: '/org',
+    },
+    {
+      name: 'Recruitment',
+      backgroundColor: 'rgb(199, 05, 29)',
+      svgPath: icons.PersonSearchIcon,
+      url: '/org',
+    },
+    {
+      name: 'Compensation',
+      backgroundColor: 'rgb(30, 90, 40)',
+      svgPath: icons.AttachMoneyIcon,
+      url: '',
+    },
+    {
+      name: 'Documents',
+      backgroundColor: 'rgb(90, 67, 21)',
+      svgPath: icons.DocumentScannerIcon,
+      url: '/org',
+    },
+    {
+      name: 'Performance',
+      backgroundColor: 'rgb(250, 100, 83)',
+      svgPath: icons.TrendingUpIcon,
+      url: '/org',
+    },
+    {
+      name: 'Functional Structure',
+      backgroundColor: 'rgb(32, 58, 183)',
+      svgPath: icons.CalendarMonthIcon,
+      url: '/functionStructure',
+    },
+  ];
 
-              {/* Your other Grid items */}
-            </Grid>
-          </Grid>
+  return (
+    <Grid container spacing={4} padding={6} marginTop={2}>
+      {dynamicCards.map((card, index) => (
+        <Grid
+          key={index}
+          item
+          xs={12}
+          sm={6}
+          lg={3}
+          className={classes.gridItem}
+          onMouseEnter={() => setHoveredCardIndex(index)} // Set hovered card index
+          onMouseLeave={() => setHoveredCardIndex(-1)} // Reset hovered card index
+        >
+          <Box
+            className={classes.cardBox}
+            style={{ backgroundColor: card.backgroundColor }}
+            onClick={() => handleCardClick(card.url)}
+          >
+            {hoveredCardIndex === index ? ( // Conditionally render card information based on hover state
+              <>
+                {card.svgPath && <card.svgPath sx={{ fontSize: 24, color: '#fff' }} />}
+                <Typography variant="h6" sx={{ color: '#fff', marginTop: 2 }}>
+                  Opened content
+                </Typography>
+                {/* Add additional card information here */}
+              </>
+            ) : (
+              <>
+                {card.svgPath && <card.svgPath sx={{ fontSize: 24, color: '#fff' }} />}
+                <Typography variant="h6" sx={{ color: '#fff', marginTop: 2 }}>
+                  {card.name}
+                </Typography>
+              </>
+            )}
+          </Box>
         </Grid>
-      </Box>
-    </>
+      ))}
+    </Grid>
   );
 };
 

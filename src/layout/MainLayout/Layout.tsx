@@ -14,12 +14,16 @@ import { DrawerHeader } from './Header';
 import NavBar from './Navbar';
 import Sidebar from './Sidebar';
 import BreadCrums from './BreadCrums';
+
+import { Toolbar } from '@mui/material';
+import Paper from '@mui/material/Paper';
+
 export default function AdminLayout({ children }: any) {
   const Utils = useSelector((state: RootState) => state.utils);
   const location = useLocation();
   const Main = styled('main', {
     shouldForwardProp: (prop: any) => prop !== 'open',
-  })<{ open?: boolean }>(({ theme, open }: any) => ({
+  })(({ theme, open }: any) => ({
     flexGrow: 1,
     padding: theme.spacing(4),
     transition: theme.transitions.create('margin', {
@@ -43,18 +47,35 @@ export default function AdminLayout({ children }: any) {
       <NavBar />
       <Sidebar />
 
-      <Main open={Utils.isActive} sx={{ flexGrow: 1, p: 2 }}>
+      <Main open={Utils.isActive} sx={{ flexGrow: 1, p: 4 }}>
         <DrawerHeader />
         <div className="sticky-wrapper">
-          <Marquee pauseOnHover={true}>
-            <Announcements />
-          </Marquee>
+          <Paper
+            elevation={0}
+            style={{
+              zIndex: 20,
+              top: '64px', // Adjust this value according to your header height
+              left: 'auto',
+              right: 0,
+              position: 'fixed',
+              background:
+                'linear-gradient(90deg, rgb(2, 0, 36) 0%, rgb(16 65 85) 35%, rgb(3 113 136) 100%)',
+              color: '#F0F7FF',
+              boxShadow: 'none',
+              borderRadius: 0, // Remove border curve
+            }}
+          >
+            <Toolbar>
+              <Marquee pauseOnHover={true}>
+                <Announcements />
+              </Marquee>
+            </Toolbar>
+          </Paper>
         </div>
         {isDashboardPage && <BreadCrums />}
-
-        <ScrollableOutlet>
-          <Outlet />
-        </ScrollableOutlet>
+        {/* <ScrollableOutlet> */}
+        <Outlet />
+        {/* </ScrollableOutlet> */}
 
         {/* {children} */}
       </Main>

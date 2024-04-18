@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import './Login.css';
 
-import { TextField, Typography } from '@mui/material';
+import { Box, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
 import {
   ErrorMessage,
   Field,
@@ -23,6 +23,9 @@ import config from '../../redux/constant';
 import { enableLoading } from '../../redux/reducers/loadSlice';
 import { setSnackbar } from '../../redux/reducers/snackbarSlice';
 import ForgotPassoword from './ForgotPassoword';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 const Login = () => {
   const navigate = useNavigate();
   const { setToken } = useAuth();
@@ -95,14 +98,7 @@ const Login = () => {
           <div className="col-1">
             <img src="src/assets/images/team-logo.png" alt="" />
           </div>
-
-          <div className="heading">
-            <div className="row">
-              <div className="col-md-12 heading1">
-                <p className="txt"> Teams HRMS </p>
-              </div>
-            </div>
-          </div>
+          
         </div>
         <div className="right-web right-mob">
           <div className="login">
@@ -120,82 +116,100 @@ const Login = () => {
                 onSubmit={handleUserSubmit}
               >
                 {(props: FormikProps<any>) => (
-                  <Form
-                    className="login-form"
-                    noValidate
-                    onSubmit={props.handleSubmit}
-                    // onKeyDown={(e) => {
-                    //   if (e.key === 'Enter') e.preventDefault();
-                    // }}
-                  >
-                    <div className="col-md-12 col-sm-12 col-xs-12 log">
-                      <p className="log-text">login</p>
-                    </div>
-                    <div className="col-md-12 col-sm-12 col-xs-12 inp">
-                      <Field name="username">
-                        {({ field, form, meta }: FieldProps) => (
-                          <div>
-                            <input
-                              {...field}
-                              type="text"
-                              placeholder="TMC"
-                              className="user"
-                            />
-                            <ErrorMessage
-                              name="username"
-                              component="div"
-                              className="fieldError"
-                            />
+                  <Form className="login-form" noValidate onSubmit={props.handleSubmit}>
+                    <Box
+                      sx={{
+                        width: '64%',
+                        marginLeft: '17%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: '2rem',
+                        border: '1px solid #ccc',
+                        boxShadow: '6px 8px 4px rgba(0,0,0,0.1)',
+                        borderRadius: '8px',
+                        background: 'white'
+                      }}
+                    >
+                      <div className="heading">
+            <div className="row">
+              <div className="col-md-12 heading1">
+                <p className="txt"> Teams HRMS </p>
+              </div>
+            </div>
+          </div>
+                      <div className="log">
+                        <p className="log-text">Login</p>
+                      </div>
+                      <div className='container'>
+                        <div className='col-md-12'>
+                          <div className='col-md-12'>
+                            <Field name="username">
+                              {({ field, form, meta }: FieldProps) => (
+                                <TextField
+                                  {...field}
+                                  label="Username"
+                                  variant="outlined"
+                                  fullWidth
+                                  name="username"
+                                  style={{ marginBottom: '4rem' }}
+                                  onChange={form.handleChange}
+                                  onBlur={form.handleBlur}
+                                  value={form.values.username}
+                                  error={form.touched.username && Boolean(form.errors.username)}
+                                  helperText={form.touched.username && form.errors.username}
+                                />
+                              )}
+                            </Field>
+                    
                           </div>
-                        )}
-                      </Field>
-                    </div>
-                    <div className="col-md-12 col-sm-12 col-xs-12 inp1">
-                      <Field name="password">
-                        {({ field, form, meta }: FieldProps) => (
-                          <div>
-                            <input
-                              {...field}
-                              type={isVisible ? 'text' : 'password'}
-                              placeholder="Password"
-                              className="pswd"
-                            />
-                            <ErrorMessage
-                              name="password"
-                              component="div"
-                              className="fieldError"
-                            />
+                          <div className='col-md-12'>
+                            <Field name="password">
+                              {({ field, form, meta }: FieldProps) => (
+                                <div style={{ position: 'relative' }}>
+                                  <TextField
+                                    {...field}
+                                    type={isVisible ? 'text' : 'password'}
+                                    label="Password"
+                                    name='password'
+                                    variant="outlined"
+                                    fullWidth
+                                    style={{ marginBottom: '4rem' }}
+                                  onChange={form.handleChange}
+                                  onBlur={form.handleBlur}
+                                  value={form.values.password}
+                                  error={form.touched.password && Boolean(form.errors.password)}
+                                  helperText={form.touched.password && form.errors.password}
+                                    InputProps={{
+                                      endAdornment: (
+                                        <InputAdornment position="end">
+                                          <IconButton onClick={toggleVisibility} edge="end">
+                                            {isVisible ? (
+                                              <VisibilityIcon />
+                                            ) : (
+                                              <VisibilityOffIcon />
+                                            )}
+                                          </IconButton>
+                                        </InputAdornment>
+                                      ),
+                                    }}
+                                  />
+                                 
+                                </div>
+                              )}
+                            </Field>
                           </div>
-                        )}
-                      </Field>
-
-                      {isVisible ? (
-                        <i className="eye-icon fa fa-eye" onClick={toggleVisibility}></i>
-                      ) : (
-                        <i
-                          className="eye-icon fa fa-eye fa-eye-slash"
-                          onClick={toggleVisibility}
-                        ></i>
-                      )}
-                    </div>
-                    <div className="col-md-12 col-sm-12 col-xs-12 fr-psw">
-                      <div className="row">
-                        <div className="col-md-10">
-                          <br></br>
                         </div>
                       </div>
-                    </div>
-
-                    <div className="col-md-12 col-sm-12 col-xs-12 bton">
-                      <button type="submit" className="loginbtn">
-                        <span className="fa fa-arrow-circle-o-right"></span> LOGIN{' '}
-                      </button>
-                    </div>
-                  </Form>
-                )}
-              </Formik>
-
-              <div className="col-md-12 col-sm-12 col-xs-12 copy">
+                      <div>
+                      </div>
+                      <div className="bton" style={{ marginTop: '1rem' }}>
+                        <button type="submit" className="loginbtn">
+                          <span className="fa fa-arrow-circle-o-right"></span> LOGIN{' '}
+                        </button>
+                      </div>
+                      <div className="col-md-12 col-sm-12 col-xs-12 copy">
                 <p className="copyright">
                   {' '}
                   Team Computers Pvt. Ltd. © 2024 | All rights reserved
@@ -207,6 +221,11 @@ const Login = () => {
                 <div> Terms of Use</div>
                 <div> Privacy Policy</div>
               </div>
+                    </Box>
+                  </Form>
+                )}
+              </Formik>
+             
             </div>
           </div>
         </div>

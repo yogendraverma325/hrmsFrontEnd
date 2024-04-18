@@ -132,7 +132,7 @@ export default function NavBar() {
                     />
                   </Link>
                 </div>
-                <div className="logo-wrap">
+                {/* <div className="logo-wrap">
                   <Link
                     to="index.html"
                     style={{ textDecoration: 'none', color: 'inherit' }}
@@ -148,7 +148,7 @@ export default function NavBar() {
                       }}
                     />
                   </Link>
-                </div>
+                </div> */}
               </DrawerHeader>
             </Box>
           </Box>
