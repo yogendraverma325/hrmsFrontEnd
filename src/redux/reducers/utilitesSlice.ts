@@ -4,11 +4,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 type UtilState = {
   isActive: boolean;
   annoucements?: string;
+  breadCrum?: string;
 };
 
 // Define the initial state for the 'utils' slice
 const initialState: UtilState = {
   isActive: true,
+  breadCrum: '',
   annoucements: `As you know, the local union may go on strike starting July 15, at 1:00 a.m. We hope to have a settlement by then, but in case we don't, we must make contingency plans.
 `,
 };
@@ -22,8 +24,17 @@ const utilsSlice = createSlice({
     toggleModal: (state: UtilState, { payload }: PayloadAction<UtilState>) => {
       state.isActive = payload.isActive; // Update the 'payloadUpdater' property of the state with a random ID generated using the 'generateRandomId' utility function
     },
-    publishAnnoucements: (state: UtilState, { payload }: PayloadAction<UtilState>) => {
+    publishAnnoucements: (
+      state: UtilState,
+      { payload }: PayloadAction<{ annoucements: string }>,
+    ) => {
       state.annoucements = payload.annoucements; // Update the 'payloadUpdater' property of the state with a random ID generated using the 'generateRandomId' utility function
+    },
+    updateBreadCrum: (
+      state: UtilState,
+      { payload }: PayloadAction<{ breadCrum: string }>,
+    ) => {
+      state.breadCrum = payload.breadCrum; // Update the 'payloadUpdater' property of the state with a random ID generated using the 'generateRandomId' utility function
     },
   },
 });
@@ -32,5 +43,5 @@ const utilsSlice = createSlice({
 const { reducer, actions } = utilsSlice;
 
 // Extract the 'updatePayload', 'clearPayload', 'updateSparePayload', 'shareProps', and 'shareSlaProps' actions from the utilsSlice actions
-export const { toggleModal, publishAnnoucements } = actions;
+export const { toggleModal, publishAnnoucements, updateBreadCrum } = actions;
 export default reducer;

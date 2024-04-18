@@ -199,9 +199,13 @@ const Dashboard = () => {
                 lg={2}
                 sx={{ marginRight: '10px', marginLeft: '10px' }}
               >
-                <Box>
+                <Box
+                  onClick={() => {
+                    handleListItemClick('/functionStructure');
+                  }}
+                >
                   <OverviewTotalProfit
-                    name="Calendar"
+                    name="Function Structure"
                     svgPath={icons.CalendarMonthIcon}
                     backgroundColor="rgb(32, 58, 183)"
                   />

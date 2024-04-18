@@ -30,6 +30,10 @@ export default function AdminLayout({ children }: any) {
     }),
     marginLeft: open ? `${drawerWidth - 10}px` : 0,
   }));
+  const ScrollableOutlet = styled('div')({
+    overflowY: 'auto', // Enable vertical scrollbar for Outlet content
+    maxHeight: 'calc(100vh - 200px)', // Adjust the max height as needed
+  });
   const isDashboardPage = location.pathname !== '/dashbaord';
   return (
     <>
@@ -48,7 +52,9 @@ export default function AdminLayout({ children }: any) {
         </div>
         {isDashboardPage && <BreadCrums />}
 
-        <Outlet />
+        <ScrollableOutlet>
+          <Outlet />
+        </ScrollableOutlet>
 
         {/* {children} */}
       </Main>

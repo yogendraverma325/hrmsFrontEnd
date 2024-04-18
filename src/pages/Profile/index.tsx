@@ -32,6 +32,7 @@ import { Decrypt } from '../../utils/decrypt';
 import OrgStructure from '../Structure/orgStructure';
 import PersonalDetails from './Personal';
 import { ApiResponse } from '@/models/feed';
+import { updateBreadCrum } from '@/redux/reducers/utilitesSlice';
 const AccountProfile = (props: any) => {
   const { userId } = useParams();
   const queryFunction = () => getProfile(userId);
@@ -45,6 +46,12 @@ const AccountProfile = (props: any) => {
   const [value, setValue] = React.useState(0);
   const formRef = useRef(null);
   const dispatch = useDispatch();
+
+  dispatch(
+    updateBreadCrum({
+      breadCrum: 'Profile', //
+    }),
+  );
   const handleChange = (event: any, newValue: any) => {
     setValue(newValue);
   };
@@ -242,16 +249,16 @@ const AccountProfile = (props: any) => {
 
               <Grid item xs={12} lg={12} md={0}>
                 {/* Ensure key is unique */}
-                <PerfectScrollbar
+                {/* <PerfectScrollbar
                   component="div"
                   style={{
                     height: 'auto',
                   }}
-                >
-                  <SubCard title="Organizational Chart">
-                    <OrgStructure userId={userId} />
-                  </SubCard>
-                </PerfectScrollbar>
+                > */}
+                <SubCard title="Organizational Chart">
+                  <OrgStructure userId={userId} />
+                </SubCard>
+                {/* </PerfectScrollbar> */}
               </Grid>
             </Grid>
           )}
