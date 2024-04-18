@@ -119,7 +119,7 @@ const Dashboard = () => {
               <>
                 {card.svgPath && <card.svgPath sx={{ fontSize: 24, color: '#fff' }} />}
                 <Typography variant="h6" sx={{ color: '#fff', marginTop: 2 }}>
-                  Opened content
+                  {card.name}
                 </Typography>
                 {/* Add additional card information here */}
               </>
