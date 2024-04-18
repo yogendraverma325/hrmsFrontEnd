@@ -36,7 +36,7 @@ export default function AdminLayout({ children }: any) {
   }));
   const ScrollableOutlet = styled('div')({
     overflowY: 'auto', // Enable vertical scrollbar for Outlet content
-    maxHeight: 'calc(100vh - 200px)', // Adjust the max height as needed
+    maxHeight: 'calc(100vh - 400px)', // Adjust the max height as needed
   });
   const isDashboardPage = location.pathname !== '/dashbaord';
   return (
@@ -73,9 +73,9 @@ export default function AdminLayout({ children }: any) {
           </Paper>
         </div>
         {isDashboardPage && <BreadCrums />}
-        {/* <ScrollableOutlet> */}
-        <Outlet />
-        {/* </ScrollableOutlet> */}
+        <ScrollableOutlet>
+          <Outlet />
+        </ScrollableOutlet>
 
         {/* {children} */}
       </Main>
